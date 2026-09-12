@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
+import { getMetaLanes } from "./src/data/championRoles.ts";
 
 const app = express();
 const PORT = 3000;
@@ -112,7 +113,7 @@ app.get("/api/riot/champions", async (_req, res) => {
 
     // 3. Transform into standardized app format
     const championsList = Object.values(champData.data || {}).map((c: any) => {
-      const defaultLanes = mapRiotTagsToLanes(c.tags || [], c.id);
+      const defaultLanes = getMetaLanes(c.id, c.tags || []);
       return {
         id: c.id,
         key: c.key,

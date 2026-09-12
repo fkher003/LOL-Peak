@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { getMetaLanes } from '../../src/data/championRoles.ts';
 
 // In-memory cache for Riot Data Dragon official champions
 interface RiotCache {
@@ -110,7 +111,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // 3. Transform into standardized app format
     const championsList = Object.values(champData.data || {}).map((c: any) => {
-      const defaultLanes = mapRiotTagsToLanes(c.tags || [], c.id);
+      const defaultLanes = getMetaLanes(c.id, c.tags || []);
       return {
         id: c.id,
         key: c.key,

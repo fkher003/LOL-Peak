@@ -219,6 +219,56 @@ export const CHAMPIONS_LIST: ChampionData[] = [
 // Rich Matchup Counter Knowledge Base
 export const COUNTER_DATABASE: Record<string, CounterInfo[]> = {
   // --- TOP LANE COUNTERS ---
+  Jayce: [
+    {
+      counterChampionId: 'Malphite',
+      counterChampionName: 'Malphite',
+      tier: 'HARD_COUNTER',
+      lane: 'TOP',
+      whyPick: 'Lên full Giáp và Giày Thép Gai khiến sát thương vật lý cấu rỉa của Jayce gần như gãi ngứa. Chiêu Q cấu máu chỉ thẳng đầu không trượt khiến Jayce yếu máu phải lùi, chiêu R áp sát không cho Jayce kịp tẩu thoát.',
+      keySkillTip: 'Khởi đầu với Khiên Doran. Dùng Q cấu rỉa liên tục, khi Jayce dưới 50% máu combo R + E + W + Thiêu Đốt dứt điểm ngay.',
+      recommendedItems: ['Giày Thép Gai', 'Tim Băng', 'Găng Tay Băng Giá', 'Giáp Gai'],
+      synergyOrSpike: 'Cấp 6 và khi hoàn thành Giày Thép Gai + Mảnh Giáp Băng.',
+    },
+    {
+      counterChampionId: 'Irelia',
+      counterChampionName: 'Irelia',
+      tier: 'HARD_COUNTER',
+      lane: 'TOP',
+      whyPick: 'Irelia lướt Q liên tục qua lính áp sát Jayce. Khả năng chống chịu với W giảm đến 50% sát thương combo sốc dạng búa của Jayce. Jayce đẩy lùi E xong Irelia vẫn còn Q thứ hai để bám đuổi.',
+      keySkillTip: 'Tích đủ 4 điểm nội tại Ý Chí Ionia trên lính trước khi Q lao vào Jayce. Nếu Jayce chuyển sang dạng Pháo, lập tức all-in vì hắn không còn E đẩy lùi.',
+      recommendedItems: ['Gươm Suy Hao', 'Tam Điệp Kiếm', 'Giày Thép Gai'],
+      synergyOrSpike: 'Cấp 2 khi có E + Q và khi hoàn thành Gươm Suy Hao.',
+    },
+    {
+      counterChampionId: 'Poppy',
+      counterChampionName: 'Poppy',
+      tier: 'HARD_COUNTER',
+      lane: 'TOP',
+      whyPick: 'Chiêu W (Không Thể Lay Chuyển) của Poppy chặn đứng hoàn toàn chiêu Q lao vào dạng búa của Jayce, cướp đi khả năng dồn sát thương sốc. Nội tại nhặt khiên kết hợp Khiên Doran giúp Poppy trụ đường cực khỏe trước các đợt cấu rỉa.',
+      keySkillTip: 'Bật W ngay khi thấy Jayce giơ búa Q nhảy vào. Đẩy E Jayce vào tường địa hình khi hắn đứng gần vách đá.',
+      recommendedItems: ['Giày Thép Gai', 'Áo Choàng Lửa', 'Găng Tay Băng Giá'],
+      synergyOrSpike: 'Giai đoạn cấp 3 trở đi và khi có Giày Thép Gai.',
+    },
+    {
+      counterChampionId: 'Yorick',
+      counterChampionName: 'Yorick',
+      tier: 'STRONG_COUNTER',
+      lane: 'TOP',
+      whyPick: 'Jayce là tướng đơn mục tiêu, bắn lính ma của Yorick cực kỳ tốn thời gian. Vòng Tròn Ma Thuật (W) giam cầm Jayce khiến hắn phải dùng 2-3 đòn đánh để phá tường trong khi bị Ma quỷ cào xé.',
+      keySkillTip: 'Chờ Jayce bắn hụt Cầu Sấm, ném E trúng rồi gọi ma nhảy vào. Nhốt Jayce trong lồng W.',
+      recommendedItems: ['Tam Điệp Kiếm', 'Ngọn Giáo Shojin', 'Giày Thép Gai'],
+    },
+    {
+      counterChampionId: 'Wukong',
+      counterChampionName: 'Wukong',
+      tier: 'STRONG_COUNTER',
+      lane: 'TOP',
+      whyPick: 'Wukong có nội tại cộng lượng Giáp khổng lồ trong giao tranh. Chiêu E áp sát cực nhanh, chiêu W phân thân né chiêu đẩy lùi của Jayce, và R hất tung 2 lần dồn sát thương kết liễu Jayce máu giấy.',
+      keySkillTip: 'Dùng E áp sát, Jayce thường sẽ giật mình dùng E gõ búa đẩy lùi. Sau khi hắn đẩy xong, dùng W lướt lại gần dứt điểm.',
+      recommendedItems: ['Rìu Mãng Xà', 'Tam Điệp Kiếm', 'Giày Thép Gai'],
+    },
+  ],
   Darius: [
     {
       counterChampionId: 'Vayne',

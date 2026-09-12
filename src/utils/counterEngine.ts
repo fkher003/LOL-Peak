@@ -1,6 +1,7 @@
 import { ChampionData, CounterRecommendation, EnemySlot, Lane, PersonalChampion, MatchupStat } from '../types';
 import { CHAMPIONS_LIST, COUNTER_DATABASE, getChampionAvatar } from '../data/champions';
 import { getChampionProfile } from './championProfiles';
+import { getMetaLanes } from '../data/championRoles';
 import matchupsDataRaw from '../data/matchups.json';
 
 interface MatchupEntry {
@@ -278,18 +279,21 @@ export function calculateDraftCounterRecommendations(
     directLaneOpponent = explicitSameLane.champion;
   } else {
     // Check if any enemy is naturally from this lane
-    const naturalSameLane = activeEnemies.find(
-      (slot) => slot.champion && slot.champion.defaultLanes.includes(myLane)
-    );
+    const naturalSameLane = activeEnemies.find((slot) => {
+      if (!slot.champion) return false;
+      const verifiedLanes = getMetaLanes(slot.champion.id, slot.champion.tags || []);
+      return verifiedLanes.includes(myLane);
+    });
     if (naturalSameLane && naturalSameLane.champion) {
       directLaneOpponent = naturalSameLane.champion;
     }
   }
 
-  // Candidate pool: All champions playable in myLane (either standard or in personal pool)
+  // Candidate pool: All champions strictly playable in myLane according to meta or personal pool
   const candidateMap = new Map<string, ChampionData>();
 
   allChampions.forEach((c) => {
+    const verifiedLanes = getMetaLanes(c.id, c.tags || []);
     const inPersonalForThisLane = personalPool.some(
       (p) =>
         (p.championId.toLowerCase() === c.id.toLowerCase() ||
@@ -297,8 +301,11 @@ export function calculateDraftCounterRecommendations(
         p.lanes.includes(myLane)
     );
 
-    if (c.defaultLanes.includes(myLane) || inPersonalForThisLane) {
-      candidateMap.set(c.id, c);
+    if (verifiedLanes.includes(myLane) || inPersonalForThisLane) {
+      candidateMap.set(c.id, {
+        ...c,
+        defaultLanes: verifiedLanes,
+      });
     }
   });
 
