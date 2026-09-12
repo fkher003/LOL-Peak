@@ -1,0 +1,7 @@
+{
+  "name": "LOL Counter Pick & Champion Pool",
+  "description": "Gợi ý tướng khắc chế LOL và quản lý danh sách tướng cá nhân theo từng lane.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
