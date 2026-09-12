@@ -44,8 +44,8 @@
 ### Các bước cài đặt
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/lol-counter-pool.git
-cd lol-counter-pool
+git clone https://github.com/fkher003/LOL-Peak.git
+cd LOL-Peak
 
 # 2. Cài đặt dependencies
 npm install

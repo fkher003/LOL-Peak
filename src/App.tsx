@@ -7,7 +7,7 @@ import { ApiKeyModal } from './components/ApiKeyModal';
 import { PersonalChampion, Lane, LaneCategory, ChampionData } from './types';
 import { INITIAL_PERSONAL_CHAMPIONS, DEFAULT_LANE_CATEGORIES, CHAMPIONS_LIST } from './data/champions';
 
-const STORAGE_KEY_CHAMPIONS = 'lol_personal_pool_champions_v3';
+const STORAGE_KEY_CHAMPIONS = 'lol_personal_pool_champions_v4';
 const STORAGE_KEY_CATEGORIES = 'lol_lane_categories_v3';
 const STORAGE_KEY_API_KEY = 'gemini_user_api_key';
 
@@ -81,23 +81,20 @@ export default function App() {
     }
   }, [categories]);
 
-  // 2. Personal Champions State
+  // 2. Personal Champions State (Defaults to clean empty list)
   const [personalChampions, setPersonalChampions] = useState<PersonalChampion[]>(() => {
     try {
-      const saved =
-        localStorage.getItem(STORAGE_KEY_CHAMPIONS) ||
-        localStorage.getItem('lol_personal_pool_champions_v2') ||
-        localStorage.getItem('lol_personal_pool_champions_v1');
+      const saved = localStorage.getItem(STORAGE_KEY_CHAMPIONS);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           return parsed.map((item) => normalizeChampion(item, DEFAULT_LANE_CATEGORIES));
         }
       }
     } catch (e) {
       console.error('Failed to load champions from localStorage', e);
     }
-    return INITIAL_PERSONAL_CHAMPIONS;
+    return [];
   });
 
   // Persist champions to localStorage

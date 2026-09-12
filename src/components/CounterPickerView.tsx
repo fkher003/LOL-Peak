@@ -14,12 +14,16 @@ import {
   CheckCircle2,
   AlertTriangle,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   BookOpen,
   Loader2,
   Filter,
   UserPlus,
   Star,
   Key,
+  TrendingUp,
+  Crown,
 } from 'lucide-react';
 import {
   ChampionData,
@@ -62,14 +66,29 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
   // 1. Player's Lane Selection
   const [myLane, setMyLane] = useState<Lane>('MID');
 
-  // 2. Enemy Team (up to 5 picks)
+  // 2. Enemy Team (up to 5 picks) - Clean & empty by default!
   const [enemySlots, setEnemySlots] = useState<EnemySlot[]>([
-    { slotNumber: 1, champion: allChampions.find((c) => c.id === 'Zed') || CHAMPIONS_LIST[0], lane: 'MID' },
-    { slotNumber: 2, champion: allChampions.find((c) => c.id === 'Darius') || CHAMPIONS_LIST[1], lane: 'TOP' },
-    { slotNumber: 3, champion: null },
-    { slotNumber: 4, champion: null },
-    { slotNumber: 5, champion: null },
+    { slotNumber: 1, champion: null, lane: 'TOP' },
+    { slotNumber: 2, champion: null, lane: 'JGL' },
+    { slotNumber: 3, champion: null, lane: 'MID' },
+    { slotNumber: 4, champion: null, lane: 'ADC' },
+    { slotNumber: 5, champion: null, lane: 'SUP' },
   ]);
+
+  // Track expanded champion detail cards
+  const [expandedChampIds, setExpandedChampIds] = useState<Set<string>>(new Set());
+
+  const toggleExpand = (champId: string) => {
+    setExpandedChampIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(champId)) {
+        next.delete(champId);
+      } else {
+        next.add(champId);
+      }
+      return next;
+    });
+  };
 
   // Active slot being edited (or null)
   const [activeSlotModal, setActiveSlotModal] = useState<number | null>(null);
@@ -78,8 +97,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
   const [enemySearch, setEnemySearch] = useState('');
   const [isEnemySearchOpen, setIsEnemySearchOpen] = useState(false);
 
-  // Scope filter: 'ALL' | 'BOTH' | 'LANE_ONLY' | 'TEAM_ONLY' | 'MY_POOL'
-  const [scopeFilter, setScopeFilter] = useState<'ALL' | CounterScope | 'MY_POOL'>('ALL');
+  // Scope filter: 'ALL' | 'BOTH' | 'LANE_ONLY' | 'TEAM_ONLY' | 'MY_POOL' | 'HIGH_WINRATE'
+  const [scopeFilter, setScopeFilter] = useState<'ALL' | CounterScope | 'MY_POOL' | 'HIGH_WINRATE'>('ALL');
 
   // AI Analysis State
   const [isAiLoading, setIsAiLoading] = useState(false);
@@ -102,9 +121,19 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
     return recommendations.filter((rec) => {
       if (scopeFilter === 'ALL') return true;
       if (scopeFilter === 'MY_POOL') return rec.inPersonalPool;
+      if (scopeFilter === 'HIGH_WINRATE') return Boolean(rec.winRateStat && rec.winRateStat.winRate >= 52.0);
       return rec.scope === scopeFilter;
     });
   }, [recommendations, scopeFilter]);
+
+  const isAllExpanded = filteredRecommendations.length > 0 && expandedChampIds.size >= filteredRecommendations.length;
+  const toggleAllExpand = () => {
+    if (expandedChampIds.size > 0) {
+      setExpandedChampIds(new Set());
+    } else {
+      setExpandedChampIds(new Set(filteredRecommendations.map((r) => r.championId)));
+    }
+  };
 
   // Quick champion suggestions for searching enemy
   const searchEnemyOptions = useMemo(() => {
@@ -466,16 +495,28 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
         {/* Section title & Filters bar */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-slate-900/60 p-3 rounded-2xl border border-slate-800">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-lg font-bold text-white">
                 Gợi Ý Nên Pick Cho {LANES.find((l) => l.id === myLane)?.name}
               </h2>
               <span className="rounded-full bg-amber-500/20 px-2.5 py-0.5 text-xs font-bold text-amber-300 font-mono">
                 {filteredRecommendations.length} tướng
               </span>
+              {filteredRecommendations.length > 0 && (
+                <button
+                  type="button"
+                  onClick={toggleAllExpand}
+                  className="ml-auto sm:ml-2 text-xs font-semibold text-slate-400 hover:text-amber-300 flex items-center gap-1 transition-colors px-2 py-1 rounded-lg hover:bg-slate-800"
+                >
+                  {isAllExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                  <span>{isAllExpanded ? 'Thu gọn tất cả' : 'Mở rộng chi tiết'}</span>
+                </button>
+              )}
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Sắp xếp theo thứ tự ưu tiên: Khắc chế cả hai &gt; Khắc chế cùng lane &gt; Khắc chế đội hình.
+              {myLane === 'JGL'
+                ? 'Sắp xếp ưu tiên: Thắng kèo rừng & thêm team địch > Đè trực diện rừng > Gợi ý đội hình (Make Late).'
+                : 'Sắp xếp theo thứ tự ưu tiên: Thắng lane & thêm team địch > Đè cùng lane > Gợi ý đội hình (Make Late).'}
             </p>
           </div>
 
@@ -499,7 +540,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   : 'bg-slate-800 text-amber-300 hover:bg-slate-700'
               }`}
             >
-              <span>🌟 Khắc Chế Cả 2</span>
+              <span>{myLane === 'JGL' ? '🌟 Đè Kèo Rừng & Thêm Đội Hình' : '🌟 Đè Lane & Thêm Team Địch'}</span>
               <span>({recommendations.filter((r) => r.scope === 'BOTH').length})</span>
             </button>
             <button
@@ -510,18 +551,19 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   : 'bg-slate-800 text-red-300 hover:bg-slate-700'
               }`}
             >
-              <span>⚔️ Cùng Lane</span>
+              <span>{myLane === 'JGL' ? '⚔️ Kèo Rừng Đối Đầu' : '⚔️ Cùng Lane'}</span>
               <span>({recommendations.filter((r) => r.scope === 'LANE_ONLY').length})</span>
             </button>
             <button
               onClick={() => setScopeFilter('TEAM_ONLY')}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                 scopeFilter === 'TEAM_ONLY'
                   ? 'bg-emerald-500 text-slate-950 shadow-xs'
                   : 'bg-slate-800 text-emerald-300 hover:bg-slate-700'
               }`}
             >
-              <span>🛡️ Đội Hình</span>
+              <Crown className="h-3.5 w-3.5" />
+              <span>Gợi Ý Đội Hình (Make Late)</span>
               <span>({recommendations.filter((r) => r.scope === 'TEAM_ONLY').length})</span>
             </button>
             <button
@@ -534,6 +576,17 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
             >
               <Star className="h-3 w-3 fill-current" />
               <span>Bể Của Bạn ({recommendations.filter((r) => r.inPersonalPool).length})</span>
+            </button>
+            <button
+              onClick={() => setScopeFilter('HIGH_WINRATE')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                scopeFilter === 'HIGH_WINRATE'
+                  ? 'bg-cyan-500 text-slate-950 shadow-xs'
+                  : 'bg-slate-800 text-cyan-300 hover:bg-slate-700'
+              }`}
+            >
+              <TrendingUp className="h-3.5 w-3.5" />
+              <span>Winrate Cao (&gt;52%) ({recommendations.filter((r) => r.winRateStat && r.winRateStat.winRate >= 52.0).length})</span>
             </button>
           </div>
         </div>
@@ -573,194 +626,381 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
             </div>
           </div>
         ) : filteredRecommendations.length > 0 ? (
-          /* Cards List */
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-2.5">
             {filteredRecommendations.map((rec) => {
               const isTopPick = rec.scope === 'BOTH';
+              const isExpanded = expandedChampIds.has(rec.championId);
+              const laneEnemy = rec.counteredEnemies.find((e) => e.isSameLane);
+              const otherEnemies = rec.counteredEnemies.filter(
+                (e) => !e.isSameLane && e.championName !== 'Cả Đội Hình Địch'
+              );
+              const realEnemies = rec.counteredEnemies.filter((e) => e.championName !== 'Cả Đội Hình Địch');
 
               return (
                 <div
                   key={rec.championId}
-                  className={`rounded-2xl border p-5 transition-all shadow-lg ${
+                  className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
                     isTopPick
-                      ? 'border-amber-500/50 bg-gradient-to-br from-amber-950/20 via-slate-900 to-slate-900 shadow-amber-500/5'
-                      : 'border-slate-800 bg-slate-900/90 hover:border-slate-700'
+                      ? 'border-amber-500/50 bg-gradient-to-r from-amber-950/20 via-slate-900 to-slate-900 shadow-md shadow-amber-500/5'
+                      : 'border-slate-800 bg-slate-900/80 hover:border-slate-700 shadow-xs'
                   }`}
                 >
-                  {/* Row 1: Champion Identity & Status Badges */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
-                    <div className="flex items-center gap-3.5">
-                      <img
-                        src={rec.avatarUrl}
-                        alt={rec.championName}
-                        className={`h-14 w-14 rounded-2xl border-2 object-cover shadow-md ${
-                          isTopPick ? 'border-amber-400' : 'border-slate-700'
-                        }`}
-                        referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          (e.target as HTMLElement).style.display = 'none';
-                        }}
-                      />
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-black text-white">{rec.championName}</h3>
-                          <span
-                            className={`rounded-md px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider ${
-                              rec.tierLabel === 'S+ Tối Ưu'
-                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                                : rec.tierLabel === 'S Xuất Sắc'
-                                ? 'bg-red-500/20 text-red-300 border border-red-500/40'
-                                : 'bg-slate-700 text-slate-200'
-                            }`}
-                          >
-                            {rec.tierLabel}
-                          </span>
-                        </div>
-
-                        {/* Scope & Pool Badges */}
-                        <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-                          {rec.scope === 'BOTH' && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-2.5 py-0.5 text-[11px] font-bold text-amber-300">
-                              🌟 Khắc Chế Cả Lane & Đội Hình
-                            </span>
-                          )}
-                          {rec.scope === 'LANE_ONLY' && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-red-500/15 border border-red-500/30 px-2.5 py-0.5 text-[11px] font-bold text-red-300">
-                              ⚔️ Đè Bẹp Đối Thủ Cùng Lane
-                            </span>
-                          )}
-                          {rec.scope === 'TEAM_ONLY' && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-bold text-emerald-300">
-                              🛡️ Khắc Chế Đội Hình Địch
-                            </span>
-                          )}
-                          {rec.inPersonalPool && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/15 border border-purple-500/30 px-2 py-0.5 text-[11px] font-bold text-purple-300">
-                              <Star className="h-3 w-3 fill-current" />
-                              Trong bể tướng của bạn
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex items-center gap-2 self-start sm:self-auto">
-                      <button
-                        onClick={() => handleRunAiAnalysis(rec.championName)}
-                        title="Hỏi AI phân tích thế trận khi pick tướng này"
-                        className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition-colors"
-                      >
-                        <Sparkles className="h-3.5 w-3.5" />
-                        <span>Phân Tích Kèo AI</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          const enemyNames = rec.counteredEnemies.map((e) => e.championName).join(', ');
-                          const why = rec.counteredEnemies.map((e) => `${e.championName}: ${e.reason}`).join('\n');
-                          onAddFromCounter(
-                            rec.championId,
-                            rec.championName,
-                            rec.lanes,
-                            enemyNames,
-                            why,
-                            rec.keyTip
-                          );
-                        }}
-                        className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
-                          rec.inPersonalPool
-                            ? 'border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700'
-                            : 'bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 shadow-sm'
-                        }`}
-                      >
-                        <UserPlus className="h-3.5 w-3.5" />
-                        <span>{rec.inPersonalPool ? 'Cập Nhật Bể' : 'Lưu Vào Bể Tướng'}</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Row 2: Khắc chế cụ thể ai trong đội hình địch */}
-                  <div className="py-3 border-b border-slate-800/60 space-y-2">
-                    <div className="text-xs font-bold text-slate-300 flex items-center gap-1.5 uppercase tracking-wider">
-                      <span>🎯 Khắc chế cụ thể trong đội hình đối thủ:</span>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      {rec.counteredEnemies.map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-2.5 rounded-xl bg-slate-800/40 border border-slate-800 p-2.5 text-xs"
-                        >
+                  {/* CLEAN COMPACT ROW */}
+                  <div className="p-3 sm:p-3.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      {/* Left Block: Avatar + Info */}
+                      <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                        {/* Avatar */}
+                        <div className="relative shrink-0">
                           <img
-                            src={getChampionAvatar(item.championId)}
-                            alt={item.championName}
-                            className="h-6 w-6 rounded-lg object-cover border border-red-500/40 shrink-0 mt-0.5"
+                            src={rec.avatarUrl}
+                            alt={rec.championName}
+                            className={`h-12 w-12 rounded-2xl border-2 object-cover ${
+                              isTopPick
+                                ? 'border-amber-400 shadow-sm shadow-amber-500/20'
+                                : rec.tierLabel === 'S Xuất Sắc'
+                                ? 'border-red-500/70'
+                                : 'border-slate-700'
+                            }`}
                             referrerPolicy="no-referrer"
                             onError={(e) => {
                               (e.target as HTMLElement).style.display = 'none';
                             }}
                           />
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-bold text-white">{item.championName}</span>
-                              {item.isSameLane ? (
-                                <span className="rounded bg-red-500/20 text-red-300 text-[10px] font-bold px-1.5 py-0.2">
-                                  ĐỐI THỦ CÙNG LANE
+                          {rec.inPersonalPool && (
+                            <span
+                              className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-purple-500 text-white shadow-xs"
+                              title="Tướng trong bể của bạn"
+                            >
+                              <Star className="h-2.5 w-2.5 fill-current" />
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Text / Chips Info */}
+                        <div className="min-w-0 flex-1 space-y-1">
+                          {/* Line 1: Name + Tier + Scope Badge + Win Rate */}
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="text-base font-black text-white tracking-tight">{rec.championName}</h3>
+
+                            <span
+                              className={`rounded-md px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider ${
+                                rec.tierLabel === 'S+ Tối Ưu'
+                                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                                  : rec.tierLabel === 'S Xuất Sắc'
+                                  ? 'bg-red-500/20 text-red-300 border border-red-500/40'
+                                  : 'bg-slate-800 text-slate-300 border border-slate-700'
+                              }`}
+                            >
+                              {rec.tierLabel}
+                            </span>
+
+                            {/* Scope Badge */}
+                            {rec.scope === 'BOTH' && (
+                              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/35 px-2 py-0.5 text-[11px] font-bold text-amber-300">
+                                <span>🌟</span>
+                                <span>{myLane === 'JGL' ? 'Đè Kèo Rừng' : 'Đè Lane'}</span>
+                                {otherEnemies.length > 0 && (
+                                  <span className="bg-amber-400/25 px-1.5 py-0.2 rounded-full text-[10px]">
+                                    +{otherEnemies.length}
+                                  </span>
+                                )}
+                              </span>
+                            )}
+                            {rec.scope === 'LANE_ONLY' && (
+                              <span className="inline-flex items-center gap-1 rounded-full bg-red-500/15 border border-red-500/35 px-2 py-0.5 text-[11px] font-bold text-red-300">
+                                <span>⚔️</span>
+                                <span>{myLane === 'JGL' ? 'Đè Trực Diện Rừng' : 'Đè Cùng Lane'}</span>
+                              </span>
+                            )}
+                            {rec.scope === 'TEAM_ONLY' && (
+                              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/35 px-2 py-0.5 text-[11px] font-bold text-emerald-300">
+                                <Crown className="h-3 w-3 text-emerald-400" />
+                                <span>{rec.isMakeLate ? 'Make Late Gánh Team' : 'Tốt Cho Đội Hình'}</span>
+                              </span>
+                            )}
+                            {rec.isMakeLate && rec.scope !== 'TEAM_ONLY' && (
+                              <span
+                                className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold text-emerald-300"
+                                title="Chất tướng thăng tiến sức mạnh late game"
+                              >
+                                <Crown className="h-2.5 w-2.5 text-emerald-400" />
+                                <span>Make Late</span>
+                              </span>
+                            )}
+
+                            {/* Win Rate Stat Badge */}
+                            {rec.winRateStat && (
+                              <span
+                                className="inline-flex items-center gap-1 rounded-full bg-cyan-500/15 border border-cyan-500/35 px-2 py-0.5 text-[11px] font-mono font-bold text-cyan-300"
+                                title={`Tỷ lệ thắng ${rec.winRateStat.winRate}% trước ${rec.winRateStat.enemyChampionName} (${rec.winRateStat.playCount.toLocaleString('vi-VN')} trận)`}
+                              >
+                                <TrendingUp className="h-3 w-3 text-cyan-400" />
+                                <span>{rec.winRateStat.winRate}% WR</span>
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Line 2: Tactical Preview with Mini-Avatars */}
+                          <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                            {rec.scope === 'BOTH' ? (
+                              <>
+                                <span className="text-slate-400 text-[11px] font-medium">
+                                  {myLane === 'JGL' ? 'Kèo Rừng:' : 'Đè Lane:'}
                                 </span>
-                              ) : (
-                                <span className="rounded bg-slate-700 text-slate-300 text-[10px] font-medium px-1.5 py-0.2">
-                                  ĐỘI HÌNH ĐỊCH
+                                {laneEnemy && (
+                                  <span className="inline-flex items-center gap-1 rounded-md bg-red-950/40 border border-red-500/30 px-1.5 py-0.5 text-[11px] font-bold text-red-200">
+                                    <img
+                                      src={getChampionAvatar(laneEnemy.championId)}
+                                      alt={laneEnemy.championName}
+                                      className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
+                                      referrerPolicy="no-referrer"
+                                    />
+                                    <span>{laneEnemy.championName}</span>
+                                  </span>
+                                )}
+                                {otherEnemies.length > 0 && (
+                                  <>
+                                    <span className="text-slate-600 mx-0.5">•</span>
+                                    <span className="text-slate-400 text-[11px] font-medium">Khắc chế thêm:</span>
+                                    <div className="flex flex-wrap items-center gap-1">
+                                      {otherEnemies.map((e) => (
+                                        <span
+                                          key={e.championId}
+                                          className="inline-flex items-center gap-1 rounded-md bg-slate-800/90 border border-slate-700/80 px-1.5 py-0.5 text-[11px] font-medium text-slate-200"
+                                        >
+                                          <img
+                                            src={getChampionAvatar(e.championId)}
+                                            alt={e.championName}
+                                            className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
+                                            referrerPolicy="no-referrer"
+                                          />
+                                          <span>{e.championName}</span>
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </>
+                                )}
+                              </>
+                            ) : rec.scope === 'LANE_ONLY' ? (
+                              <>
+                                <span className="text-slate-400 text-[11px] font-medium">
+                                  {myLane === 'JGL' ? 'Đè trực tiếp tướng rừng:' : 'Đè trực tiếp cùng lane:'}
                                 </span>
-                              )}
-                            </div>
-                            <p className="text-slate-300 mt-0.5 leading-relaxed">{item.reason}</p>
+                                <div className="flex flex-wrap items-center gap-1">
+                                  {rec.counteredEnemies.map((e) => (
+                                    <span
+                                      key={e.championId}
+                                      className="inline-flex items-center gap-1 rounded-md bg-red-950/40 border border-red-500/30 px-1.5 py-0.5 text-[11px] font-bold text-red-200"
+                                    >
+                                      <img
+                                        src={getChampionAvatar(e.championId)}
+                                        alt={e.championName}
+                                        className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
+                                        referrerPolicy="no-referrer"
+                                      />
+                                      <span>{e.championName}</span>
+                                    </span>
+                                  ))}
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                {rec.isMakeLate && (
+                                  <span className="text-emerald-400 text-[11px] font-medium mr-0.5">
+                                    🌟 {rec.makeLateBadge || 'Make Late'}
+                                  </span>
+                                )}
+                                {realEnemies.length > 0 ? (
+                                  <>
+                                    <span className="text-slate-400 text-[11px] font-medium">Khắc chế team:</span>
+                                    <div className="flex flex-wrap items-center gap-1">
+                                      {realEnemies.map((e) => (
+                                        <span
+                                          key={e.championId}
+                                          className="inline-flex items-center gap-1 rounded-md bg-slate-800/90 border border-slate-700/80 px-1.5 py-0.5 text-[11px] font-medium text-slate-200"
+                                        >
+                                          <img
+                                            src={getChampionAvatar(e.championId)}
+                                            alt={e.championName}
+                                            className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
+                                            referrerPolicy="no-referrer"
+                                          />
+                                          <span>{e.championName}</span>
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </>
+                                ) : (
+                                  <span className="text-slate-400 text-[11px]">
+                                    Giữ nhịp trận đấu, gom combat hoặc tạo đột biến cuối trận
+                                  </span>
+                                )}
+                              </>
+                            )}
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Row 3: ƯU ĐIỂM & NHƯỢC ĐIỂM (PROS & CONS) */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-3 border-b border-slate-800/60">
-                    {/* Pros Column */}
-                    <div className="rounded-xl border border-emerald-500/25 bg-emerald-950/15 p-3 space-y-1.5">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                        <CheckCircle2 className="h-4 w-4" />
-                        <span>Ưu Điểm (Pros) Khi Pick Trận Này:</span>
                       </div>
-                      <ul className="space-y-1 text-xs text-slate-200">
-                        {rec.pros.map((pro, pIdx) => (
-                          <li key={pIdx} className="flex items-start gap-2">
-                            <span className="text-emerald-400 font-bold shrink-0">•</span>
-                            <span className="leading-relaxed">{pro}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
 
-                    {/* Cons Column */}
-                    <div className="rounded-xl border border-red-500/25 bg-red-950/15 p-3 space-y-1.5">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-red-400 uppercase tracking-wider">
-                        <AlertTriangle className="h-4 w-4" />
-                        <span>Nhược Điểm & Rủi Ro (Cons) Cần Cân Nhắc:</span>
+                      {/* Right Block: Action Buttons */}
+                      <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+                        <button
+                          onClick={() => handleRunAiAnalysis(rec.championName)}
+                          title="Hỏi AI phân tích kèo pick này"
+                          className="flex items-center gap-1 rounded-lg border border-amber-500/30 bg-amber-500/10 px-2.5 py-1.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition-colors"
+                        >
+                          <Sparkles className="h-3.5 w-3.5" />
+                          <span>Hỏi AI</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            const enemyNames = rec.counteredEnemies.map((e) => e.championName).join(', ');
+                            const why = rec.counteredEnemies.map((e) => `${e.championName}: ${e.reason}`).join('\n');
+                            onAddFromCounter(
+                              rec.championId,
+                              rec.championName,
+                              rec.lanes,
+                              enemyNames,
+                              why,
+                              rec.keyTip
+                            );
+                          }}
+                          className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all ${
+                            rec.inPersonalPool
+                              ? 'border border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700'
+                              : 'bg-amber-500 text-slate-950 font-bold hover:bg-amber-400'
+                          }`}
+                        >
+                          <UserPlus className="h-3.5 w-3.5" />
+                          <span>{rec.inPersonalPool ? 'Đã Có' : 'Lưu Bể'}</span>
+                        </button>
+
+                        <button
+                          onClick={() => toggleExpand(rec.championId)}
+                          className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800/80 px-2.5 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-colors"
+                          title={isExpanded ? 'Thu gọn chi tiết' : 'Xem chi tiết ưu/nhược điểm & mẹo'}
+                        >
+                          <span>{isExpanded ? 'Thu Gọn' : 'Chi Tiết'}</span>
+                          {isExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                        </button>
                       </div>
-                      <ul className="space-y-1 text-xs text-slate-200">
-                        {rec.cons.map((con, cIdx) => (
-                          <li key={cIdx} className="flex items-start gap-2">
-                            <span className="text-red-400 font-bold shrink-0">•</span>
-                            <span className="leading-relaxed">{con}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   </div>
 
-                  {/* Row 4: Key Tip */}
-                  <div className="pt-3 text-xs text-slate-300 flex items-start gap-2">
-                    <span className="font-bold text-amber-400 shrink-0">🎯 Mẹo then chốt:</span>
-                    <span className="leading-relaxed">{rec.keyTip}</span>
-                  </div>
+                  {/* EXPANDABLE SECTION: BALANCED 2-COLUMN GRID */}
+                  {isExpanded && (
+                    <div className="border-t border-slate-800 bg-slate-950/70 p-4 space-y-3">
+                      {/* Make Late Tactical Banner */}
+                      {rec.isMakeLate && rec.makeLateReason && (
+                        <div className="rounded-xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/30 p-2.5 text-xs text-slate-200 flex items-start gap-2.5 shadow-xs">
+                          <div className="rounded-lg bg-emerald-500/20 p-1.5 text-emerald-400 shrink-0 mt-0.5">
+                            <Crown className="h-4 w-4" />
+                          </div>
+                          <div className="space-y-0.5 min-w-0">
+                            <div className="font-bold text-emerald-300 flex items-center gap-1.5 flex-wrap">
+                              <span>{rec.makeLateBadge || 'Lựa Chọn Tốt Cho Team (Make Late)'}</span>
+                              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-normal">
+                                Tăng tiến sức mạnh late game
+                              </span>
+                            </div>
+                            <p className="text-slate-300 text-xs leading-relaxed">{rec.makeLateReason}</p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* 2-Column Grid */}
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                        {/* Column 1: Counter Matchups */}
+                        <div className="space-y-2">
+                          <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <Swords className="h-3.5 w-3.5 text-amber-400" />
+                            <span>Lý do khắc chế &amp; đối đầu:</span>
+                          </div>
+                          <div className="space-y-1.5">
+                            {rec.counteredEnemies.map((item, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-start gap-2.5 rounded-lg bg-slate-900/90 border border-slate-800/90 p-2.5 text-xs"
+                              >
+                                <img
+                                  src={getChampionAvatar(item.championId)}
+                                  alt={item.championName}
+                                  className="h-6 w-6 rounded-md object-cover border border-slate-700 shrink-0 mt-0.5"
+                                  referrerPolicy="no-referrer"
+                                />
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    <span className="font-bold text-white">{item.championName}</span>
+                                    {item.isSameLane ? (
+                                      <span className="rounded bg-red-500/20 text-red-300 text-[9px] font-bold px-1.5 py-0.5">
+                                        {myLane === 'JGL' ? 'KÈO RỪNG' : 'CÙNG LANE'}
+                                      </span>
+                                    ) : item.championName === 'Cả Đội Hình Địch' ? (
+                                      <span className="rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-1.5 py-0.5">
+                                        MAKE LATE
+                                      </span>
+                                    ) : (
+                                      <span className="rounded bg-slate-800 text-slate-400 text-[9px] font-medium px-1.5 py-0.5">
+                                        ĐỘI HÌNH
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-slate-300 text-xs mt-1 leading-relaxed">{item.reason}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Column 2: Pros & Cons + Key Tip */}
+                        <div className="space-y-2.5">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {/* Pros */}
+                            <div className="rounded-lg border border-emerald-500/25 bg-emerald-950/15 p-2.5 space-y-1.5">
+                              <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 uppercase">
+                                <CheckCircle2 className="h-3.5 w-3.5" />
+                                <span>Ưu Điểm:</span>
+                              </div>
+                              <ul className="space-y-1 text-xs text-slate-200">
+                                {rec.pros.map((pro, pIdx) => (
+                                  <li key={pIdx} className="flex items-start gap-1.5">
+                                    <span className="text-emerald-400 font-bold">•</span>
+                                    <span className="leading-snug">{pro}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            {/* Cons */}
+                            <div className="rounded-lg border border-red-500/25 bg-red-950/15 p-2.5 space-y-1.5">
+                              <div className="flex items-center gap-1 text-[11px] font-bold text-red-400 uppercase">
+                                <AlertTriangle className="h-3.5 w-3.5" />
+                                <span>Nhược Điểm:</span>
+                              </div>
+                              <ul className="space-y-1 text-xs text-slate-200">
+                                {rec.cons.map((con, cIdx) => (
+                                  <li key={cIdx} className="flex items-start gap-1.5">
+                                    <span className="text-red-400 font-bold">•</span>
+                                    <span className="leading-snug">{con}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+
+                          {/* Key Tip */}
+                          <div className="rounded-lg bg-amber-500/10 border border-amber-500/25 p-2.5 text-xs text-slate-200 flex items-start gap-2">
+                            <span className="font-bold text-amber-300 shrink-0 flex items-center gap-1">
+                              <span>⚡</span>
+                              <span>Mẹo then chốt:</span>
+                            </span>
+                            <span className="leading-relaxed text-slate-300">{rec.keyTip}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}

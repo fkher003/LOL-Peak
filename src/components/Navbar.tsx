@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Swords, BookOpen, Key } from 'lucide-react';
+import { Shield, Swords, BookOpen, Key, Github, Star } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: 'counter' | 'personal';
@@ -85,6 +85,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </button>
           </nav>
+
+          {/* GitHub Star Button */}
+          <a
+            href="https://github.com/fkher003/LOL-Peak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/90 px-3 py-2 text-xs font-semibold text-slate-200 hover:border-amber-500/50 hover:bg-slate-700 hover:text-white transition-all shadow-xs group"
+            title="Ủng hộ dự án 1 Star trên GitHub!"
+          >
+            <Github className="h-4 w-4 text-slate-300 group-hover:text-white transition-colors" />
+            <span className="hidden sm:inline font-bold">GitHub</span>
+            <span className="inline-flex items-center gap-1 rounded-md bg-amber-500/20 border border-amber-500/40 px-1.5 py-0.5 text-[10px] font-extrabold text-amber-300 shadow-xs">
+              <Star className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
+              Star
+            </span>
+          </a>
 
           {/* User API Key Button */}
           <button

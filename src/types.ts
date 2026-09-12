@@ -64,6 +64,16 @@ export interface EnemySlot {
   lane?: Lane; // Vị trí dự kiến của tướng địch (TOP, JGL, MID, ADC, SUP)
 }
 
+// Real Ranked Matchup Stat derived from statistical datasets
+export interface MatchupStat {
+  championKey: string;
+  championName: string;
+  winRate: number; // % Win rate of the recommended pick against the target enemy
+  playCount: number; // Total sample matches analyzed
+  tier?: 'HARD_COUNTER' | 'STRONG_COUNTER' | 'SKILL_MATCHUP';
+  enemyChampionName: string;
+}
+
 // Dynamic Counter Recommendation Result
 export interface CounterRecommendation {
   championId: string;
@@ -83,4 +93,8 @@ export interface CounterRecommendation {
   cons: string[]; // Nhược điểm & Rủi ro cần dè chừng để người chơi tự cân nhắc
   keyTip: string; // Mẹo then chốt
   inPersonalPool: boolean; // Có nằm trong bể tướng cá nhân không
+  winRateStat?: MatchupStat; // Dữ liệu thống kê đối đầu thực tế
+  isMakeLate?: boolean; // Tướng tốt cho team, scale cực mạnh về cuối trận (Make Late)
+  makeLateBadge?: string; // e.g. "Hyper-carry Late", "Tăng Tiến Vô Hạn", "Mở Combat Quyết Định"
+  makeLateReason?: string; // Lý do tướng này tốt cho team khi kéo về late
 }
