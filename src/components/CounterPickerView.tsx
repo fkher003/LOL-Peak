@@ -783,12 +783,6 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                               </div>
                             ) : (
                               <>
-                                {rec.isMakeLate && (
-                                  <span className="inline-flex items-center gap-1 rounded-md bg-emerald-950/40 border border-emerald-500/30 px-1.5 py-0.5 text-[11px] font-medium text-emerald-300">
-                                    <Crown className="h-3 w-3 text-emerald-400" />
-                                    <span>{rec.makeLateBadge || 'Make Late'}</span>
-                                  </span>
-                                )}
                                 {realEnemies.length > 0 && (
                                   <div className="flex flex-wrap items-center gap-1">
                                     {realEnemies.map((e) => (
@@ -870,7 +864,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                           </div>
                           <div className="space-y-0.5 min-w-0">
                             <span className="font-bold text-emerald-300 block">
-                              {rec.makeLateBadge || 'Make Late'}
+                              Chiến Lược Make Late
                             </span>
                             <p className="text-slate-300 text-xs leading-relaxed">{rec.makeLateReason}</p>
                           </div>

@@ -62,186 +62,143 @@ const DASHERS = new Set(['Irelia', 'Fiora', 'Yasuo', 'Riven', 'Kalista', 'LeeSin
 const HOOK_ENGAGE = new Set(['Blitzcrank', 'Thresh', 'Nautilus', 'Leona', 'Pyke', 'Amumu']);
 
 export interface MakeLateProfile {
-  badge: string;
   reason: string;
 }
 
 export const MAKE_LATE_CHAMPIONS: Record<string, MakeLateProfile> = {
   // TOP
   Kayle: {
-    badge: '🌟 Cấp 16 Thần Thánh (Hyper-Carry)',
     reason: 'Càng về late càng biến thành cỗ máy xả sát thương chuẩn diện rộng tầm xa. Đạt cấp 16 kèm chiêu cuối bất tử là điều kiện thắng gần như tuyệt đối.',
   },
   Ornn: {
-    badge: '👑 Thần Rèn Đúc Đồ (Late Game King)',
     reason: 'Nội tại đúc trang bị Huyền Thoại nâng cấp cho cả 5 thành viên về late (gia tăng hàng ngàn vàng giá trị chỉ số), chiêu R mở giao tranh cực đại.',
   },
   Gwen: {
-    badge: '✂️ Chém Nát Đội Hình (AP Shredder)',
     reason: 'Sương Lam Bất Tử né toàn bộ sát thương ngoài tầm, late game chém % máu tối đa và hồi phục khổng lồ, một mình gánh cả giao tranh mục tiêu lớn.',
   },
   Jax: {
-    badge: '⚔️ Bậc Thầy Đẩy Lẻ & Solo Late',
     reason: 'Đầy đủ trang bị về late gần như không đối thủ nào 1v1 lại, chiêu E né đòn đánh tay và chiêu R biến Jax thành cỗ máy công thủ toàn diện.',
   },
   Sion: {
-    badge: '🛡️ Bao Cát Vô Hạn Máu & Mở Combat',
     reason: 'Nội tại W tích máu vô hạn không giới hạn, về late đạt 6000-8000 máu đứng hứng toàn bộ sát thương và chiêu R tông mở combat hoặc backdoor phá nhà chính.',
   },
   Fiora: {
-    badge: '🗡️ Đấu Sĩ Solo Cực Đại (True Damage)',
     reason: 'Về late chém 4 điểm yếu Đại Thử Thách gây 70-100% sát thương chuẩn theo máu tối đa, bắt buộc đối phương phải cử 2-3 người kèm.',
   },
   Nasus: {
-    badge: '🔨 Tích Điểm Q Vô Hạn (Gõ Sập Trụ)',
     reason: 'Tích Q trên 600-800 điểm, gõ 1-2 hit sập trụ hoặc một mạng chủ lực đối phương, cực kỳ uy lực khi team giữ nhịp trận đấu dài.',
   },
   Gangplank: {
-    badge: '💣 Thùng Thuốc Súng Lật Kèo (AoE Bomb)',
     reason: 'Combo thùng thuốc súng chí mạng 1500+ damage diện rộng và R mưa đại bác toàn bản đồ xóa sổ toàn bộ đội hình địch trong 1 giây.',
   },
   DrMundo: {
-    badge: '💉 Trùm Hồi Máu Đỡ Đòn Cuối Trận',
     reason: 'Kháng hiệu ứng, hồi máu cực đại với R và sát thương vật lý tăng theo máu tối đa biến Mundo thành con quái vật không thể hạ gục ở phút 35+.',
   },
   Chogath: {
-    badge: '🦖 Tích Máu Vô Hạn & R Ăn Thịt 1500 Dame Chuẩn',
     reason: 'Xơi tái tích lũy kích cỡ và máu vô hạn, chiêu R cắn chết ngay lập tức chủ lực địch hoặc tranh chấp Baron/Rồng Ngàn Tuổi hơn cả Trừng Phạt.',
   },
 
   // JUNGLE
   Karthus: {
-    badge: '⚡ Khúc Cầu Hồn Quét Sạch (Global AP)',
     reason: 'Càng về late chiêu R Khúc Cầu Hồn càng gây lượng sát thương khủng khiếp lên cả 5 tướng địch dù ở bất cứ đâu trên bản đồ, chết vẫn xả chiêu.',
   },
   MasterYi: {
-    badge: '⚔️ Cỗ Máy Quét Sạch (Late Game Monster)',
     reason: 'Chiêu R miễn nhiễm làm chậm, sát thương chuẩn và Q chém né chiêu, bước vào giao tranh sau khi đối thủ mất khống chế là cầm chắc Quét Sạch.',
   },
   Viego: {
-    badge: '👑 Chiếm Xác Lật Kèo Combat (Reset God)',
     reason: 'Chỉ cần 1 điểm hạ gục trong giao tranh late game để kích hoạt nội tại đoạt mệnh, biến hình hồi máu liên tục và bất tử từng nhịp.',
   },
   Belveth: {
-    badge: '👾 Tốc Đánh Vô Hạn & Lũ Bọ Hư Không',
     reason: 'Nội tại tăng tốc độ đánh không giới hạn, nhặt bọ hư không đẩy sập 3 đường lính siêu cấp đưa trận đấu về thế thắng áp đảo.',
   },
   Amumu: {
-    badge: '🌀 Ám Ảnh Kinh Hoàng (Wombo Combo R)',
     reason: 'Chiêu R Lời Nguyền Xác Ướp trói diện rộng kết hợp nội tại sát thương chuẩn giúp team nổ sát thương xóa sổ giao tranh 5v5 cuối trận.',
   },
   Zac: {
-    badge: '🎯 Cú Nhảy Bắt Bớ Tầm Xa Vô Địch',
     reason: 'Tầm nhảy E xa nửa màn hình mở combat bất ngờ, phân chia lỏng quấy nhiễu cực mạnh và hồi máu liên tục trong giao tranh tổng.',
   },
   Hecarim: {
-    badge: '🐴 Kỵ Sĩ Bóng Ma Tông Tuyến Sau',
     reason: 'Tích đủ đồ đấu sĩ late game, càn quét tốc độ cao và chiêu R hoảng sợ diện rộng chia cắt hoàn toàn đội hình đối phương.',
   },
 
   // MID
   AurelionSol: {
-    badge: '🌌 Bụi Sao Vô Hạn & Hố Đen Diệt Tuyệt',
     reason: 'Tích điểm Bụi Sao không giới hạn, chiêu E hố đen hút cả bản đồ và R Thiên Thạch Tinh Vân làm choáng toàn màn hình phút 30+.',
   },
   Kassadin: {
-    badge: '⚡ Bá Vương Cấp 16 (Lữ Khách Hư Không)',
     reason: 'Mốc cấp 16 chiêu R hồi trong 1.5 giây, sốc chết bất kỳ xạ thủ hay pháp sư nào trong chớp mắt và bay nhảy không thể bắt giữ.',
   },
   Veigar: {
-    badge: '🔮 SMPT Vô Hạn & Lồng Bắt Bớ Khống Chế',
     reason: 'Nội tại tích SMPT vĩnh viễn (dễ dàng đạt 1200+ AP), R một nút bốc hơi đối thủ và lồng E chặn mọi đường lui trong giao tranh then chốt.',
   },
   Smolder: {
-    badge: '🐉 225 Điểm Long Hỏa (Khạc Lửa Kết Liễu)',
     reason: 'Đạt mốc 225 điểm nội tại, chiêu Q thiêu đốt diện rộng kết liễu thẳng kẻ địch dưới ngưỡng máu, đứng xả từ tầm rất an toàn.',
   },
   Viktor: {
-    badge: '🤖 Tia Chết Chóc Cường Hóa (AP Machine)',
     reason: 'Nâng cấp hoàn thiện 3 chiêu thức, xả chiêu liên tục, khống chế diện rộng và R Bão Điện Từ càn quét toàn bộ đội hình địch.',
   },
   Vladimir: {
-    badge: '🩸 Huyết Thần Bất Tử (AoE Nuke AP)',
     reason: 'Nội tại chuyển máu sang AP và ngược lại, W hồ máu outplay mọi chiêu dồn dame, chiêu R khuếch đại sát thương và hồi đầy cây máu.',
   },
   Azir: {
-    badge: '☀️ Hoàng Đế Shurima (DPS Tầm Xa & Shuffle)',
     reason: 'Lính cát chọc sát thương phép theo giây cực mạnh, tầm đánh cực xa công thủ trụ hoàn hảo và chiêu R hất tung bảo vệ hoặc bắt bớ.',
   },
   Orianna: {
-    badge: '⚙️ Lệnh Sóng Âm Thay Đổi Trận Đấu',
     reason: 'Chiêu R Lệnh: Sóng Âm late game gom toàn bộ đội hình đối phương là thắng giao tranh ngay lập tức, cấu rỉa và tạo giáp liên tục.',
   },
   Ryze: {
-    badge: '📖 Pháp Sư Cổ Ngữ (Xả Combo Siêu Tốc)',
     reason: 'Tăng tiến sức mạnh theo cả Mana lẫn AP, xả combo lan E-Q dọn sạch đợt lính và sốc chết cả đội hình tụm lại.',
   },
   Cassiopeia: {
-    badge: '🐍 Xà Nữ DPS Phép & Hóa Đá Late Game',
     reason: 'Không cần mua giày (tiết kiệm 1 ô trang bị cho item thứ 6), xả E liên tục như súng liên thanh và R Hóa Đá lật ngược giao tranh.',
   },
 
   // ADC
   Jinx: {
-    badge: '🚀 Hưng Phấn! Bắn Tên Lửa Quét Sạch',
     reason: 'Chỉ cần 1 mạng hạ gục hoặc hỗ trợ là kích hoạt Hưng Phấn bắn tên lửa chí mạng tầm xa điên cuồng, dọn sạch đội hình địch trong vài giây.',
   },
   Vayne: {
-    badge: '🏹 Mũi Tên Bạc (Đệ Nhất Diệt Tank)',
     reason: 'Chiêu W gây % máu tối đa sát thương chuẩn không có cách nào chống đỡ, Q tàng hình liên tục trong chiêu R khiến sát thủ địch bất lực.',
   },
   KogMaw: {
-    badge: '🧪 Pháo Cao Xạ Bắn Nát Đội Hình',
     reason: 'Tầm bắn xa ngút ngàn với W, kết hợp bắn theo % máu và sát thương hỗn hợp làm bốc hơi mọi tanker chỉ trong 3 giây đứng xả.',
   },
   Twitch: {
-    badge: '🐀 Chuột Đột Kích Tàng Hình Xuyên Táo',
     reason: 'Tàng hình tìm góc đứng bọc lót, mở R Nhắm Mắt Bắn Bừa xuyên thấu toàn bộ đội hình địch kèm chí mạng cực đại phút late.',
   },
   Kaisa: {
-    badge: '🦋 Tiến Hóa Toàn Diện & Bay Tuyến Sau',
     reason: 'Tiến hóa đủ 3 kỹ năng Q-W-E, R bay thẳng vào tuyến sau hoặc tự tạo giáp dày, sát thương dồn đơn mục tiêu vô cùng khủng khiếp.',
   },
   Aphelios: {
-    badge: '🌙 Bậc Thầy Vũ Khí (Thăng Hoa Late Game)',
     reason: 'Sở hữu lượng đồ đầy đủ cùng súng hỏa ngục hoặc súng thăng hoa, chiêu R diện rộng có thể oneshot 3-4 thành viên địch tụm lại.',
   },
   Zeri: {
-    badge: '⚡ Tia Chớp Điện Từ Xuyên Đội Hình',
     reason: 'Chiêu R Điện Đạt Đỉnh Điểm tăng tốc chạy vô hạn theo thời gian giao tranh, lướt địa hình đào thoát và xả đạn lan diện rộng.',
   },
   Senna: {
-    badge: '👻 Linh Hồn Vô Hạn (Tầm Đánh & Chí Mạng)',
     reason: 'Nội tại nhặt linh hồn tăng vô hạn tầm đánh, SMCK và tỉ lệ chí mạng, late game đứng từ ngoài tầm nhìn bắn nát trụ và đối thủ.',
   },
 
   // SUP
   Sona: {
-    badge: '🎶 Cỗ Máy Hồi Phục & Buff Tốc Về Late',
     reason: 'Càng về late điểm hồi kỹ năng càng chạm trần, spam chiêu liên tục hồi máu, tạo giáp và tăng tốc cho cả 5 thành viên như hồ máu di động.',
   },
   Taric: {
-    badge: '💎 Vũ Trụ Rực Sáng (2.5s Bất Tử Toàn Đội)',
     reason: 'Chiêu R Vũ Trụ Rực Sáng biến cả đội hình thành bất tử trong 2.5 giây, vô hiệu hóa hoàn toàn mọi chiêu dồn sát thương của đối phương ở combat then chốt.',
   },
   Braum: {
-    badge: '🛡️ Bức Tường Thép Chặn Mọi Đạn Đạo',
     reason: 'Dựng khiên E chặn đứng mọi hỏa lực tầm xa của xạ thủ/pháp sư địch, R hất tung diện rộng bảo kê tuyệt đối cho chủ lực Make Late.',
   },
   Rakan: {
-    badge: '🪶 Bộ Pháp Quyến Rũ Mở Combat Thần Tốc',
     reason: 'Combo R-W lướt làm mê hoặc và hất tung toàn bộ đội ngũ địch trong chớp mắt, khả năng lật kèo giao tranh tổng phút 30+ đỉnh cao.',
   },
   Thresh: {
-    badge: '🏮 Lưỡi Hái Tử Thần Tích Giáp/AP Vô Hạn',
     reason: 'Nội tại nhặt linh hồn tăng vô hạn Giáp và SMPT, lồng đèn W giải cứu đồng đội mắc lỗi vị trí và kéo Q bắt lẻ quyết định ván đấu.',
   },
   Lulu: {
-    badge: '✨ Bảo Kê Chủ Lực Hyper-Carry Số 1',
     reason: 'Biến Cóc vô hiệu hóa sát thủ địch lao vào, chiêu R Khổng Lồ Hóa tăng máu và hất tung giúp chủ lực late game không thể bị hạ gục.',
   },
   Milio: {
-    badge: '🔥 Tăng Tầm Bắn & Khăn Giải Thuật Diện Rộng',
     reason: 'Chiêu W tăng tầm đánh cho xạ thủ bắn từ cực xa, chiêu R giải toàn bộ hiệu ứng khống chế và hồi máu cho cả đội hình.',
   },
 };
@@ -535,7 +492,7 @@ export function calculateDraftCounterRecommendations(
       inPersonalPool,
       winRateStat: bestWinRateStat,
       isMakeLate,
-      makeLateBadge: makeLateInfo?.badge,
+      // makeLateBadge removed
       makeLateReason: makeLateInfo?.reason,
     });
   });
