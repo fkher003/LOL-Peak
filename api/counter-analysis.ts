@@ -95,14 +95,35 @@ YÊU CẦU: Gợi ý đúng 3 tướng khắc chế nhất, DƯỚI 100 TỪ:
       return res.status(400).json({ error: 'Missing enemyChampion or enemyTeam.' });
     }
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
-      contents: prompt,
-    });
+    const candidateModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+    let response: any = null;
+    let usedModel = candidateModels[0];
+    let lastError: any = null;
+
+    for (const model of candidateModels) {
+      try {
+        usedModel = model;
+        response = await ai.models.generateContent({
+          model,
+          contents: prompt,
+        });
+        if (response && response.text) {
+          break;
+        }
+      } catch (err: any) {
+        console.warn(`Gemini model ${model} failed, trying fallback:`, err?.message || err);
+        lastError = err;
+      }
+    }
+
+    if (!response || !response.text) {
+      throw lastError || new Error('Không thể kết nối với dịch vụ Gemini AI, vui lòng thử lại sau.');
+    }
 
     return res.status(200).json({
       success: true,
       analysis: response.text,
+      model: usedModel,
       timestamp: Date.now(),
     });
   } catch (error: any) {

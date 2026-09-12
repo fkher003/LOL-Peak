@@ -1105,7 +1105,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
             {/* Modal Footer */}
             <div className="flex items-center justify-between border-t border-slate-800 px-6 py-3 bg-slate-900/90 shrink-0">
               <span className="text-[11px] text-slate-400 font-mono">
-                Model: gemini-3.8-flash • Key: {userApiKey ? 'Cá nhân' : 'Chưa có'}
+                Model: Gemini Flash • Key: {userApiKey ? 'Cá nhân' : 'Chưa có'}
               </span>
               <button
                 onClick={() => setIsAiModalOpen(false)}
