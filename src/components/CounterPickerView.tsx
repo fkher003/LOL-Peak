@@ -24,6 +24,7 @@ import {
   Key,
   TrendingUp,
   Crown,
+  Zap,
 } from 'lucide-react';
 import {
   ChampionData,
@@ -278,11 +279,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
           <div>
             <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
               <Swords className="h-6 w-6 text-amber-400" />
-              Gợi Ý Pick Tướng Khắc Chế (Counter Picker)
+              Counter Picker
             </h1>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              Nhập vị trí bạn đi và lần lượt các tướng đối thủ đã pick. Hệ thống tự động gợi ý tướng tối ưu theo thời gian thực.
-            </p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -310,12 +308,9 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
         {/* Lane Selection of Player */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-              <span>1. Vị Trí Của Bạn (Your Lane)</span>
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300">
+              Vị Trí Của Bạn
             </label>
-            <span className="text-xs text-amber-400 font-medium">
-              Đang chọn: {LANES.find((l) => l.id === myLane)?.name}
-            </span>
           </div>
 
           <div className="grid grid-cols-5 gap-2 sm:gap-3">
@@ -344,12 +339,9 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
         {/* Turn-by-Turn Enemy Team Input (5 Slots) */}
         <div className="space-y-3 pt-2">
           <div className="flex items-center justify-between">
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-              <span>2. Đội Hình Đối Thủ Đã Pick ({activeEnemies.length}/5)</span>
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300">
+              Đội Hình Địch ({activeEnemies.length}/5)
             </label>
-            <span className="text-xs text-slate-400">
-              Pick tới đâu gợi ý tới đó — không cần đủ 5 tướng
-            </span>
           </div>
 
           {/* 5 Slots */}
@@ -385,8 +377,9 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                               {slot.champion.name}
                             </span>
                             {isDirectLaneOpponent && (
-                              <span className="inline-block text-[10px] font-bold text-red-400 uppercase tracking-wider">
-                                ⚔️ Cùng Lane
+                              <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-red-400 uppercase tracking-wider">
+                                <Swords className="h-2.5 w-2.5" />
+                                Lane
                               </span>
                             )}
                           </div>
@@ -425,7 +418,6 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                     >
                       <Plus className="h-5 w-5 text-slate-400" />
                       <span className="text-xs font-medium">Slot {slot.slotNumber}</span>
-                      <span className="text-[10px] text-slate-500">+ Thêm tướng</span>
                     </button>
                   )}
                 </div>
@@ -439,7 +431,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
                 type="text"
-                placeholder="Gõ tên tướng địch đối thủ vừa pick (vd: Yasuo, Zed, Darius, Ahri, Lee Sin)..."
+                placeholder="Tìm tướng địch..."
                 value={enemySearch}
                 onChange={(e) => {
                   setEnemySearch(e.target.value);
@@ -461,9 +453,6 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
             {/* Dropdown Suggestions */}
             {isEnemySearchOpen && searchEnemyOptions.length > 0 && (
               <div className="absolute left-0 right-0 top-full z-30 mt-1 max-h-60 overflow-y-auto rounded-xl border border-slate-700 bg-slate-900 p-2 shadow-2xl">
-                <div className="text-[11px] font-semibold text-slate-400 px-2 py-1 uppercase tracking-wider">
-                  Bấm vào tướng để đưa vào đội hình đối thủ:
-                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mt-1">
                   {searchEnemyOptions.map((c) => (
                     <button
@@ -513,11 +502,6 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                 </button>
               )}
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
-              {myLane === 'JGL'
-                ? 'Sắp xếp ưu tiên: Thắng kèo rừng & thêm team địch > Đè trực diện rừng > Gợi ý đội hình (Make Late).'
-                : 'Sắp xếp theo thứ tự ưu tiên: Thắng lane & thêm team địch > Đè cùng lane > Gợi ý đội hình (Make Late).'}
-            </p>
           </div>
 
           {/* Scope Filter Tabs */}
@@ -540,7 +524,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   : 'bg-slate-800 text-amber-300 hover:bg-slate-700'
               }`}
             >
-              <span>{myLane === 'JGL' ? '🌟 Đè Kèo Rừng & Thêm Đội Hình' : '🌟 Đè Lane & Thêm Team Địch'}</span>
+              <Star className="h-3 w-3" />
+              <span>{myLane === 'JGL' ? 'Đè Rừng & Team' : 'Đè Lane & Team'}</span>
               <span>({recommendations.filter((r) => r.scope === 'BOTH').length})</span>
             </button>
             <button
@@ -551,7 +536,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   : 'bg-slate-800 text-red-300 hover:bg-slate-700'
               }`}
             >
-              <span>{myLane === 'JGL' ? '⚔️ Kèo Rừng Đối Đầu' : '⚔️ Cùng Lane'}</span>
+              <Swords className="h-3 w-3" />
+              <span>{myLane === 'JGL' ? 'Kèo Rừng' : 'Cùng Lane'}</span>
               <span>({recommendations.filter((r) => r.scope === 'LANE_ONLY').length})</span>
             </button>
             <button
@@ -563,7 +549,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
               }`}
             >
               <Crown className="h-3.5 w-3.5" />
-              <span>Gợi Ý Đội Hình (Make Late)</span>
+              <span>Make Late</span>
               <span>({recommendations.filter((r) => r.scope === 'TEAM_ONLY').length})</span>
             </button>
             <button
@@ -575,7 +561,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
               }`}
             >
               <Star className="h-3 w-3 fill-current" />
-              <span>Bể Của Bạn ({recommendations.filter((r) => r.inPersonalPool).length})</span>
+              <span>Bể Tướng ({recommendations.filter((r) => r.inPersonalPool).length})</span>
             </button>
             <button
               onClick={() => setScopeFilter('HIGH_WINRATE')}
@@ -586,24 +572,24 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
               }`}
             >
               <TrendingUp className="h-3.5 w-3.5" />
-              <span>Winrate Cao (&gt;52%) ({recommendations.filter((r) => r.winRateStat && r.winRateStat.winRate >= 52.0).length})</span>
+              <span>WR &gt;52% ({recommendations.filter((r) => r.winRateStat && r.winRateStat.winRate >= 52.0).length})</span>
             </button>
           </div>
         </div>
 
         {/* Empty State when no enemies picked yet */}
         {activeEnemies.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/40 p-10 text-center">
-            <div className="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-3">
-              <Swords className="h-6 w-6" />
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/40 p-8 text-center">
+            <div className="h-10 w-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2.5">
+              <Swords className="h-5 w-5" />
             </div>
-            <h3 className="text-base font-bold text-white">Chưa có tướng đối thủ nào</h3>
-            <p className="mt-1 text-sm text-slate-400 max-w-md">
-              Hãy bấm vào ô ở trên hoặc gõ tìm kiếm để thêm tướng đối thủ vừa pick. Hệ thống sẽ ngay lập tức tính toán và đề xuất các lựa chọn khắc chế tốt nhất kèm ưu điểm, nhược điểm!
+            <h3 className="text-sm font-bold text-white">Chưa có tướng địch</h3>
+            <p className="mt-0.5 text-xs text-slate-400">
+              Chọn ô hoặc tìm tướng để bắt đầu
             </p>
             {/* Quick picks */}
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
-              <span className="text-xs text-slate-500 self-center">Thử pick nhanh:</span>
+            <div className="mt-3.5 flex flex-wrap justify-center gap-2">
+              <span className="text-xs text-slate-500 self-center">Pick nhanh:</span>
               {['Zed', 'Yasuo', 'Darius', 'Aatrox', 'LeeSin', 'Blitzcrank'].map((id) => {
                 const champ = CHAMPIONS_LIST.find((c) => c.id === id);
                 if (!champ) return null;
@@ -698,8 +684,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                             {/* Scope Badge */}
                             {rec.scope === 'BOTH' && (
                               <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/35 px-2 py-0.5 text-[11px] font-bold text-amber-300">
-                                <span>🌟</span>
-                                <span>{myLane === 'JGL' ? 'Đè Kèo Rừng' : 'Đè Lane'}</span>
+                                <Star className="h-3 w-3 text-amber-400" />
+                                <span>{myLane === 'JGL' ? 'Đè Rừng & Team' : 'Đè Lane & Team'}</span>
                                 {otherEnemies.length > 0 && (
                                   <span className="bg-amber-400/25 px-1.5 py-0.2 rounded-full text-[10px]">
                                     +{otherEnemies.length}
@@ -709,14 +695,14 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                             )}
                             {rec.scope === 'LANE_ONLY' && (
                               <span className="inline-flex items-center gap-1 rounded-full bg-red-500/15 border border-red-500/35 px-2 py-0.5 text-[11px] font-bold text-red-300">
-                                <span>⚔️</span>
-                                <span>{myLane === 'JGL' ? 'Đè Trực Diện Rừng' : 'Đè Cùng Lane'}</span>
+                                <Swords className="h-3 w-3 text-red-400" />
+                                <span>{myLane === 'JGL' ? 'Kèo Rừng' : 'Cùng Lane'}</span>
                               </span>
                             )}
                             {rec.scope === 'TEAM_ONLY' && (
                               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/35 px-2 py-0.5 text-[11px] font-bold text-emerald-300">
                                 <Crown className="h-3 w-3 text-emerald-400" />
-                                <span>{rec.isMakeLate ? 'Make Late Gánh Team' : 'Tốt Cho Đội Hình'}</span>
+                                <span>{rec.isMakeLate ? 'Make Late' : 'Đội Hình'}</span>
                               </span>
                             )}
                             {rec.isMakeLate && rec.scope !== 'TEAM_ONLY' && (
@@ -745,9 +731,6 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                           <div className="flex flex-wrap items-center gap-1.5 text-xs">
                             {rec.scope === 'BOTH' ? (
                               <>
-                                <span className="text-slate-400 text-[11px] font-medium">
-                                  {myLane === 'JGL' ? 'Kèo Rừng:' : 'Đè Lane:'}
-                                </span>
                                 {laneEnemy && (
                                   <span className="inline-flex items-center gap-1 rounded-md bg-red-950/40 border border-red-500/30 px-1.5 py-0.5 text-[11px] font-bold text-red-200">
                                     <img
@@ -762,7 +745,6 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                                 {otherEnemies.length > 0 && (
                                   <>
                                     <span className="text-slate-600 mx-0.5">•</span>
-                                    <span className="text-slate-400 text-[11px] font-medium">Khắc chế thêm:</span>
                                     <div className="flex flex-wrap items-center gap-1">
                                       {otherEnemies.map((e) => (
                                         <span
@@ -783,58 +765,47 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                                 )}
                               </>
                             ) : rec.scope === 'LANE_ONLY' ? (
-                              <>
-                                <span className="text-slate-400 text-[11px] font-medium">
-                                  {myLane === 'JGL' ? 'Đè trực tiếp tướng rừng:' : 'Đè trực tiếp cùng lane:'}
-                                </span>
-                                <div className="flex flex-wrap items-center gap-1">
-                                  {rec.counteredEnemies.map((e) => (
-                                    <span
-                                      key={e.championId}
-                                      className="inline-flex items-center gap-1 rounded-md bg-red-950/40 border border-red-500/30 px-1.5 py-0.5 text-[11px] font-bold text-red-200"
-                                    >
-                                      <img
-                                        src={getChampionAvatar(e.championId)}
-                                        alt={e.championName}
-                                        className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
-                                        referrerPolicy="no-referrer"
-                                      />
-                                      <span>{e.championName}</span>
-                                    </span>
-                                  ))}
-                                </div>
-                              </>
+                              <div className="flex flex-wrap items-center gap-1">
+                                {rec.counteredEnemies.map((e) => (
+                                  <span
+                                    key={e.championId}
+                                    className="inline-flex items-center gap-1 rounded-md bg-red-950/40 border border-red-500/30 px-1.5 py-0.5 text-[11px] font-bold text-red-200"
+                                  >
+                                    <img
+                                      src={getChampionAvatar(e.championId)}
+                                      alt={e.championName}
+                                      className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
+                                      referrerPolicy="no-referrer"
+                                    />
+                                    <span>{e.championName}</span>
+                                  </span>
+                                ))}
+                              </div>
                             ) : (
                               <>
                                 {rec.isMakeLate && (
-                                  <span className="text-emerald-400 text-[11px] font-medium mr-0.5">
-                                    🌟 {rec.makeLateBadge || 'Make Late'}
+                                  <span className="inline-flex items-center gap-1 rounded-md bg-emerald-950/40 border border-emerald-500/30 px-1.5 py-0.5 text-[11px] font-medium text-emerald-300">
+                                    <Crown className="h-3 w-3 text-emerald-400" />
+                                    <span>{rec.makeLateBadge || 'Make Late'}</span>
                                   </span>
                                 )}
-                                {realEnemies.length > 0 ? (
-                                  <>
-                                    <span className="text-slate-400 text-[11px] font-medium">Khắc chế team:</span>
-                                    <div className="flex flex-wrap items-center gap-1">
-                                      {realEnemies.map((e) => (
-                                        <span
-                                          key={e.championId}
-                                          className="inline-flex items-center gap-1 rounded-md bg-slate-800/90 border border-slate-700/80 px-1.5 py-0.5 text-[11px] font-medium text-slate-200"
-                                        >
-                                          <img
-                                            src={getChampionAvatar(e.championId)}
-                                            alt={e.championName}
-                                            className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
-                                            referrerPolicy="no-referrer"
-                                          />
-                                          <span>{e.championName}</span>
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </>
-                                ) : (
-                                  <span className="text-slate-400 text-[11px]">
-                                    Giữ nhịp trận đấu, gom combat hoặc tạo đột biến cuối trận
-                                  </span>
+                                {realEnemies.length > 0 && (
+                                  <div className="flex flex-wrap items-center gap-1">
+                                    {realEnemies.map((e) => (
+                                      <span
+                                        key={e.championId}
+                                        className="inline-flex items-center gap-1 rounded-md bg-slate-800/90 border border-slate-700/80 px-1.5 py-0.5 text-[11px] font-medium text-slate-200"
+                                      >
+                                        <img
+                                          src={getChampionAvatar(e.championId)}
+                                          alt={e.championName}
+                                          className="h-3.5 w-3.5 rounded-full object-cover shrink-0"
+                                          referrerPolicy="no-referrer"
+                                        />
+                                        <span>{e.championName}</span>
+                                      </span>
+                                    ))}
+                                  </div>
                                 )}
                               </>
                             )}
@@ -898,12 +869,9 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                             <Crown className="h-4 w-4" />
                           </div>
                           <div className="space-y-0.5 min-w-0">
-                            <div className="font-bold text-emerald-300 flex items-center gap-1.5 flex-wrap">
-                              <span>{rec.makeLateBadge || 'Lựa Chọn Tốt Cho Team (Make Late)'}</span>
-                              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-normal">
-                                Tăng tiến sức mạnh late game
-                              </span>
-                            </div>
+                            <span className="font-bold text-emerald-300 block">
+                              {rec.makeLateBadge || 'Make Late'}
+                            </span>
                             <p className="text-slate-300 text-xs leading-relaxed">{rec.makeLateReason}</p>
                           </div>
                         </div>
@@ -915,7 +883,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                         <div className="space-y-2">
                           <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                             <Swords className="h-3.5 w-3.5 text-amber-400" />
-                            <span>Lý do khắc chế &amp; đối đầu:</span>
+                            <span>Đối đầu:</span>
                           </div>
                           <div className="space-y-1.5">
                             {rec.counteredEnemies.map((item, idx) => (
@@ -960,7 +928,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                             <div className="rounded-lg border border-emerald-500/25 bg-emerald-950/15 p-2.5 space-y-1.5">
                               <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 uppercase">
                                 <CheckCircle2 className="h-3.5 w-3.5" />
-                                <span>Ưu Điểm:</span>
+                                <span>Ưu điểm</span>
                               </div>
                               <ul className="space-y-1 text-xs text-slate-200">
                                 {rec.pros.map((pro, pIdx) => (
@@ -976,7 +944,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                             <div className="rounded-lg border border-red-500/25 bg-red-950/15 p-2.5 space-y-1.5">
                               <div className="flex items-center gap-1 text-[11px] font-bold text-red-400 uppercase">
                                 <AlertTriangle className="h-3.5 w-3.5" />
-                                <span>Nhược Điểm:</span>
+                                <span>Rủi ro</span>
                               </div>
                               <ul className="space-y-1 text-xs text-slate-200">
                                 {rec.cons.map((con, cIdx) => (
@@ -992,8 +960,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                           {/* Key Tip */}
                           <div className="rounded-lg bg-amber-500/10 border border-amber-500/25 p-2.5 text-xs text-slate-200 flex items-start gap-2">
                             <span className="font-bold text-amber-300 shrink-0 flex items-center gap-1">
-                              <span>⚡</span>
-                              <span>Mẹo then chốt:</span>
+                              <Zap className="h-3.5 w-3.5 text-amber-400" />
+                              <span>Mẹo:</span>
                             </span>
                             <span className="leading-relaxed text-slate-300">{rec.keyTip}</span>
                           </div>
@@ -1020,16 +988,11 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
             <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 bg-slate-900/90 shrink-0">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-amber-400" />
-                <div>
-                  <h3 className="text-base font-bold text-white">
-                    {aiTargetChamp
-                      ? `Huấn Luyện Viên AI: Phân Tích Pick ${aiTargetChamp}`
-                      : 'Huấn Luyện Viên AI: Đánh Giá Đội Hình & Chiến Thuật Draft'}
-                  </h3>
-                  <p className="text-xs text-slate-400">
-                    Phân tích kèo đấu và điều kiện thắng từ mô hình Gemini 3.8 Flash
-                  </p>
-                </div>
+                <h3 className="text-base font-bold text-white">
+                  {aiTargetChamp
+                    ? `AI Coach: Phân Tích ${aiTargetChamp}`
+                    : 'AI Coach: Đánh Giá Đội Hình'}
+                </h3>
               </div>
               <button
                 onClick={() => setIsAiModalOpen(false)}
@@ -1045,7 +1008,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                 <div className="flex flex-col items-center justify-center py-12 space-y-3">
                   <Loader2 className="h-8 w-8 animate-spin text-amber-400" />
                   <p className="text-sm text-slate-300 font-medium">
-                    Huấn luyện viên đang phân tích chất tướng và giao tranh của 2 bên...
+                    Đang phân tích...
                   </p>
                 </div>
               ) : aiAnalysis === 'NEED_API_KEY' ? (
@@ -1053,10 +1016,9 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
                     <Key className="h-6 w-6" />
                   </div>
-                  <h4 className="text-base font-bold text-white">Yêu Cầu Nhập API Key Gemini</h4>
+                  <h4 className="text-base font-bold text-white">Cần API Key</h4>
                   <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-                    Để sử dụng tính năng Huấn Luyện Viên AI phân tích cấm chọn, bạn cần nhập API Key Google Gemini của riêng bạn.
-                    API Key được lưu trữ hoàn toàn trên thiết bị của bạn (Local Storage) và không bị lưu trên máy chủ.
+                    Nhập API Key để sử dụng AI Coach.
                   </p>
                   <div className="pt-2">
                     <button
@@ -1067,7 +1029,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                       className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-bold text-slate-950 hover:bg-amber-400 shadow-md shadow-amber-500/20 transition-all active:scale-95"
                     >
                       <Key className="h-4 w-4" />
-                      <span>Nhập API Key Gemini Của Bạn Ngay</span>
+                      <span>Nhập API Key</span>
                     </button>
                   </div>
                 </div>
@@ -1076,9 +1038,9 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-red-500/15 text-red-400 border border-red-500/30">
                     <AlertTriangle className="h-6 w-6" />
                   </div>
-                  <h4 className="text-base font-bold text-white">API Key Không Hợp Lệ Hoặc Hết Hạn</h4>
+                  <h4 className="text-base font-bold text-white">API Key Không Hợp Lệ</h4>
                   <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-                    Google Gemini không xác thực được API Key của bạn. Vui lòng kiểm tra lại key từ Google AI Studio hoặc cập nhật key mới.
+                    API Key không hợp lệ. Kiểm tra hoặc tạo key mới.
                   </p>
                   <div className="pt-2">
                     <button
@@ -1089,7 +1051,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                       className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-2.5 text-xs font-bold text-slate-950 hover:bg-amber-400 shadow-md shadow-amber-500/20 transition-all active:scale-95"
                     >
                       <Key className="h-4 w-4" />
-                      <span>Cập Nhật Lại API Key</span>
+                      <span>Đổi API Key</span>
                     </button>
                   </div>
                 </div>

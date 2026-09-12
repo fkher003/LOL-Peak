@@ -15,6 +15,7 @@ import {
   Sparkles,
   FolderPlus,
   Layers,
+  Lock,
 } from 'lucide-react';
 import { PersonalChampion, Lane, LaneCategory } from '../types';
 import { LANES, getChampionAvatar } from '../data/champions';
@@ -154,21 +155,17 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
       {/* 1. Header with Title & Lane Navigation */}
       <div className="border-b border-slate-800 pb-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
-                Bể Tướng Cá Nhân
-              </h1>
-              <span className="rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-0.5 text-xs font-bold text-amber-400 font-mono">
-                {personalChampions.length} tướng đã lưu
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-300">
-                🔒 Lưu 100% trên máy của bạn
-              </span>
-            </div>
-            <p className="mt-1 text-sm text-slate-400">
-              Phân loại theo từng Lane. Tự do tạo các mục riêng (tướng dị, tướng counter, tướng hỗ trợ team...). Dữ liệu lưu cục bộ trong trình duyệt của riêng bạn.
-            </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+              Bể Tướng
+            </h1>
+            <span className="rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-0.5 text-xs font-bold text-amber-400 font-mono">
+              {personalChampions.length} tướng
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-300">
+              <Lock className="h-3 w-3" />
+              Lưu cục bộ
+            </span>
           </div>
 
           {/* Quick Add Button */}
@@ -224,7 +221,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <input
             type="text"
-            placeholder={`Tìm tướng trong ${activeLaneMeta.name} (theo tên tướng, tướng khắc chế, hoặc mẹo)...`}
+            placeholder="Tìm tướng..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-xl border border-slate-700/80 bg-slate-950/70 pl-9 pr-4 py-2 text-xs text-white placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
@@ -517,7 +514,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                                         }}
                                         className="rounded-md bg-slate-800 px-2 py-1 text-[11px] text-slate-200 hover:bg-amber-500 hover:text-slate-950 transition-colors font-medium"
                                       >
-                                        📁 {targetCat.name}
+                                        {targetCat.name}
                                       </button>
                                     ))}
                                 </div>
@@ -527,7 +524,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                             {/* Counter Targets */}
                             <div className="mt-3">
                               <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
-                                Khắc chế đối thủ:
+                                Khắc chế:
                               </span>
                               {champ.counterTargets && champ.counterTargets.length > 0 ? (
                                 <div className="flex flex-wrap gap-1">
@@ -551,7 +548,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                                 </div>
                               ) : (
                                 <span className="text-[11px] text-slate-500 italic">
-                                  Tướng đa dụng / pick an toàn
+                                  Đa dụng
                                 </span>
                               )}
                             </div>
@@ -563,17 +560,6 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                                 {champ.notes}
                               </div>
                             )}
-                          </div>
-
-                          {/* Footer: Quick link to inspect in Draft Picker */}
-                          <div className="mt-3 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] text-slate-400">
-                            <span>Thêm lúc: {new Date(champ.createdAt).toLocaleDateString('vi-VN')}</span>
-                            <button
-                              onClick={() => onInspectCounter(champ.championName)}
-                              className="text-amber-400 hover:text-amber-300 font-semibold"
-                            >
-                              Thử Kèo Cấm Chọn →
-                            </button>
                           </div>
                         </div>
                       );

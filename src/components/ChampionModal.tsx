@@ -224,14 +224,9 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
       <div className="relative w-full max-w-lg rounded-2xl border border-slate-700/80 bg-slate-900 shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 bg-slate-900/90">
-          <div>
-            <h2 className="text-lg font-bold text-white">
-              {editingChampion ? 'Chỉnh Sửa Tướng Trong Bể' : 'Thêm Tướng Vào Bể Cá Nhân'}
-            </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Phân loại theo Lane và Mục riêng để tra cứu nhanh khi cấm chọn.
-            </p>
-          </div>
+          <h2 className="text-lg font-bold text-white">
+            {editingChampion ? 'Chỉnh Sửa Tướng Trong Bể' : 'Thêm Tướng Vào Bể Cá Nhân'}
+          </h2>
           <button
             onClick={onClose}
             className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
@@ -323,7 +318,7 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
                 >
                   {laneCategories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
-                      📁 {cat.name}
+                      {cat.name}
                     </option>
                   ))}
                 </select>
@@ -354,7 +349,7 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="Gõ tìm tên tướng (vd: Malphite, Lissandra...)"
+                  placeholder="Tìm tên tướng..."
                   value={champSearch}
                   onChange={(e) => {
                     setChampSearch(e.target.value);
@@ -398,7 +393,7 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
-                Tướng Đối Thủ Mà Bạn Dùng Con Này Khắc Chế
+                Mục Tiêu Khắc Chế
               </label>
               <span className="text-[11px] text-slate-400">Tùy chọn</span>
             </div>
@@ -407,7 +402,7 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
                 <Search className="h-4 w-4 text-slate-400 mr-2 shrink-0" />
                 <input
                   type="text"
-                  placeholder="Gõ tên tướng đối thủ để thêm vào danh sách khắc chế..."
+                  placeholder="Tìm tướng đối thủ..."
                   value={targetSearch}
                   onChange={(e) => {
                     setTargetSearch(e.target.value);
@@ -462,7 +457,7 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
                       (e.target as HTMLElement).style.display = 'none';
                     }}
                   />
-                  <span>Khắc chế: {target}</span>
+                  <span>{target}</span>
                   <button
                     type="button"
                     onClick={() => handleRemoveCounterTarget(target)}
@@ -474,7 +469,7 @@ export const ChampionModal: React.FC<ChampionModalProps> = ({
               ))}
               {counterTargets.length === 0 && (
                 <span className="text-[11px] text-slate-500 italic">
-                  Chưa gán tướng khắc chế cụ thể (con này có thể là tướng pick an toàn hoặc pick dị).
+                  Chưa gán — bài pick đa dụng
                 </span>
               )}
             </div>

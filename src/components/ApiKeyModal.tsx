@@ -70,14 +70,12 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
         <form onSubmit={handleSave} className="mt-4 space-y-4">
           <div className="rounded-xl border border-amber-500/25 bg-amber-950/20 p-3 text-xs text-amber-300/90 leading-relaxed flex items-start gap-2.5">
             <ShieldCheck className="h-4 w-4 shrink-0 mt-0.5 text-amber-400" />
-            <div>
-              <span>API Key của bạn được lưu <strong>100% cục bộ trên trình duyệt (Local Storage)</strong> và chỉ dùng để gọi trực tiếp tới mô hình Gemini khi bạn yêu cầu phân tích.</span>
-            </div>
+            <span>API Key lưu cục bộ trên trình duyệt, chỉ gửi khi phân tích AI.</span>
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-slate-200 mb-1.5 uppercase tracking-wider">
-              Gemini API Key của bạn <span className="text-amber-400">*</span>
+              API Key <span className="text-amber-400">*</span>
             </label>
             <div className="relative">
               <input
