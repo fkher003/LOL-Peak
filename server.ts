@@ -249,7 +249,7 @@ YÊU CẦU: Gợi ý đúng 3 tướng khắc chế nhất, DƯỚI 100 TỪ:
       return res.status(400).json({ error: "Missing enemyChampion or enemyTeam." });
     }
 
-    const candidateModels = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"];
+    const candidateModels = ["gemini-3.7-flash", "gemini-3.8-flash", "gemini-3-flash"];
     let response: any = null;
     let usedModel = candidateModels[0];
     let lastError: any = null;
