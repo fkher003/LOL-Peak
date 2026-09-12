@@ -50,7 +50,27 @@ const STAT_MATCHUPS_INDEX = new Map<string, Map<string, MatchupEntry>>();
         if (key2) counterMap.set(key2, c);
       }
     }
-    STAT_MATCHUPS_INDEX.set(key.toLowerCase(), counterMap);
+    const normKey = key.toLowerCase();
+    STAT_MATCHUPS_INDEX.set(normKey, counterMap);
+
+    // Bidirectional aliases for different lane naming standards
+    if (normKey.endsWith('_support')) {
+      STAT_MATCHUPS_INDEX.set(normKey.replace(/_support$/, '_sup'), counterMap);
+    } else if (normKey.endsWith('_sup')) {
+      STAT_MATCHUPS_INDEX.set(normKey.replace(/_sup$/, '_support'), counterMap);
+    }
+
+    if (normKey.endsWith('_jungle')) {
+      STAT_MATCHUPS_INDEX.set(normKey.replace(/_jungle$/, '_jgl'), counterMap);
+    } else if (normKey.endsWith('_jgl')) {
+      STAT_MATCHUPS_INDEX.set(normKey.replace(/_jgl$/, '_jungle'), counterMap);
+    }
+
+    if (normKey.endsWith('_adc')) {
+      STAT_MATCHUPS_INDEX.set(normKey.replace(/_adc$/, '_bot'), counterMap);
+    } else if (normKey.endsWith('_bot')) {
+      STAT_MATCHUPS_INDEX.set(normKey.replace(/_bot$/, '_adc'), counterMap);
+    }
   }
 })();
 
@@ -312,11 +332,50 @@ export function calculateDraftCounterRecommendations(
       // 1. Check Statistical Ranked Matchup Data with O(1) Index Map
       let statMatch: MatchupEntry | undefined = undefined;
       const enemyLaneForLookup = enemySlot.lane || (isSameLane ? myLane : (enemy.defaultLanes[0] || 'MID'));
-      const lookupKeys = [
-        `${toSlug(enemy.id)}_${enemyLaneForLookup.toLowerCase()}`,
-        `${toSlug(enemy.name)}_${enemyLaneForLookup.toLowerCase()}`,
-        `${toSlug(enemy.id)}_${myLane.toLowerCase()}`,
-      ];
+      const enemyLaneStr = enemyLaneForLookup.toLowerCase();
+      const myLaneStr = myLane.toLowerCase();
+
+      // Collect lane alias candidates (sup/support, jgl/jungle, adc/bot)
+      const enemyLaneVariants = new Set<string>([enemyLaneStr]);
+      if (enemyLaneStr === 'sup' || enemyLaneStr === 'support') {
+        enemyLaneVariants.add('sup');
+        enemyLaneVariants.add('support');
+      }
+      if (enemyLaneStr === 'jgl' || enemyLaneStr === 'jungle') {
+        enemyLaneVariants.add('jgl');
+        enemyLaneVariants.add('jungle');
+      }
+      if (enemyLaneStr === 'adc' || enemyLaneStr === 'bot') {
+        enemyLaneVariants.add('adc');
+        enemyLaneVariants.add('bot');
+      }
+
+      const myLaneVariants = new Set<string>([myLaneStr]);
+      if (myLaneStr === 'sup' || myLaneStr === 'support') {
+        myLaneVariants.add('sup');
+        myLaneVariants.add('support');
+      }
+      if (myLaneStr === 'jgl' || myLaneStr === 'jungle') {
+        myLaneVariants.add('jgl');
+        myLaneVariants.add('jungle');
+      }
+      if (myLaneStr === 'adc' || myLaneStr === 'bot') {
+        myLaneVariants.add('adc');
+        myLaneVariants.add('bot');
+      }
+
+      const enemyIdSlug = toSlug(enemy.id);
+      const enemyNameSlug = toSlug(enemy.name);
+
+      const lookupKeys: string[] = [];
+      for (const lv of enemyLaneVariants) {
+        lookupKeys.push(`${enemyIdSlug}_${lv}`);
+        lookupKeys.push(`${enemyNameSlug}_${lv}`);
+      }
+      for (const mlv of myLaneVariants) {
+        lookupKeys.push(`${enemyIdSlug}_${mlv}`);
+        lookupKeys.push(`${enemyNameSlug}_${mlv}`);
+      }
 
       for (const key of lookupKeys) {
         const enemyIndex = STAT_MATCHUPS_INDEX.get(key);
