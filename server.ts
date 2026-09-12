@@ -171,8 +171,8 @@ app.post("/api/counter-analysis", async (req, res) => {
   try {
     const { enemyChampion, playerChampion, lane, userNotes, enemyTeam, myLane } = req.body;
 
-    // Check for user-provided API key
-    const rawApiKey = req.headers["x-gemini-api-key"] || req.body.apiKey;
+    // Check for user-provided API key or server-side environment key
+    const rawApiKey = req.headers["x-gemini-api-key"] || req.body?.apiKey || process.env.GEMINI_API_KEY;
     const apiKey = typeof rawApiKey === "string" && rawApiKey.trim().length > 0 ? rawApiKey.trim() : null;
 
     if (!apiKey) {
