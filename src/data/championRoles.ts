@@ -9,6 +9,7 @@ import { Lane } from '../types';
 export const CHAMPION_META_ROLES: Record<string, Lane[]> = {
   // --- TOP LANE ---
   Aatrox: ['TOP'],
+  Ambessa: ['TOP', 'JGL'],
   Camille: ['TOP'],
   Chogath: ['TOP', 'MID'],
   Darius: ['TOP'],
@@ -45,6 +46,7 @@ export const CHAMPION_META_ROLES: Record<string, Lane[]> = {
   Urgot: ['TOP'],
   Volibear: ['TOP', 'JGL'],
   Yorick: ['TOP'],
+  Zaahen: ['TOP', 'JGL'],
 
   // --- JUNGLE ---
   Amumu: ['JGL', 'SUP'],
@@ -107,8 +109,10 @@ export const CHAMPION_META_ROLES: Record<string, Lane[]> = {
   Katarina: ['MID'],
   Leblanc: ['MID'],
   Lissandra: ['MID'],
+  Locke: ['MID', 'TOP'],
   Lux: ['MID', 'SUP'],
   Malzahar: ['MID'],
+  Mel: ['MID', 'SUP'],
   Naafiri: ['MID', 'TOP'],
   Neeko: ['MID', 'SUP'],
   Orianna: ['MID'],
@@ -154,6 +158,7 @@ export const CHAMPION_META_ROLES: Record<string, Lane[]> = {
   Varus: ['ADC', 'MID'],
   Vayne: ['ADC', 'TOP'],
   Xayah: ['ADC'],
+  Yunara: ['ADC'],
   Zeri: ['ADC'],
 
   // --- SUPPORT ---

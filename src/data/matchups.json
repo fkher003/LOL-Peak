@@ -1,8 +1,8 @@
 {
   "version": "15.5",
   "patchNotes": "Ranked Emerald+ Global Matchup Statistics",
-  "updatedAt": 1789211347930,
-  "totalEntries": 270,
+  "updatedAt": 1789273913050,
+  "totalEntries": 282,
   "matchups": {
     "aatrox_top": {
       "championSlug": "aatrox",
@@ -82288,6 +82288,3431 @@
           "championName": "Kindred",
           "winRate": 33.33,
           "playCount": 45,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "ambessa_top": {
+      "championSlug": "ambessa",
+      "lane": "TOP",
+      "counters": [
+        {
+          "championKey": "kennen",
+          "championName": "Kennen",
+          "winRate": 58.92,
+          "playCount": 185,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "yorick",
+          "championName": "Yorick",
+          "winRate": 55.56,
+          "playCount": 189,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "cassiopeia",
+          "championName": "Cassiopeia",
+          "winRate": 55.32,
+          "playCount": 47,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "poppy",
+          "championName": "Poppy",
+          "winRate": 55.28,
+          "playCount": 123,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "irelia",
+          "championName": "Irelia",
+          "winRate": 55.18,
+          "playCount": 386,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "akali",
+          "championName": "Akali",
+          "winRate": 54.88,
+          "playCount": 215,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "masteryi",
+          "championName": "Master Yi",
+          "winRate": 54.84,
+          "playCount": 31,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "udyr",
+          "championName": "Udyr",
+          "winRate": 54.76,
+          "playCount": 42,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "gragas",
+          "championName": "Gragas",
+          "winRate": 54.23,
+          "playCount": 201,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "vayne",
+          "championName": "Vayne",
+          "winRate": 54.21,
+          "playCount": 107,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "quinn",
+          "championName": "Quinn",
+          "winRate": 54.1,
+          "playCount": 61,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "malphite",
+          "championName": "Malphite",
+          "winRate": 53.75,
+          "playCount": 400,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "zac",
+          "championName": "Zac",
+          "winRate": 53.49,
+          "playCount": 43,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "teemo",
+          "championName": "Teemo",
+          "winRate": 52.55,
+          "playCount": 274,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "warwick",
+          "championName": "Warwick",
+          "winRate": 52.21,
+          "playCount": 136,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "fiora",
+          "championName": "Fiora",
+          "winRate": 52.12,
+          "playCount": 307,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "olaf",
+          "championName": "Olaf",
+          "winRate": 52.08,
+          "playCount": 240,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "nasus",
+          "championName": "Nasus",
+          "winRate": 52.04,
+          "playCount": 538,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "trundle",
+          "championName": "Trundle",
+          "winRate": 52,
+          "playCount": 125,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "darius",
+          "championName": "Darius",
+          "winRate": 51.93,
+          "playCount": 466,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "gangplank",
+          "championName": "Gangplank",
+          "winRate": 51.63,
+          "playCount": 459,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "renekton",
+          "championName": "Renekton",
+          "winRate": 51.55,
+          "playCount": 869,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "yone",
+          "championName": "Yone",
+          "winRate": 51.52,
+          "playCount": 656,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "tryndamere",
+          "championName": "Tryndamere",
+          "winRate": 51.18,
+          "playCount": 254,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ryze",
+          "championName": "Ryze",
+          "winRate": 51.02,
+          "playCount": 49,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "garen",
+          "championName": "Garen",
+          "winRate": 50.96,
+          "playCount": 418,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "pantheon",
+          "championName": "Pantheon",
+          "winRate": 50.85,
+          "playCount": 234,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sion",
+          "championName": "Sion",
+          "winRate": 50.84,
+          "playCount": 238,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aatrox",
+          "championName": "Aatrox",
+          "winRate": 50.66,
+          "playCount": 531,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "heimerdinger",
+          "championName": "Heimerdinger",
+          "winRate": 50.63,
+          "playCount": 79,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "singed",
+          "championName": "Singed",
+          "winRate": 50.51,
+          "playCount": 198,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "urgot",
+          "championName": "Urgot",
+          "winRate": 50,
+          "playCount": 200,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "tahmkench",
+          "championName": "Tahm Kench",
+          "winRate": 50,
+          "playCount": 120,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "yasuo",
+          "championName": "Yasuo",
+          "winRate": 49.78,
+          "playCount": 231,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "camille",
+          "championName": "Camille",
+          "winRate": 49.46,
+          "playCount": 463,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "zaahen",
+          "championName": "Zaahen",
+          "winRate": 49.25,
+          "playCount": 335,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sett",
+          "championName": "Sett",
+          "winRate": 49.19,
+          "playCount": 372,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "gnar",
+          "championName": "Gnar",
+          "winRate": 49.1,
+          "playCount": 279,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ksante",
+          "championName": "K'Sante",
+          "winRate": 49.04,
+          "playCount": 363,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "swain",
+          "championName": "Swain",
+          "winRate": 48.98,
+          "playCount": 49,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "mordekaiser",
+          "championName": "Mordekaiser",
+          "winRate": 48.9,
+          "playCount": 272,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "shen",
+          "championName": "Shen",
+          "winRate": 48.61,
+          "playCount": 251,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jax",
+          "championName": "Jax",
+          "winRate": 48.38,
+          "playCount": 432,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ornn",
+          "championName": "Ornn",
+          "winRate": 48.18,
+          "playCount": 247,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "illaoi",
+          "championName": "Illaoi",
+          "winRate": 47.98,
+          "playCount": 173,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "volibear",
+          "championName": "Volibear",
+          "winRate": 47.57,
+          "playCount": 206,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jayce",
+          "championName": "Jayce",
+          "winRate": 47.45,
+          "playCount": 569,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kled",
+          "championName": "Kled",
+          "winRate": 47.24,
+          "playCount": 163,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kayle",
+          "championName": "Kayle",
+          "winRate": 47.22,
+          "playCount": 144,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "monkeyking",
+          "championName": "Wukong",
+          "winRate": 47.06,
+          "playCount": 68,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "rumble",
+          "championName": "Rumble",
+          "winRate": 46.96,
+          "playCount": 181,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "anivia",
+          "championName": "Anivia",
+          "winRate": 46.77,
+          "playCount": 62,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "gwen",
+          "championName": "Gwen",
+          "winRate": 46.7,
+          "playCount": 182,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vladimir",
+          "championName": "Vladimir",
+          "winRate": 46.51,
+          "playCount": 86,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "riven",
+          "championName": "Riven",
+          "winRate": 45.98,
+          "playCount": 174,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "varus",
+          "championName": "Varus",
+          "winRate": 45.78,
+          "playCount": 83,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "drmundo",
+          "championName": "Dr. Mundo",
+          "winRate": 44.61,
+          "playCount": 269,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "chogath",
+          "championName": "Cho'Gath",
+          "winRate": 43,
+          "playCount": 207,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "ambessa_jgl": {
+      "championSlug": "ambessa",
+      "lane": "JGL",
+      "counters": [
+        {
+          "championKey": "nidalee",
+          "championName": "Nidalee",
+          "winRate": 67.21,
+          "playCount": 61,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "ivern",
+          "championName": "Ivern",
+          "winRate": 65.62,
+          "playCount": 32,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "rammus",
+          "championName": "Rammus",
+          "winRate": 63.64,
+          "playCount": 33,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jarvaniv",
+          "championName": "Jarvan IV",
+          "winRate": 62.5,
+          "playCount": 136,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kindred",
+          "championName": "Kindred",
+          "winRate": 62.5,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "belveth",
+          "championName": "Bel'Veth",
+          "winRate": 61.54,
+          "playCount": 52,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "aatrox",
+          "championName": "Aatrox",
+          "winRate": 61.29,
+          "playCount": 31,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zyra",
+          "championName": "Zyra",
+          "winRate": 60,
+          "playCount": 35,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "shaco",
+          "championName": "Shaco",
+          "winRate": 58.44,
+          "playCount": 77,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "monkeyking",
+          "championName": "Wukong",
+          "winRate": 57.14,
+          "playCount": 112,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "reksai",
+          "championName": "Rek'Sai",
+          "winRate": 56.52,
+          "playCount": 46,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jayce",
+          "championName": "Jayce",
+          "winRate": 56.41,
+          "playCount": 39,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "fiddlesticks",
+          "championName": "Fiddlesticks",
+          "winRate": 56.25,
+          "playCount": 48,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lillia",
+          "championName": "Lillia",
+          "winRate": 55.36,
+          "playCount": 56,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zed",
+          "championName": "Zed",
+          "winRate": 55,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zac",
+          "championName": "Zac",
+          "winRate": 54.55,
+          "playCount": 66,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "briar",
+          "championName": "Briar",
+          "winRate": 54.35,
+          "playCount": 92,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "viego",
+          "championName": "Viego",
+          "winRate": 54.26,
+          "playCount": 188,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jax",
+          "championName": "Jax",
+          "winRate": 53.33,
+          "playCount": 30,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "vi",
+          "championName": "Vi",
+          "winRate": 53.19,
+          "playCount": 94,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "elise",
+          "championName": "Elise",
+          "winRate": 52.94,
+          "playCount": 34,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "skarner",
+          "championName": "Skarner",
+          "winRate": 52.94,
+          "playCount": 34,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "khazix",
+          "championName": "Kha'Zix",
+          "winRate": 52.78,
+          "playCount": 108,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "chogath",
+          "championName": "Cho'Gath",
+          "winRate": 52.38,
+          "playCount": 84,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "qiyana",
+          "championName": "Qiyana",
+          "winRate": 51.59,
+          "playCount": 126,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "sylas",
+          "championName": "Sylas",
+          "winRate": 51.39,
+          "playCount": 144,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sejuani",
+          "championName": "Sejuani",
+          "winRate": 51.35,
+          "playCount": 37,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ekko",
+          "championName": "Ekko",
+          "winRate": 51.3,
+          "playCount": 115,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "leesin",
+          "championName": "Lee Sin",
+          "winRate": 50,
+          "playCount": 268,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "shyvana",
+          "championName": "Shyvana",
+          "winRate": 50,
+          "playCount": 92,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "masteryi",
+          "championName": "Master Yi",
+          "winRate": 49.53,
+          "playCount": 107,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "graves",
+          "championName": "Graves",
+          "winRate": 49.21,
+          "playCount": 189,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "diana",
+          "championName": "Diana",
+          "winRate": 48.84,
+          "playCount": 43,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "naafiri",
+          "championName": "Naafiri",
+          "winRate": 48.33,
+          "playCount": 60,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hecarim",
+          "championName": "Hecarim",
+          "winRate": 48.21,
+          "playCount": 112,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "evelynn",
+          "championName": "Evelynn",
+          "winRate": 48,
+          "playCount": 50,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "xinzhao",
+          "championName": "Xin Zhao",
+          "winRate": 47.92,
+          "playCount": 48,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kayn",
+          "championName": "Kayn",
+          "winRate": 47.86,
+          "playCount": 117,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nunu",
+          "championName": "Nunu & Willump",
+          "winRate": 47.06,
+          "playCount": 51,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "rengar",
+          "championName": "Rengar",
+          "winRate": 46.99,
+          "playCount": 83,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "talon",
+          "championName": "Talon",
+          "winRate": 45.12,
+          "playCount": 164,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "warwick",
+          "championName": "Warwick",
+          "winRate": 45.1,
+          "playCount": 51,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "udyr",
+          "championName": "Udyr",
+          "winRate": 43.48,
+          "playCount": 46,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nocturne",
+          "championName": "Nocturne",
+          "winRate": 42.22,
+          "playCount": 135,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "ambessa_jungle": {
+      "championSlug": "ambessa",
+      "lane": "JGL",
+      "counters": [
+        {
+          "championKey": "nidalee",
+          "championName": "Nidalee",
+          "winRate": 67.21,
+          "playCount": 61,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "ivern",
+          "championName": "Ivern",
+          "winRate": 65.62,
+          "playCount": 32,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "rammus",
+          "championName": "Rammus",
+          "winRate": 63.64,
+          "playCount": 33,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jarvaniv",
+          "championName": "Jarvan IV",
+          "winRate": 62.5,
+          "playCount": 136,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kindred",
+          "championName": "Kindred",
+          "winRate": 62.5,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "belveth",
+          "championName": "Bel'Veth",
+          "winRate": 61.54,
+          "playCount": 52,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "aatrox",
+          "championName": "Aatrox",
+          "winRate": 61.29,
+          "playCount": 31,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zyra",
+          "championName": "Zyra",
+          "winRate": 60,
+          "playCount": 35,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "shaco",
+          "championName": "Shaco",
+          "winRate": 58.44,
+          "playCount": 77,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "monkeyking",
+          "championName": "Wukong",
+          "winRate": 57.14,
+          "playCount": 112,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "reksai",
+          "championName": "Rek'Sai",
+          "winRate": 56.52,
+          "playCount": 46,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jayce",
+          "championName": "Jayce",
+          "winRate": 56.41,
+          "playCount": 39,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "fiddlesticks",
+          "championName": "Fiddlesticks",
+          "winRate": 56.25,
+          "playCount": 48,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lillia",
+          "championName": "Lillia",
+          "winRate": 55.36,
+          "playCount": 56,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zed",
+          "championName": "Zed",
+          "winRate": 55,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zac",
+          "championName": "Zac",
+          "winRate": 54.55,
+          "playCount": 66,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "briar",
+          "championName": "Briar",
+          "winRate": 54.35,
+          "playCount": 92,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "viego",
+          "championName": "Viego",
+          "winRate": 54.26,
+          "playCount": 188,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jax",
+          "championName": "Jax",
+          "winRate": 53.33,
+          "playCount": 30,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "vi",
+          "championName": "Vi",
+          "winRate": 53.19,
+          "playCount": 94,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "elise",
+          "championName": "Elise",
+          "winRate": 52.94,
+          "playCount": 34,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "skarner",
+          "championName": "Skarner",
+          "winRate": 52.94,
+          "playCount": 34,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "khazix",
+          "championName": "Kha'Zix",
+          "winRate": 52.78,
+          "playCount": 108,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "chogath",
+          "championName": "Cho'Gath",
+          "winRate": 52.38,
+          "playCount": 84,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "qiyana",
+          "championName": "Qiyana",
+          "winRate": 51.59,
+          "playCount": 126,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "sylas",
+          "championName": "Sylas",
+          "winRate": 51.39,
+          "playCount": 144,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sejuani",
+          "championName": "Sejuani",
+          "winRate": 51.35,
+          "playCount": 37,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ekko",
+          "championName": "Ekko",
+          "winRate": 51.3,
+          "playCount": 115,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "leesin",
+          "championName": "Lee Sin",
+          "winRate": 50,
+          "playCount": 268,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "shyvana",
+          "championName": "Shyvana",
+          "winRate": 50,
+          "playCount": 92,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "masteryi",
+          "championName": "Master Yi",
+          "winRate": 49.53,
+          "playCount": 107,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "graves",
+          "championName": "Graves",
+          "winRate": 49.21,
+          "playCount": 189,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "diana",
+          "championName": "Diana",
+          "winRate": 48.84,
+          "playCount": 43,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "naafiri",
+          "championName": "Naafiri",
+          "winRate": 48.33,
+          "playCount": 60,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hecarim",
+          "championName": "Hecarim",
+          "winRate": 48.21,
+          "playCount": 112,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "evelynn",
+          "championName": "Evelynn",
+          "winRate": 48,
+          "playCount": 50,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "xinzhao",
+          "championName": "Xin Zhao",
+          "winRate": 47.92,
+          "playCount": 48,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kayn",
+          "championName": "Kayn",
+          "winRate": 47.86,
+          "playCount": 117,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nunu",
+          "championName": "Nunu & Willump",
+          "winRate": 47.06,
+          "playCount": 51,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "rengar",
+          "championName": "Rengar",
+          "winRate": 46.99,
+          "playCount": 83,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "talon",
+          "championName": "Talon",
+          "winRate": 45.12,
+          "playCount": 164,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "warwick",
+          "championName": "Warwick",
+          "winRate": 45.1,
+          "playCount": 51,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "udyr",
+          "championName": "Udyr",
+          "winRate": 43.48,
+          "playCount": 46,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nocturne",
+          "championName": "Nocturne",
+          "winRate": 42.22,
+          "playCount": 135,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "zaahen_top": {
+      "championSlug": "zaahen",
+      "lane": "TOP",
+      "counters": [
+        {
+          "championKey": "teemo",
+          "championName": "Teemo",
+          "winRate": 58.68,
+          "playCount": 242,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "cassiopeia",
+          "championName": "Cassiopeia",
+          "winRate": 57.58,
+          "playCount": 33,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "garen",
+          "championName": "Garen",
+          "winRate": 56.74,
+          "playCount": 497,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "quinn",
+          "championName": "Quinn",
+          "winRate": 56.67,
+          "playCount": 30,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "singed",
+          "championName": "Singed",
+          "winRate": 55.95,
+          "playCount": 168,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "volibear",
+          "championName": "Volibear",
+          "winRate": 55.08,
+          "playCount": 236,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "swain",
+          "championName": "Swain",
+          "winRate": 55,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "jax",
+          "championName": "Jax",
+          "winRate": 54.98,
+          "playCount": 482,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "gragas",
+          "championName": "Gragas",
+          "winRate": 54.44,
+          "playCount": 169,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kennen",
+          "championName": "Kennen",
+          "winRate": 54.29,
+          "playCount": 105,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "drmundo",
+          "championName": "Dr. Mundo",
+          "winRate": 53.94,
+          "playCount": 165,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "camille",
+          "championName": "Camille",
+          "winRate": 53.42,
+          "playCount": 380,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "illaoi",
+          "championName": "Illaoi",
+          "winRate": 53.11,
+          "playCount": 177,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "irelia",
+          "championName": "Irelia",
+          "winRate": 52.75,
+          "playCount": 273,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "yasuo",
+          "championName": "Yasuo",
+          "winRate": 52.63,
+          "playCount": 228,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "gangplank",
+          "championName": "Gangplank",
+          "winRate": 52.34,
+          "playCount": 384,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "kayle",
+          "championName": "Kayle",
+          "winRate": 52.2,
+          "playCount": 159,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "ksante",
+          "championName": "K'Sante",
+          "winRate": 51.83,
+          "playCount": 301,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "gnar",
+          "championName": "Gnar",
+          "winRate": 51.49,
+          "playCount": 268,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "akali",
+          "championName": "Akali",
+          "winRate": 51.13,
+          "playCount": 133,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "heimerdinger",
+          "championName": "Heimerdinger",
+          "winRate": 51.06,
+          "playCount": 47,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "yone",
+          "championName": "Yone",
+          "winRate": 51.03,
+          "playCount": 580,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ambessa",
+          "championName": "Ambessa",
+          "winRate": 50.73,
+          "playCount": 341,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "chogath",
+          "championName": "Cho'Gath",
+          "winRate": 50.46,
+          "playCount": 216,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "renekton",
+          "championName": "Renekton",
+          "winRate": 50.38,
+          "playCount": 399,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kled",
+          "championName": "Kled",
+          "winRate": 50.31,
+          "playCount": 161,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "yorick",
+          "championName": "Yorick",
+          "winRate": 50,
+          "playCount": 192,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "darius",
+          "championName": "Darius",
+          "winRate": 49.82,
+          "playCount": 552,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nasus",
+          "championName": "Nasus",
+          "winRate": 49.64,
+          "playCount": 415,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "trundle",
+          "championName": "Trundle",
+          "winRate": 49.59,
+          "playCount": 123,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "gwen",
+          "championName": "Gwen",
+          "winRate": 49.55,
+          "playCount": 224,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "malphite",
+          "championName": "Malphite",
+          "winRate": 49.37,
+          "playCount": 316,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vladimir",
+          "championName": "Vladimir",
+          "winRate": 49.23,
+          "playCount": 65,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "urgot",
+          "championName": "Urgot",
+          "winRate": 49.18,
+          "playCount": 183,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "fiora",
+          "championName": "Fiora",
+          "winRate": 49.04,
+          "playCount": 261,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "varus",
+          "championName": "Varus",
+          "winRate": 48.94,
+          "playCount": 47,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "pantheon",
+          "championName": "Pantheon",
+          "winRate": 48.69,
+          "playCount": 191,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "tahmkench",
+          "championName": "Tahm Kench",
+          "winRate": 48.44,
+          "playCount": 128,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "mordekaiser",
+          "championName": "Mordekaiser",
+          "winRate": 48.08,
+          "playCount": 287,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ornn",
+          "championName": "Ornn",
+          "winRate": 48.04,
+          "playCount": 281,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "tryndamere",
+          "championName": "Tryndamere",
+          "winRate": 47.66,
+          "playCount": 214,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sett",
+          "championName": "Sett",
+          "winRate": 47.04,
+          "playCount": 372,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "shen",
+          "championName": "Shen",
+          "winRate": 47.01,
+          "playCount": 234,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aatrox",
+          "championName": "Aatrox",
+          "winRate": 46.83,
+          "playCount": 521,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "rumble",
+          "championName": "Rumble",
+          "winRate": 46.6,
+          "playCount": 103,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "olaf",
+          "championName": "Olaf",
+          "winRate": 45.93,
+          "playCount": 209,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "warwick",
+          "championName": "Warwick",
+          "winRate": 45.45,
+          "playCount": 110,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "zac",
+          "championName": "Zac",
+          "winRate": 45,
+          "playCount": 40,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vayne",
+          "championName": "Vayne",
+          "winRate": 44.95,
+          "playCount": 109,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jayce",
+          "championName": "Jayce",
+          "winRate": 44.48,
+          "playCount": 344,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "riven",
+          "championName": "Riven",
+          "winRate": 43.03,
+          "playCount": 165,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "monkeyking",
+          "championName": "Wukong",
+          "winRate": 41.49,
+          "playCount": 94,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sion",
+          "championName": "Sion",
+          "winRate": 41.46,
+          "playCount": 205,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ryze",
+          "championName": "Ryze",
+          "winRate": 40,
+          "playCount": 35,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "poppy",
+          "championName": "Poppy",
+          "winRate": 39.68,
+          "playCount": 63,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "udyr",
+          "championName": "Udyr",
+          "winRate": 39.29,
+          "playCount": 56,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "anivia",
+          "championName": "Anivia",
+          "winRate": 37.5,
+          "playCount": 40,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "masteryi",
+          "championName": "Master Yi",
+          "winRate": 33.33,
+          "playCount": 30,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "zaahen_jgl": {
+      "championSlug": "zaahen",
+      "lane": "JGL",
+      "counters": [
+        {
+          "championKey": "chogath",
+          "championName": "Cho'Gath",
+          "winRate": 58.82,
+          "playCount": 51,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "qiyana",
+          "championName": "Qiyana",
+          "winRate": 57.89,
+          "playCount": 57,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kayn",
+          "championName": "Kayn",
+          "winRate": 55.41,
+          "playCount": 74,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "shyvana",
+          "championName": "Shyvana",
+          "winRate": 55,
+          "playCount": 60,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "khazix",
+          "championName": "Kha'Zix",
+          "winRate": 55,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "talon",
+          "championName": "Talon",
+          "winRate": 54.39,
+          "playCount": 57,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "vi",
+          "championName": "Vi",
+          "winRate": 53.33,
+          "playCount": 60,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "diana",
+          "championName": "Diana",
+          "winRate": 52.78,
+          "playCount": 36,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "belveth",
+          "championName": "Bel'Veth",
+          "winRate": 51.52,
+          "playCount": 33,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "graves",
+          "championName": "Graves",
+          "winRate": 51.28,
+          "playCount": 78,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "zac",
+          "championName": "Zac",
+          "winRate": 51.22,
+          "playCount": 41,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sylas",
+          "championName": "Sylas",
+          "winRate": 50.62,
+          "playCount": 81,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "briar",
+          "championName": "Briar",
+          "winRate": 50,
+          "playCount": 48,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "leesin",
+          "championName": "Lee Sin",
+          "winRate": 49.62,
+          "playCount": 133,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nocturne",
+          "championName": "Nocturne",
+          "winRate": 48.33,
+          "playCount": 60,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "shaco",
+          "championName": "Shaco",
+          "winRate": 47.62,
+          "playCount": 42,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "viego",
+          "championName": "Viego",
+          "winRate": 47.58,
+          "playCount": 124,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "masteryi",
+          "championName": "Master Yi",
+          "winRate": 47.37,
+          "playCount": 57,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "rengar",
+          "championName": "Rengar",
+          "winRate": 46.67,
+          "playCount": 45,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hecarim",
+          "championName": "Hecarim",
+          "winRate": 46.43,
+          "playCount": 56,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "monkeyking",
+          "championName": "Wukong",
+          "winRate": 45.61,
+          "playCount": 57,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jarvaniv",
+          "championName": "Jarvan IV",
+          "winRate": 45,
+          "playCount": 60,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ekko",
+          "championName": "Ekko",
+          "winRate": 44.44,
+          "playCount": 54,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "evelynn",
+          "championName": "Evelynn",
+          "winRate": 42.42,
+          "playCount": 33,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "zaahen_jungle": {
+      "championSlug": "zaahen",
+      "lane": "JGL",
+      "counters": [
+        {
+          "championKey": "chogath",
+          "championName": "Cho'Gath",
+          "winRate": 58.82,
+          "playCount": 51,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "qiyana",
+          "championName": "Qiyana",
+          "winRate": 57.89,
+          "playCount": 57,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kayn",
+          "championName": "Kayn",
+          "winRate": 55.41,
+          "playCount": 74,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "shyvana",
+          "championName": "Shyvana",
+          "winRate": 55,
+          "playCount": 60,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "khazix",
+          "championName": "Kha'Zix",
+          "winRate": 55,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "talon",
+          "championName": "Talon",
+          "winRate": 54.39,
+          "playCount": 57,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "vi",
+          "championName": "Vi",
+          "winRate": 53.33,
+          "playCount": 60,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "diana",
+          "championName": "Diana",
+          "winRate": 52.78,
+          "playCount": 36,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "belveth",
+          "championName": "Bel'Veth",
+          "winRate": 51.52,
+          "playCount": 33,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "graves",
+          "championName": "Graves",
+          "winRate": 51.28,
+          "playCount": 78,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "zac",
+          "championName": "Zac",
+          "winRate": 51.22,
+          "playCount": 41,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sylas",
+          "championName": "Sylas",
+          "winRate": 50.62,
+          "playCount": 81,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "briar",
+          "championName": "Briar",
+          "winRate": 50,
+          "playCount": 48,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "leesin",
+          "championName": "Lee Sin",
+          "winRate": 49.62,
+          "playCount": 133,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nocturne",
+          "championName": "Nocturne",
+          "winRate": 48.33,
+          "playCount": 60,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "shaco",
+          "championName": "Shaco",
+          "winRate": 47.62,
+          "playCount": 42,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "viego",
+          "championName": "Viego",
+          "winRate": 47.58,
+          "playCount": 124,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "masteryi",
+          "championName": "Master Yi",
+          "winRate": 47.37,
+          "playCount": 57,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "rengar",
+          "championName": "Rengar",
+          "winRate": 46.67,
+          "playCount": 45,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hecarim",
+          "championName": "Hecarim",
+          "winRate": 46.43,
+          "playCount": 56,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "monkeyking",
+          "championName": "Wukong",
+          "winRate": 45.61,
+          "playCount": 57,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jarvaniv",
+          "championName": "Jarvan IV",
+          "winRate": 45,
+          "playCount": 60,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ekko",
+          "championName": "Ekko",
+          "winRate": 44.44,
+          "playCount": 54,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "evelynn",
+          "championName": "Evelynn",
+          "winRate": 42.42,
+          "playCount": 33,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "locke_mid": {
+      "championSlug": "locke",
+      "lane": "MID",
+      "counters": [
+        {
+          "championKey": "ziggs",
+          "championName": "Ziggs",
+          "winRate": 64,
+          "playCount": 75,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "naafiri",
+          "championName": "Naafiri",
+          "winRate": 59.17,
+          "playCount": 120,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "sion",
+          "championName": "Sion",
+          "winRate": 58,
+          "playCount": 50,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kayle",
+          "championName": "Kayle",
+          "winRate": 57.83,
+          "playCount": 83,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "pantheon",
+          "championName": "Pantheon",
+          "winRate": 57.36,
+          "playCount": 129,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "aurelionsol",
+          "championName": "Aurelion Sol",
+          "winRate": 54.94,
+          "playCount": 233,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "garen",
+          "championName": "Garen",
+          "winRate": 54.9,
+          "playCount": 102,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "katarina",
+          "championName": "Katarina",
+          "winRate": 54.89,
+          "playCount": 951,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "gwen",
+          "championName": "Gwen",
+          "winRate": 54.46,
+          "playCount": 101,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "qiyana",
+          "championName": "Qiyana",
+          "winRate": 54.35,
+          "playCount": 460,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "akali",
+          "championName": "Akali",
+          "winRate": 54.24,
+          "playCount": 1178,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "ekko",
+          "championName": "Ekko",
+          "winRate": 54.19,
+          "playCount": 596,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "ahri",
+          "championName": "Ahri",
+          "winRate": 53.9,
+          "playCount": 1282,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "malphite",
+          "championName": "Malphite",
+          "winRate": 53.12,
+          "playCount": 64,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "kassadin",
+          "championName": "Kassadin",
+          "winRate": 52.67,
+          "playCount": 600,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "lissandra",
+          "championName": "Lissandra",
+          "winRate": 52.27,
+          "playCount": 771,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "nasus",
+          "championName": "Nasus",
+          "winRate": 52.23,
+          "playCount": 291,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "twistedfate",
+          "championName": "Twisted Fate",
+          "winRate": 52.14,
+          "playCount": 723,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "velkoz",
+          "championName": "Vel'Koz",
+          "winRate": 52.1,
+          "playCount": 119,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "vex",
+          "championName": "Vex",
+          "winRate": 52.07,
+          "playCount": 459,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "galio",
+          "championName": "Galio",
+          "winRate": 52.01,
+          "playCount": 944,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "leblanc",
+          "championName": "LeBlanc",
+          "winRate": 52,
+          "playCount": 800,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "akshan",
+          "championName": "Akshan",
+          "winRate": 51.98,
+          "playCount": 329,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "swain",
+          "championName": "Swain",
+          "winRate": 51.81,
+          "playCount": 83,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "talon",
+          "championName": "Talon",
+          "winRate": 51.75,
+          "playCount": 257,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "zed",
+          "championName": "Zed",
+          "winRate": 51.62,
+          "playCount": 1234,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "yasuo",
+          "championName": "Yasuo",
+          "winRate": 51.48,
+          "playCount": 1152,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "diana",
+          "championName": "Diana",
+          "winRate": 51.34,
+          "playCount": 524,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "fizz",
+          "championName": "Fizz",
+          "winRate": 51.33,
+          "playCount": 602,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vladimir",
+          "championName": "Vladimir",
+          "winRate": 51.27,
+          "playCount": 552,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sylas",
+          "championName": "Sylas",
+          "winRate": 50.8,
+          "playCount": 996,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "gragas",
+          "championName": "Gragas",
+          "winRate": 50.59,
+          "playCount": 85,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "yone",
+          "championName": "Yone",
+          "winRate": 50.55,
+          "playCount": 991,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "annie",
+          "championName": "Annie",
+          "winRate": 50.4,
+          "playCount": 248,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "veigar",
+          "championName": "Veigar",
+          "winRate": 50,
+          "playCount": 428,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aurora",
+          "championName": "Aurora",
+          "winRate": 49.67,
+          "playCount": 304,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hwei",
+          "championName": "Hwei",
+          "winRate": 49.31,
+          "playCount": 509,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jayce",
+          "championName": "Jayce",
+          "winRate": 49.18,
+          "playCount": 122,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "tristana",
+          "championName": "Tristana",
+          "winRate": 48.98,
+          "playCount": 147,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "mel",
+          "championName": "Mel",
+          "winRate": 48.79,
+          "playCount": 207,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "cassiopeia",
+          "championName": "Cassiopeia",
+          "winRate": 48.67,
+          "playCount": 226,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "lux",
+          "championName": "Lux",
+          "winRate": 48.58,
+          "playCount": 494,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "zoe",
+          "championName": "Zoe",
+          "winRate": 48.56,
+          "playCount": 383,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ryze",
+          "championName": "Ryze",
+          "winRate": 47.66,
+          "playCount": 470,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "irelia",
+          "championName": "Irelia",
+          "winRate": 47.25,
+          "playCount": 345,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "malzahar",
+          "championName": "Malzahar",
+          "winRate": 46.91,
+          "playCount": 599,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "anivia",
+          "championName": "Anivia",
+          "winRate": 46.36,
+          "playCount": 302,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "azir",
+          "championName": "Azir",
+          "winRate": 46.15,
+          "playCount": 260,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "viktor",
+          "championName": "Viktor",
+          "winRate": 45.75,
+          "playCount": 1375,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "syndra",
+          "championName": "Syndra",
+          "winRate": 44.89,
+          "playCount": 1105,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "gangplank",
+          "championName": "Gangplank",
+          "winRate": 44.83,
+          "playCount": 58,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "xerath",
+          "championName": "Xerath",
+          "winRate": 43.41,
+          "playCount": 516,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "taliyah",
+          "championName": "Taliyah",
+          "winRate": 43.39,
+          "playCount": 189,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "brand",
+          "championName": "Brand",
+          "winRate": 42.42,
+          "playCount": 66,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "orianna",
+          "championName": "Orianna",
+          "winRate": 41.51,
+          "playCount": 542,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "smolder",
+          "championName": "Smolder",
+          "winRate": 31.71,
+          "playCount": 41,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "mel_mid": {
+      "championSlug": "mel",
+      "lane": "MID",
+      "counters": [
+        {
+          "championKey": "velkoz",
+          "championName": "Vel'Koz",
+          "winRate": 80,
+          "playCount": 30,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "tristana",
+          "championName": "Tristana",
+          "winRate": 65,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "pantheon",
+          "championName": "Pantheon",
+          "winRate": 63.33,
+          "playCount": 30,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "aurelionsol",
+          "championName": "Aurelion Sol",
+          "winRate": 62.3,
+          "playCount": 61,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "diana",
+          "championName": "Diana",
+          "winRate": 61.46,
+          "playCount": 96,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "aurora",
+          "championName": "Aurora",
+          "winRate": 61.25,
+          "playCount": 80,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "veigar",
+          "championName": "Veigar",
+          "winRate": 61.01,
+          "playCount": 159,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "taliyah",
+          "championName": "Taliyah",
+          "winRate": 60.38,
+          "playCount": 53,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "zed",
+          "championName": "Zed",
+          "winRate": 60.08,
+          "playCount": 258,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "xerath",
+          "championName": "Xerath",
+          "winRate": 59.76,
+          "playCount": 246,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "galio",
+          "championName": "Galio",
+          "winRate": 59.65,
+          "playCount": 114,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "viktor",
+          "championName": "Viktor",
+          "winRate": 59.37,
+          "playCount": 347,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "yasuo",
+          "championName": "Yasuo",
+          "winRate": 59.18,
+          "playCount": 294,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "cassiopeia",
+          "championName": "Cassiopeia",
+          "winRate": 59.15,
+          "playCount": 71,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "syndra",
+          "championName": "Syndra",
+          "winRate": 59.07,
+          "playCount": 386,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "anivia",
+          "championName": "Anivia",
+          "winRate": 57.75,
+          "playCount": 71,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "qiyana",
+          "championName": "Qiyana",
+          "winRate": 57.65,
+          "playCount": 85,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "azir",
+          "championName": "Azir",
+          "winRate": 56.72,
+          "playCount": 67,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "sylas",
+          "championName": "Sylas",
+          "winRate": 56.22,
+          "playCount": 185,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "annie",
+          "championName": "Annie",
+          "winRate": 56.16,
+          "playCount": 73,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "vladimir",
+          "championName": "Vladimir",
+          "winRate": 56.08,
+          "playCount": 148,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "twistedfate",
+          "championName": "Twisted Fate",
+          "winRate": 55.92,
+          "playCount": 304,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "fizz",
+          "championName": "Fizz",
+          "winRate": 55.39,
+          "playCount": 204,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lissandra",
+          "championName": "Lissandra",
+          "winRate": 55.19,
+          "playCount": 212,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "nasus",
+          "championName": "Nasus",
+          "winRate": 54.74,
+          "playCount": 95,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "yone",
+          "championName": "Yone",
+          "winRate": 54.51,
+          "playCount": 255,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "akali",
+          "championName": "Akali",
+          "winRate": 54.42,
+          "playCount": 147,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "orianna",
+          "championName": "Orianna",
+          "winRate": 54.26,
+          "playCount": 129,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lux",
+          "championName": "Lux",
+          "winRate": 54.17,
+          "playCount": 264,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "kassadin",
+          "championName": "Kassadin",
+          "winRate": 53.91,
+          "playCount": 115,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "leblanc",
+          "championName": "LeBlanc",
+          "winRate": 53.4,
+          "playCount": 191,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "zoe",
+          "championName": "Zoe",
+          "winRate": 53.31,
+          "playCount": 242,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "ekko",
+          "championName": "Ekko",
+          "winRate": 53.12,
+          "playCount": 128,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "malzahar",
+          "championName": "Malzahar",
+          "winRate": 52.54,
+          "playCount": 177,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "katarina",
+          "championName": "Katarina",
+          "winRate": 51.67,
+          "playCount": 209,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "akshan",
+          "championName": "Akshan",
+          "winRate": 51.58,
+          "playCount": 95,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "ahri",
+          "championName": "Ahri",
+          "winRate": 51.44,
+          "playCount": 729,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "locke",
+          "championName": "Locke",
+          "winRate": 51.21,
+          "playCount": 207,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "irelia",
+          "championName": "Irelia",
+          "winRate": 51.19,
+          "playCount": 84,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vex",
+          "championName": "Vex",
+          "winRate": 50.85,
+          "playCount": 177,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hwei",
+          "championName": "Hwei",
+          "winRate": 49.32,
+          "playCount": 219,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ryze",
+          "championName": "Ryze",
+          "winRate": 45.68,
+          "playCount": 81,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "talon",
+          "championName": "Talon",
+          "winRate": 40,
+          "playCount": 30,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "mel_sup": {
+      "championSlug": "mel",
+      "lane": "SUP",
+      "counters": [
+        {
+          "championKey": "alistar",
+          "championName": "Alistar",
+          "winRate": 79.49,
+          "playCount": 39,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "rakan",
+          "championName": "Rakan",
+          "winRate": 74.19,
+          "playCount": 31,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "yuumi",
+          "championName": "Yuumi",
+          "winRate": 67.5,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "braum",
+          "championName": "Braum",
+          "winRate": 65.91,
+          "playCount": 44,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "senna",
+          "championName": "Senna",
+          "winRate": 65.85,
+          "playCount": 41,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "soraka",
+          "championName": "Soraka",
+          "winRate": 63.79,
+          "playCount": 58,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "nami",
+          "championName": "Nami",
+          "winRate": 63.33,
+          "playCount": 120,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "morgana",
+          "championName": "Morgana",
+          "winRate": 62.69,
+          "playCount": 67,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "thresh",
+          "championName": "Thresh",
+          "winRate": 61.9,
+          "playCount": 252,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "seraphine",
+          "championName": "Seraphine",
+          "winRate": 61.34,
+          "playCount": 238,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "blitzcrank",
+          "championName": "Blitzcrank",
+          "winRate": 60.57,
+          "playCount": 175,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lux",
+          "championName": "Lux",
+          "winRate": 60.27,
+          "playCount": 146,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "leona",
+          "championName": "Leona",
+          "winRate": 59.21,
+          "playCount": 76,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "pantheon",
+          "championName": "Pantheon",
+          "winRate": 58.7,
+          "playCount": 46,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lulu",
+          "championName": "Lulu",
+          "winRate": 58.56,
+          "playCount": 111,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "xerath",
+          "championName": "Xerath",
+          "winRate": 58,
+          "playCount": 50,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "velkoz",
+          "championName": "Vel'Koz",
+          "winRate": 57.14,
+          "playCount": 35,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "bard",
+          "championName": "Bard",
+          "winRate": 56.52,
+          "playCount": 46,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "pyke",
+          "championName": "Pyke",
+          "winRate": 55.26,
+          "playCount": 114,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "milio",
+          "championName": "Milio",
+          "winRate": 52.54,
+          "playCount": 59,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "janna",
+          "championName": "Janna",
+          "winRate": 52.38,
+          "playCount": 42,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "nautilus",
+          "championName": "Nautilus",
+          "winRate": 52.22,
+          "playCount": 90,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "karma",
+          "championName": "Karma",
+          "winRate": 48.05,
+          "playCount": 77,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "renata",
+          "championName": "Renata Glasc",
+          "winRate": 41.94,
+          "playCount": 31,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "mel_support": {
+      "championSlug": "mel",
+      "lane": "SUP",
+      "counters": [
+        {
+          "championKey": "alistar",
+          "championName": "Alistar",
+          "winRate": 79.49,
+          "playCount": 39,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "rakan",
+          "championName": "Rakan",
+          "winRate": 74.19,
+          "playCount": 31,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "yuumi",
+          "championName": "Yuumi",
+          "winRate": 67.5,
+          "playCount": 40,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "braum",
+          "championName": "Braum",
+          "winRate": 65.91,
+          "playCount": 44,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "senna",
+          "championName": "Senna",
+          "winRate": 65.85,
+          "playCount": 41,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "soraka",
+          "championName": "Soraka",
+          "winRate": 63.79,
+          "playCount": 58,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "nami",
+          "championName": "Nami",
+          "winRate": 63.33,
+          "playCount": 120,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "morgana",
+          "championName": "Morgana",
+          "winRate": 62.69,
+          "playCount": 67,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "thresh",
+          "championName": "Thresh",
+          "winRate": 61.9,
+          "playCount": 252,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "seraphine",
+          "championName": "Seraphine",
+          "winRate": 61.34,
+          "playCount": 238,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "blitzcrank",
+          "championName": "Blitzcrank",
+          "winRate": 60.57,
+          "playCount": 175,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lux",
+          "championName": "Lux",
+          "winRate": 60.27,
+          "playCount": 146,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "leona",
+          "championName": "Leona",
+          "winRate": 59.21,
+          "playCount": 76,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "pantheon",
+          "championName": "Pantheon",
+          "winRate": 58.7,
+          "playCount": 46,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "lulu",
+          "championName": "Lulu",
+          "winRate": 58.56,
+          "playCount": 111,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "xerath",
+          "championName": "Xerath",
+          "winRate": 58,
+          "playCount": 50,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "velkoz",
+          "championName": "Vel'Koz",
+          "winRate": 57.14,
+          "playCount": 35,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "bard",
+          "championName": "Bard",
+          "winRate": 56.52,
+          "playCount": 46,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "pyke",
+          "championName": "Pyke",
+          "winRate": 55.26,
+          "playCount": 114,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "milio",
+          "championName": "Milio",
+          "winRate": 52.54,
+          "playCount": 59,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "janna",
+          "championName": "Janna",
+          "winRate": 52.38,
+          "playCount": 42,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "nautilus",
+          "championName": "Nautilus",
+          "winRate": 52.22,
+          "playCount": 90,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "karma",
+          "championName": "Karma",
+          "winRate": 48.05,
+          "playCount": 77,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "renata",
+          "championName": "Renata Glasc",
+          "winRate": 41.94,
+          "playCount": 31,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "yunara_adc": {
+      "championSlug": "yunara",
+      "lane": "ADC",
+      "counters": [
+        {
+          "championKey": "seraphine",
+          "championName": "Seraphine",
+          "winRate": 56.67,
+          "playCount": 300,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "twitch",
+          "championName": "Twitch",
+          "winRate": 56.33,
+          "playCount": 1399,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "viktor",
+          "championName": "Viktor",
+          "winRate": 52.87,
+          "playCount": 696,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "jinx",
+          "championName": "Jinx",
+          "winRate": 52.76,
+          "playCount": 5451,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "ziggs",
+          "championName": "Ziggs",
+          "winRate": 51.99,
+          "playCount": 377,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "syndra",
+          "championName": "Syndra",
+          "winRate": 51.95,
+          "playCount": 435,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "karthus",
+          "championName": "Karthus",
+          "winRate": 51.81,
+          "playCount": 166,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "veigar",
+          "championName": "Veigar",
+          "winRate": 51.79,
+          "playCount": 392,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "zeri",
+          "championName": "Zeri",
+          "winRate": 51.68,
+          "playCount": 1728,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "xerath",
+          "championName": "Xerath",
+          "winRate": 51.62,
+          "playCount": 277,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "tristana",
+          "championName": "Tristana",
+          "winRate": 51.27,
+          "playCount": 2795,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kogmaw",
+          "championName": "Kog'Maw",
+          "winRate": 50.96,
+          "playCount": 471,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "draven",
+          "championName": "Draven",
+          "winRate": 50.6,
+          "playCount": 828,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jhin",
+          "championName": "Jhin",
+          "winRate": 50.57,
+          "playCount": 4722,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "caitlyn",
+          "championName": "Caitlyn",
+          "winRate": 50.45,
+          "playCount": 3639,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ashe",
+          "championName": "Ashe",
+          "winRate": 50.35,
+          "playCount": 1720,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "yasuo",
+          "championName": "Yasuo",
+          "winRate": 50,
+          "playCount": 504,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "lux",
+          "championName": "Lux",
+          "winRate": 50,
+          "playCount": 202,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "varus",
+          "championName": "Varus",
+          "winRate": 49.71,
+          "playCount": 857,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hwei",
+          "championName": "Hwei",
+          "winRate": 49.6,
+          "playCount": 248,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "mel",
+          "championName": "Mel",
+          "winRate": 49.46,
+          "playCount": 279,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "smolder",
+          "championName": "Smolder",
+          "winRate": 49.44,
+          "playCount": 718,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nilah",
+          "championName": "Nilah",
+          "winRate": 49.36,
+          "playCount": 235,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "brand",
+          "championName": "Brand",
+          "winRate": 49.22,
+          "playCount": 128,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "samira",
+          "championName": "Samira",
+          "winRate": 49.17,
+          "playCount": 903,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "missfortune",
+          "championName": "Miss Fortune",
+          "winRate": 49.15,
+          "playCount": 1288,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "xayah",
+          "championName": "Xayah",
+          "winRate": 49.07,
+          "playCount": 1286,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sivir",
+          "championName": "Sivir",
+          "winRate": 48.9,
+          "playCount": 1088,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "lucian",
+          "championName": "Lucian",
+          "winRate": 48.56,
+          "playCount": 2642,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "velkoz",
+          "championName": "Vel'Koz",
+          "winRate": 48.2,
+          "playCount": 139,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aphelios",
+          "championName": "Aphelios",
+          "winRate": 47.74,
+          "playCount": 1573,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kaisa",
+          "championName": "Kai'Sa",
+          "winRate": 47.07,
+          "playCount": 6552,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "katarina",
+          "championName": "Katarina",
+          "winRate": 46.77,
+          "playCount": 186,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vayne",
+          "championName": "Vayne",
+          "winRate": 46.13,
+          "playCount": 659,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ezreal",
+          "championName": "Ezreal",
+          "winRate": 45.8,
+          "playCount": 2928,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "corki",
+          "championName": "Corki",
+          "winRate": 45.11,
+          "playCount": 501,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vladimir",
+          "championName": "Vladimir",
+          "winRate": 44.87,
+          "playCount": 156,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aurelionsol",
+          "championName": "Aurelion Sol",
+          "winRate": 44.86,
+          "playCount": 185,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kalista",
+          "championName": "Kalista",
+          "winRate": 44.5,
+          "playCount": 1009,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "swain",
+          "championName": "Swain",
+          "winRate": 43.46,
+          "playCount": 237,
+          "tier": "SKILL_MATCHUP"
+        }
+      ]
+    },
+    "yunara_bot": {
+      "championSlug": "yunara",
+      "lane": "ADC",
+      "counters": [
+        {
+          "championKey": "seraphine",
+          "championName": "Seraphine",
+          "winRate": 56.67,
+          "playCount": 300,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "twitch",
+          "championName": "Twitch",
+          "winRate": 56.33,
+          "playCount": 1399,
+          "tier": "HARD_COUNTER"
+        },
+        {
+          "championKey": "viktor",
+          "championName": "Viktor",
+          "winRate": 52.87,
+          "playCount": 696,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "jinx",
+          "championName": "Jinx",
+          "winRate": 52.76,
+          "playCount": 5451,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "ziggs",
+          "championName": "Ziggs",
+          "winRate": 51.99,
+          "playCount": 377,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "syndra",
+          "championName": "Syndra",
+          "winRate": 51.95,
+          "playCount": 435,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "karthus",
+          "championName": "Karthus",
+          "winRate": 51.81,
+          "playCount": 166,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "veigar",
+          "championName": "Veigar",
+          "winRate": 51.79,
+          "playCount": 392,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "zeri",
+          "championName": "Zeri",
+          "winRate": 51.68,
+          "playCount": 1728,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "xerath",
+          "championName": "Xerath",
+          "winRate": 51.62,
+          "playCount": 277,
+          "tier": "STRONG_COUNTER"
+        },
+        {
+          "championKey": "tristana",
+          "championName": "Tristana",
+          "winRate": 51.27,
+          "playCount": 2795,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kogmaw",
+          "championName": "Kog'Maw",
+          "winRate": 50.96,
+          "playCount": 471,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "draven",
+          "championName": "Draven",
+          "winRate": 50.6,
+          "playCount": 828,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "jhin",
+          "championName": "Jhin",
+          "winRate": 50.57,
+          "playCount": 4722,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "caitlyn",
+          "championName": "Caitlyn",
+          "winRate": 50.45,
+          "playCount": 3639,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ashe",
+          "championName": "Ashe",
+          "winRate": 50.35,
+          "playCount": 1720,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "yasuo",
+          "championName": "Yasuo",
+          "winRate": 50,
+          "playCount": 504,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "lux",
+          "championName": "Lux",
+          "winRate": 50,
+          "playCount": 202,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "varus",
+          "championName": "Varus",
+          "winRate": 49.71,
+          "playCount": 857,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "hwei",
+          "championName": "Hwei",
+          "winRate": 49.6,
+          "playCount": 248,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "mel",
+          "championName": "Mel",
+          "winRate": 49.46,
+          "playCount": 279,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "smolder",
+          "championName": "Smolder",
+          "winRate": 49.44,
+          "playCount": 718,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "nilah",
+          "championName": "Nilah",
+          "winRate": 49.36,
+          "playCount": 235,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "brand",
+          "championName": "Brand",
+          "winRate": 49.22,
+          "playCount": 128,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "samira",
+          "championName": "Samira",
+          "winRate": 49.17,
+          "playCount": 903,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "missfortune",
+          "championName": "Miss Fortune",
+          "winRate": 49.15,
+          "playCount": 1288,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "xayah",
+          "championName": "Xayah",
+          "winRate": 49.07,
+          "playCount": 1286,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "sivir",
+          "championName": "Sivir",
+          "winRate": 48.9,
+          "playCount": 1088,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "lucian",
+          "championName": "Lucian",
+          "winRate": 48.56,
+          "playCount": 2642,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "velkoz",
+          "championName": "Vel'Koz",
+          "winRate": 48.2,
+          "playCount": 139,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aphelios",
+          "championName": "Aphelios",
+          "winRate": 47.74,
+          "playCount": 1573,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kaisa",
+          "championName": "Kai'Sa",
+          "winRate": 47.07,
+          "playCount": 6552,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "katarina",
+          "championName": "Katarina",
+          "winRate": 46.77,
+          "playCount": 186,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vayne",
+          "championName": "Vayne",
+          "winRate": 46.13,
+          "playCount": 659,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "ezreal",
+          "championName": "Ezreal",
+          "winRate": 45.8,
+          "playCount": 2928,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "corki",
+          "championName": "Corki",
+          "winRate": 45.11,
+          "playCount": 501,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "vladimir",
+          "championName": "Vladimir",
+          "winRate": 44.87,
+          "playCount": 156,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "aurelionsol",
+          "championName": "Aurelion Sol",
+          "winRate": 44.86,
+          "playCount": 185,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "kalista",
+          "championName": "Kalista",
+          "winRate": 44.5,
+          "playCount": 1009,
+          "tier": "SKILL_MATCHUP"
+        },
+        {
+          "championKey": "swain",
+          "championName": "Swain",
+          "winRate": 43.46,
+          "playCount": 237,
           "tier": "SKILL_MATCHUP"
         }
       ]

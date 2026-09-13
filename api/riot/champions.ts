@@ -1,5 +1,4 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getMetaLanes } from '../../src/data/championRoles.ts';
 
 // In-memory cache for Riot Data Dragon official champions
 interface RiotCache {
@@ -11,58 +10,209 @@ interface RiotCache {
 let riotCache: RiotCache | null = null;
 const CACHE_TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
 
-// Helper to map Riot champion tags to LoL lanes
-function mapRiotTagsToLanes(tags: string[], id: string): string[] {
-  const overrides: Record<string, string[]> = {
-    Aatrox: ['TOP'],
-    Ahri: ['MID'],
-    Akali: ['MID', 'TOP'],
-    Darius: ['TOP'],
-    Garen: ['TOP'],
-    LeeSin: ['JGL'],
-    Yasuo: ['MID', 'TOP', 'ADC'],
-    Yone: ['MID', 'TOP'],
-    Zed: ['MID'],
-    Lux: ['MID', 'SUP'],
-    Morgana: ['SUP', 'MID'],
-    Thresh: ['SUP'],
-    Blitzcrank: ['SUP'],
-    Jinx: ['ADC'],
-    Kaisa: ['ADC'],
-    Vayne: ['ADC', 'TOP'],
-    Caitlyn: ['ADC'],
-    Teemo: ['TOP'],
-    Malphite: ['TOP', 'MID', 'SUP'],
-    Gragas: ['TOP', 'JGL', 'MID', 'SUP'],
-    Poppy: ['TOP', 'JGL', 'SUP'],
-    Rammus: ['JGL', 'TOP'],
-  };
+// Accurate ranked meta roles dictionary (self-contained for reliable serverless execution)
+const CHAMPION_META_ROLES: Record<string, string[]> = {
+  // TOP
+  Aatrox: ['TOP'],
+  Ambessa: ['TOP', 'JGL'],
+  Camille: ['TOP'],
+  Chogath: ['TOP', 'MID'],
+  Darius: ['TOP'],
+  DrMundo: ['TOP'],
+  Fiora: ['TOP'],
+  Gangplank: ['TOP', 'MID'],
+  Garen: ['TOP'],
+  Gnar: ['TOP'],
+  Gwen: ['TOP', 'JGL'],
+  Illaoi: ['TOP'],
+  Jax: ['TOP', 'JGL'],
+  Jayce: ['TOP', 'MID'],
+  Kayle: ['TOP', 'MID'],
+  Kennen: ['TOP'],
+  Kled: ['TOP', 'MID'],
+  KSante: ['TOP'],
+  Malphite: ['TOP', 'MID', 'SUP'],
+  Mordekaiser: ['TOP', 'JGL'],
+  Nasus: ['TOP'],
+  Olaf: ['TOP', 'JGL'],
+  Ornn: ['TOP'],
+  Quinn: ['TOP', 'ADC'],
+  Renekton: ['TOP'],
+  Riven: ['TOP'],
+  Rumble: ['TOP', 'MID'],
+  Sett: ['TOP', 'MID'],
+  Shen: ['TOP', 'SUP'],
+  Singed: ['TOP', 'MID'],
+  Sion: ['TOP', 'MID'],
+  TahmKench: ['TOP', 'SUP'],
+  Teemo: ['TOP'],
+  Trundle: ['TOP', 'JGL'],
+  Tryndamere: ['TOP', 'MID'],
+  Urgot: ['TOP'],
+  Volibear: ['TOP', 'JGL'],
+  Yorick: ['TOP'],
+  Zaahen: ['TOP', 'JGL'],
 
-  if (overrides[id]) {
-    return overrides[id];
-  }
+  // JUNGLE
+  Amumu: ['JGL', 'SUP'],
+  Belveth: ['JGL'],
+  Briar: ['JGL'],
+  Diana: ['JGL', 'MID'],
+  Ekko: ['JGL', 'MID'],
+  Elise: ['JGL'],
+  Evelynn: ['JGL'],
+  Fiddlesticks: ['JGL'],
+  Gragas: ['TOP', 'JGL', 'MID', 'SUP'],
+  Graves: ['JGL'],
+  Hecarim: ['JGL'],
+  Ivern: ['JGL', 'SUP'],
+  JarvanIV: ['JGL'],
+  Karthus: ['JGL', 'ADC'],
+  Kayn: ['JGL'],
+  Khazix: ['JGL'],
+  Kindred: ['JGL'],
+  LeeSin: ['JGL'],
+  Lillia: ['JGL'],
+  MasterYi: ['JGL'],
+  MonkeyKing: ['JGL', 'TOP'],
+  Nidalee: ['JGL'],
+  Nocturne: ['JGL'],
+  Nunu: ['JGL'],
+  Rammus: ['JGL', 'TOP'],
+  RekSai: ['JGL'],
+  Rengar: ['JGL', 'TOP'],
+  Sejuani: ['JGL', 'TOP'],
+  Shaco: ['JGL', 'SUP'],
+  Shyvana: ['JGL'],
+  Skarner: ['JGL', 'TOP'],
+  Taliyah: ['JGL', 'MID'],
+  Udyr: ['JGL', 'TOP'],
+  Vi: ['JGL'],
+  Viego: ['JGL'],
+  Warwick: ['JGL', 'TOP'],
+  XinZhao: ['JGL'],
+  Zac: ['JGL', 'TOP', 'SUP'],
 
-  const lanes: string[] = [];
-  if (tags.includes('Marksman')) lanes.push('ADC');
-  if (tags.includes('Support')) lanes.push('SUP');
-  if (tags.includes('Mage')) {
-    if (!lanes.includes('MID')) lanes.push('MID');
-  }
-  if (tags.includes('Assassin')) {
-    if (!lanes.includes('MID')) lanes.push('MID');
-    if (!lanes.includes('JGL')) lanes.push('JGL');
-  }
-  if (tags.includes('Fighter')) {
-    if (!lanes.includes('TOP')) lanes.push('TOP');
-    if (!lanes.includes('JGL')) lanes.push('JGL');
-  }
-  if (tags.includes('Tank')) {
-    if (!lanes.includes('TOP')) lanes.push('TOP');
-    if (!lanes.includes('SUP')) lanes.push('SUP');
-    if (!lanes.includes('JGL')) lanes.push('JGL');
-  }
+  // MID
+  Ahri: ['MID'],
+  Akali: ['MID', 'TOP'],
+  Akshan: ['MID', 'TOP'],
+  Anivia: ['MID'],
+  Annie: ['MID', 'SUP'],
+  AurelionSol: ['MID'],
+  Aurora: ['MID', 'TOP'],
+  Azir: ['MID'],
+  Cassiopeia: ['MID', 'TOP'],
+  Corki: ['MID', 'ADC'],
+  Fizz: ['MID'],
+  Galio: ['MID', 'SUP'],
+  Heimerdinger: ['MID', 'TOP', 'SUP'],
+  Hwei: ['MID', 'SUP'],
+  Irelia: ['MID', 'TOP'],
+  Kassadin: ['MID'],
+  Katarina: ['MID'],
+  Leblanc: ['MID'],
+  Lissandra: ['MID'],
+  Locke: ['MID', 'TOP'],
+  Lux: ['MID', 'SUP'],
+  Malzahar: ['MID'],
+  Mel: ['MID', 'SUP'],
+  Naafiri: ['MID', 'TOP'],
+  Neeko: ['MID', 'SUP'],
+  Orianna: ['MID'],
+  Pantheon: ['MID', 'SUP', 'TOP'],
+  Qiyana: ['MID', 'JGL'],
+  Ryze: ['MID', 'TOP'],
+  Swain: ['MID', 'SUP', 'ADC'],
+  Sylas: ['MID', 'TOP', 'JGL'],
+  Syndra: ['MID'],
+  Talon: ['MID', 'JGL'],
+  TwistedFate: ['MID', 'ADC'],
+  Veigar: ['MID', 'ADC'],
+  Velkoz: ['MID', 'SUP'],
+  Vex: ['MID'],
+  Viktor: ['MID'],
+  Vladimir: ['MID', 'TOP'],
+  Xerath: ['MID', 'SUP'],
+  Yasuo: ['MID', 'TOP', 'ADC'],
+  Yone: ['MID', 'TOP'],
+  Zed: ['MID'],
+  Ziggs: ['MID', 'ADC'],
+  Zoe: ['MID'],
 
-  return lanes.length > 0 ? lanes : ['MID'];
+  // ADC
+  Aphelios: ['ADC'],
+  Ashe: ['ADC', 'SUP'],
+  Caitlyn: ['ADC'],
+  Draven: ['ADC'],
+  Ezreal: ['ADC'],
+  Jhin: ['ADC'],
+  Jinx: ['ADC'],
+  Kaisa: ['ADC'],
+  Kalista: ['ADC'],
+  KogMaw: ['ADC'],
+  Lucian: ['ADC', 'MID'],
+  MissFortune: ['ADC', 'SUP'],
+  Nilah: ['ADC'],
+  Samira: ['ADC'],
+  Sivir: ['ADC'],
+  Smolder: ['ADC', 'MID'],
+  Tristana: ['ADC', 'MID'],
+  Twitch: ['ADC'],
+  Varus: ['ADC', 'MID'],
+  Vayne: ['ADC', 'TOP'],
+  Xayah: ['ADC'],
+  Yunara: ['ADC'],
+  Zeri: ['ADC'],
+
+  // SUP
+  Alistar: ['SUP'],
+  Bard: ['SUP'],
+  Blitzcrank: ['SUP'],
+  Brand: ['SUP', 'MID', 'JGL'],
+  Braum: ['SUP'],
+  Janna: ['SUP'],
+  Karma: ['SUP', 'MID'],
+  Leona: ['SUP'],
+  Lulu: ['SUP'],
+  Maokai: ['SUP', 'TOP', 'JGL'],
+  Milio: ['SUP'],
+  Morgana: ['SUP', 'MID', 'JGL'],
+  Nami: ['SUP'],
+  Nautilus: ['SUP'],
+  Poppy: ['SUP', 'TOP', 'JGL'],
+  Pyke: ['SUP', 'MID'],
+  Rakan: ['SUP'],
+  Rell: ['SUP'],
+  Renata: ['SUP'],
+  Senna: ['SUP', 'ADC'],
+  Seraphine: ['SUP', 'ADC', 'MID'],
+  Sona: ['SUP'],
+  Soraka: ['SUP'],
+  Taric: ['SUP'],
+  Thresh: ['SUP'],
+  Yuumi: ['SUP'],
+  Zilean: ['SUP', 'MID'],
+  Zyra: ['SUP', 'JGL', 'MID'],
+};
+
+function getMetaLanes(championId: string, tags: string[] = []): string[] {
+  if (CHAMPION_META_ROLES[championId]) {
+    return CHAMPION_META_ROLES[championId];
+  }
+  const cleanId = (championId || '').replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  for (const [key, lanes] of Object.entries(CHAMPION_META_ROLES)) {
+    if (key.replace(/[^a-zA-Z0-9]/g, '').toLowerCase() === cleanId) {
+      return lanes;
+    }
+  }
+  const fallbackLanes: string[] = [];
+  if (tags.includes('Marksman')) fallbackLanes.push('ADC');
+  if (tags.includes('Support')) fallbackLanes.push('SUP');
+  if (tags.includes('Mage')) fallbackLanes.push('MID');
+  if (tags.includes('Assassin')) fallbackLanes.push('MID');
+  if (tags.includes('Fighter') || tags.includes('Tank')) fallbackLanes.push('TOP');
+  return fallbackLanes.length > 0 ? fallbackLanes : ['MID'];
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -98,7 +248,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`Failed to fetch Riot versions: ${versionsRes.statusText}`);
     }
     const versions = (await versionsRes.json()) as string[];
-    const latestVersion = versions[0] || '15.5.1';
+    const latestVersion = versions[0] || '16.18.1';
 
     // 2. Fetch Vietnamese champion data
     const championsRes = await fetch(

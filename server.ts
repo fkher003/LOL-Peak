@@ -100,7 +100,7 @@ app.get("/api/riot/champions", async (_req, res) => {
       throw new Error(`Failed to fetch Riot versions: ${versionsRes.statusText}`);
     }
     const versions = (await versionsRes.json()) as string[];
-    const latestVersion = versions[0] || "15.5.1";
+    const latestVersion = versions[0] || "16.18.1";
 
     // 2. Fetch official Vietnamese champion data
     const championsRes = await fetch(
