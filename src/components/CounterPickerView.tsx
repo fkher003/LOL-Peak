@@ -91,8 +91,8 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
     });
   };
 
-  // Active slot being edited (or null)
-  const [activeSlotModal, setActiveSlotModal] = useState<number | null>(null);
+  // Selected enemy slot index (0-4) being targeted
+  const [selectedSlotIndex, setSelectedSlotIndex] = useState<number>(0);
 
   // Search champion to add to enemy team
   const [enemySearch, setEnemySearch] = useState('');
@@ -150,40 +150,46 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
     ).slice(0, 20);
   }, [enemySearch, activeEnemies, allChampions]);
 
-  // Add champion to first available enemy slot or designated slot
+  // Add champion to targeted enemy slot and auto-advance to next empty slot
   const handleAddEnemyChampion = (champ: ChampionData, targetSlotIndex?: number) => {
+    const slotIdx = targetSlotIndex !== undefined && targetSlotIndex >= 0 && targetSlotIndex < 5
+      ? targetSlotIndex
+      : selectedSlotIndex;
+
     setEnemySlots((prev) => {
       const next = [...prev];
-      if (targetSlotIndex !== undefined && targetSlotIndex >= 0 && targetSlotIndex < 5) {
-        next[targetSlotIndex] = {
-          ...next[targetSlotIndex],
-          champion: champ,
-          lane: champ.defaultLanes[0],
-        };
+      next[slotIdx] = {
+        ...next[slotIdx],
+        champion: champ,
+        lane: champ.defaultLanes[0] || 'MID',
+      };
+
+      // Auto-advance to the next empty slot
+      const nextEmptyAfter = next.findIndex((slot, i) => i > slotIdx && slot.champion === null);
+      if (nextEmptyAfter !== -1) {
+        setSelectedSlotIndex(nextEmptyAfter);
       } else {
-        const emptyIdx = next.findIndex((slot) => slot.champion === null);
-        if (emptyIdx !== -1) {
-          next[emptyIdx] = {
-            ...next[emptyIdx],
-            champion: champ,
-            lane: champ.defaultLanes[0],
-          };
+        const anyEmpty = next.findIndex((slot) => slot.champion === null);
+        if (anyEmpty !== -1) {
+          setSelectedSlotIndex(anyEmpty);
         }
       }
+
       return next;
     });
     setEnemySearch('');
     setIsEnemySearchOpen(false);
-    setActiveSlotModal(null);
   };
 
-  // Remove champion from an enemy slot
+  // Remove champion from an enemy slot and focus that slot
   const handleRemoveEnemySlot = (slotNumber: number) => {
+    const slotIdx = slotNumber - 1;
     setEnemySlots((prev) =>
       prev.map((slot) =>
         slot.slotNumber === slotNumber ? { ...slot, champion: null, lane: undefined } : slot
       )
     );
+    setSelectedSlotIndex(slotIdx);
   };
 
   // Change lane assignment for an enemy slot
@@ -204,6 +210,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
       { slotNumber: 4, champion: null },
       { slotNumber: 5, champion: null },
     ]);
+    setSelectedSlotIndex(0);
   };
 
   // Trigger Gemini AI Coach Analysis
@@ -229,6 +236,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
           lane: slot.lane || slot.champion?.defaultLanes[0],
         })),
         playerChampion: candidateChampion,
+        topCandidates: filteredRecommendations.slice(0, 5).map((r) => r.championName),
       };
 
       const res = await fetch('/api/counter-analysis', {
@@ -349,18 +357,30 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
             {enemySlots.map((slot, idx) => {
               const hasChamp = slot.champion !== null;
               const isDirectLaneOpponent = slot.lane === myLane;
+              const isSelected = selectedSlotIndex === idx;
 
               return (
                 <div
                   key={slot.slotNumber}
-                  className={`relative flex flex-col justify-between rounded-xl border p-2.5 transition-all ${
-                    hasChamp
+                  onClick={() => setSelectedSlotIndex(idx)}
+                  className={`relative flex flex-col justify-between rounded-xl border p-2.5 transition-all cursor-pointer ${
+                    isSelected
+                      ? 'border-amber-400 ring-2 ring-amber-400/80 bg-amber-500/10 shadow-lg shadow-amber-500/20 scale-[1.02]'
+                      : hasChamp
                       ? isDirectLaneOpponent
-                        ? 'border-red-500/80 bg-red-950/20 shadow-md shadow-red-500/10'
-                        : 'border-slate-700 bg-slate-800/80'
-                      : 'border-dashed border-slate-700/80 bg-slate-800/30 hover:border-slate-600'
+                        ? 'border-red-500/80 bg-red-950/20 shadow-md shadow-red-500/10 hover:border-red-400'
+                        : 'border-slate-700 bg-slate-800/80 hover:border-slate-600'
+                      : 'border-dashed border-slate-700/80 bg-slate-800/30 hover:border-slate-500'
                   }`}
                 >
+                  {/* Active selection badge */}
+                  {isSelected && (
+                    <span className="absolute -top-2.5 left-2.5 z-10 inline-flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[9px] font-black text-slate-950 uppercase tracking-wider shadow-md">
+                      <span className="h-1.5 w-1.5 rounded-full bg-slate-950 animate-pulse" />
+                      Đang chọn
+                    </span>
+                  )}
+
                   {hasChamp && slot.champion ? (
                     <div className="space-y-2">
                       {/* Top slot header: Avatar + Name + Remove Button */}
@@ -386,7 +406,10 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                         </div>
 
                         <button
-                          onClick={() => handleRemoveEnemySlot(slot.slotNumber)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveEnemySlot(slot.slotNumber);
+                          }}
                           title="Gỡ tướng này"
                           className="rounded-md p-1 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
                         >
@@ -399,6 +422,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                         <span className="text-slate-400">Lane:</span>
                         <select
                           value={slot.lane || slot.champion.defaultLanes[0] || 'MID'}
+                          onClick={(e) => e.stopPropagation()}
                           onChange={(e) => handleChangeEnemySlotLane(slot.slotNumber, e.target.value as Lane)}
                           className="rounded-md border border-slate-700 bg-slate-900 px-1.5 py-0.5 text-xs font-medium text-amber-300 focus:outline-none"
                         >
@@ -411,14 +435,13 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                       </div>
                     </div>
                   ) : (
-                    /* Empty slot: Click to add */
-                    <button
-                      onClick={() => setActiveSlotModal(idx)}
-                      className="flex h-20 flex-col items-center justify-center gap-1 text-slate-500 hover:text-slate-300 transition-colors"
-                    >
-                      <Plus className="h-5 w-5 text-slate-400" />
-                      <span className="text-xs font-medium">Slot {slot.slotNumber}</span>
-                    </button>
+                    /* Empty slot: Click to select and add */
+                    <div className="flex h-20 flex-col items-center justify-center gap-1 text-slate-500 transition-colors">
+                      <Plus className={`h-5 w-5 ${isSelected ? 'text-amber-400' : 'text-slate-400'}`} />
+                      <span className={`text-xs font-medium ${isSelected ? 'text-amber-300 font-bold' : ''}`}>
+                        Slot {slot.slotNumber}
+                      </span>
+                    </div>
                   )}
                 </div>
               );
@@ -427,11 +450,13 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
 
           {/* Quick Champion Picker / Search Bar for Enemy Draft */}
           <div className="relative pt-1">
-            <div className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/90 px-3 py-2 focus-within:border-amber-500">
-              <Search className="h-4 w-4 text-slate-400 shrink-0" />
+            <div className={`flex items-center gap-2 rounded-xl border bg-slate-800/90 px-3 py-2 transition-all ${
+              isEnemySearchOpen ? 'border-amber-500 ring-1 ring-amber-500/50' : 'border-slate-700'
+            }`}>
+              <Search className="h-4 w-4 text-amber-400 shrink-0" />
               <input
                 type="text"
-                placeholder="Tìm tướng địch..."
+                placeholder={`Tìm tướng cho Slot ${selectedSlotIndex + 1} (hoặc bấm ô trên để chọn ô khác)...`}
                 value={enemySearch}
                 onChange={(e) => {
                   setEnemySearch(e.target.value);
@@ -440,14 +465,19 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                 onFocus={() => setIsEnemySearchOpen(true)}
                 className="w-full bg-transparent text-sm text-white placeholder-slate-400 focus:outline-none"
               />
-              {enemySearch && (
-                <button
-                  onClick={() => setEnemySearch('')}
-                  className="text-xs text-slate-400 hover:text-white"
-                >
-                  Xóa
-                </button>
-              )}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="rounded-md bg-amber-500/20 border border-amber-500/40 px-2 py-0.5 text-[10px] font-bold text-amber-300 font-mono">
+                  Slot {selectedSlotIndex + 1}
+                </span>
+                {enemySearch && (
+                  <button
+                    onClick={() => setEnemySearch('')}
+                    className="text-xs text-slate-400 hover:text-white"
+                  >
+                    Xóa
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Dropdown Suggestions */}
@@ -457,7 +487,7 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   {searchEnemyOptions.map((c) => (
                     <button
                       key={c.id}
-                      onClick={() => handleAddEnemyChampion(c, activeSlotModal ?? undefined)}
+                      onClick={() => handleAddEnemyChampion(c, selectedSlotIndex)}
                       className="flex items-center gap-2 rounded-lg p-2 text-left hover:bg-slate-800 transition-colors"
                     >
                       <img
@@ -1050,8 +1080,79 @@ export const CounterPickerView: React.FC<CounterPickerViewProps> = ({
                   </div>
                 </div>
               ) : aiAnalysis ? (
-                <div className="text-sm text-slate-200 leading-relaxed whitespace-pre-line space-y-2 font-sans bg-slate-800/40 p-4 rounded-xl border border-slate-700/60">
-                  {aiAnalysis}
+                <div className="space-y-2.5 font-sans text-sm text-slate-200">
+                  {aiAnalysis.split('\n').map((rawLine, lIdx) => {
+                    const line = rawLine.trim();
+                    if (!line) return null;
+
+                    // Core Runes block
+                    if (line.includes('BẢNG NGỌC CORE') || line.includes('BẢNG NGỌC:')) {
+                      const text = line.replace(/^[💎•\-\s]*BẢNG NGỌC\s*(CORE)?:\s*/i, '');
+                      return (
+                        <div key={lIdx} className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-xl border border-indigo-500/30 bg-indigo-950/30 p-3 shadow-xs">
+                          <span className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-500/20 px-2.5 py-1 text-xs font-bold text-indigo-300 shrink-0">
+                            💎 BẢNG NGỌC CORE
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold text-white">{text}</span>
+                        </div>
+                      );
+                    }
+
+                    // Core Items block
+                    if (line.includes('TRANG BỊ CORE') || line.includes('TRANG BỊ:')) {
+                      const text = line.replace(/^[⚔️•\-\s]*TRANG BỊ\s*(CORE)?:\s*/i, '');
+                      return (
+                        <div key={lIdx} className="flex flex-col sm:flex-row sm:items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-950/30 p-3 shadow-xs">
+                          <span className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500/20 px-2.5 py-1 text-xs font-bold text-amber-300 shrink-0">
+                            ⚔️ TRANG BỊ CORE
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold text-amber-100">{text}</span>
+                        </div>
+                      );
+                    }
+
+                    // Matchup Overview / Evaluation
+                    if (line.startsWith('🎯')) {
+                      return (
+                        <div key={lIdx} className="rounded-xl border border-slate-700/80 bg-slate-800/60 p-3 text-slate-200 font-medium leading-relaxed">
+                          {line}
+                        </div>
+                      );
+                    }
+
+                    // Key risks / cautions
+                    if (line.startsWith('🔴')) {
+                      return (
+                        <div key={lIdx} className="rounded-xl border border-red-500/20 bg-red-950/20 p-3 text-red-200 leading-relaxed text-xs sm:text-sm">
+                          {line}
+                        </div>
+                      );
+                    }
+
+                    // Key pros
+                    if (line.startsWith('🟢')) {
+                      return (
+                        <div key={lIdx} className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-3 text-emerald-200 leading-relaxed text-xs sm:text-sm">
+                          {line}
+                        </div>
+                      );
+                    }
+
+                    // Numbered recommendation items (1. 2. 3.)
+                    if (/^[1-3]\./.test(line)) {
+                      return (
+                        <div key={lIdx} className="rounded-xl border border-slate-700/70 bg-slate-800/50 p-3 text-slate-200 text-xs sm:text-sm leading-relaxed space-y-1">
+                          {line}
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <p key={lIdx} className="text-xs sm:text-sm leading-relaxed text-slate-300 pl-1">
+                        {line}
+                      </p>
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="text-sm text-slate-400">Chưa có dữ liệu phân tích.</p>

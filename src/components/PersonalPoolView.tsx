@@ -16,6 +16,9 @@ import {
   FolderPlus,
   Layers,
   Lock,
+  ChevronDown,
+  ChevronRight,
+  ChevronsUpDown,
 } from 'lucide-react';
 import { PersonalChampion, Lane, LaneCategory } from '../types';
 import { LANES, getChampionAvatar } from '../data/champions';
@@ -45,7 +48,6 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
   onAddCategory,
   onRenameCategory,
   onDeleteCategory,
-  onInspectCounter,
 }) => {
   // 1. Current Active Lane (TOP, JGL, MID, ADC, SUP)
   const [selectedLane, setSelectedLane] = useState<Lane>('MID');
@@ -64,20 +66,20 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
   // 5. Move Champion Category State
   const [movingChampId, setMovingChampId] = useState<string | null>(null);
 
-  // Get categories belonging to current selected lane
+  // 6. Collapsed categories state
+  const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
+
+  // Get categories belonging strictly to current selected lane
   const currentLaneCategories = useMemo(() => {
     return categories.filter((cat) => cat.lane === selectedLane);
   }, [categories, selectedLane]);
 
-  // Filter champions belonging to current selected lane
+  // Filter champions belonging strictly to current selected lane
   const championsInCurrentLane = useMemo(() => {
     return personalChampions.filter((item) => {
-      // Check if champion is assigned to this lane directly or in lanes list
-      const matchesLane =
-        item.lane === selectedLane ||
-        (Array.isArray(item.lanes) && item.lanes.includes(selectedLane));
-
-      if (!matchesLane) return false;
+      // Primary lane of the champion card must strictly match selected lane
+      const champLane = item.lane || (Array.isArray(item.lanes) ? item.lanes[0] : undefined);
+      if (champLane !== selectedLane) return false;
 
       const q = searchQuery.toLowerCase().trim();
       if (!q) return true;
@@ -97,20 +99,39 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
     });
   }, [personalChampions, selectedLane, searchQuery]);
 
-  // Count champions per lane for badges
+  // Count champions per lane strictly by primary owner lane
   const laneCounts = useMemo(() => {
     const counts: Record<Lane, number> = { TOP: 0, JGL: 0, MID: 0, ADC: 0, SUP: 0 };
     personalChampions.forEach((champ) => {
-      if (champ.lane && counts[champ.lane] !== undefined) {
-        counts[champ.lane]++;
-      } else if (Array.isArray(champ.lanes)) {
-        champ.lanes.forEach((l) => {
-          if (counts[l] !== undefined) counts[l]++;
-        });
+      const primaryLane = champ.lane || (Array.isArray(champ.lanes) ? champ.lanes[0] : undefined);
+      if (primaryLane && counts[primaryLane] !== undefined) {
+        counts[primaryLane]++;
       }
     });
     return counts;
   }, [personalChampions]);
+
+  // Collapse / Expand helpers
+  const toggleCollapse = (catId: string) => {
+    setCollapsedCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(catId)) next.delete(catId);
+      else next.add(catId);
+      return next;
+    });
+  };
+
+  const isAllCollapsed =
+    currentLaneCategories.length > 0 &&
+    currentLaneCategories.every((c) => collapsedCategories.has(c.id));
+
+  const toggleAllCollapse = () => {
+    if (isAllCollapsed) {
+      setCollapsedCategories(new Set());
+    } else {
+      setCollapsedCategories(new Set(currentLaneCategories.map((c) => c.id)));
+    }
+  };
 
   // Helper: Get icon for lane
   const getLaneIcon = (lane: Lane, className = 'h-4 w-4') => {
@@ -151,18 +172,18 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
   const activeLaneMeta = LANES.find((l) => l.id === selectedLane) || LANES[0];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* 1. Header with Title & Lane Navigation */}
-      <div className="border-b border-slate-800 pb-5">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+      <div className="border-b border-slate-800 pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h1 className="text-xl font-black tracking-tight text-white sm:text-2xl">
               Bể Tướng
             </h1>
-            <span className="rounded-full bg-amber-500/15 border border-amber-500/30 px-3 py-0.5 text-xs font-bold text-amber-400 font-mono">
-              {personalChampions.length} tướng
+            <span className="rounded-full bg-amber-500/15 border border-amber-500/30 px-2.5 py-0.5 text-xs font-bold text-amber-400 font-mono">
+              {championsInCurrentLane.length}/{personalChampions.length} tướng
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-300">
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 text-[11px] font-semibold text-emerald-300">
               <Lock className="h-3 w-3" />
               Lưu cục bộ
             </span>
@@ -171,7 +192,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
           {/* Quick Add Button */}
           <button
             onClick={() => onAddNewGeneral(selectedLane)}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-xs font-bold text-slate-950 hover:bg-amber-400 transition-all shadow-md shadow-amber-500/20 active:scale-95 shrink-0"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-bold text-slate-950 hover:bg-amber-400 transition-all shadow-md shadow-amber-500/20 active:scale-95 shrink-0"
           >
             <Plus className="h-4 w-4" />
             <span>Thêm Tướng Mới</span>
@@ -179,7 +200,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
         </div>
 
         {/* 2. Lane Selector Tabs */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-3.5 flex flex-wrap gap-1.5">
           {LANES.map((lane) => {
             const isActive = selectedLane === lane.id;
             const count = laneCounts[lane.id] || 0;
@@ -191,16 +212,16 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                   setSearchQuery('');
                   setIsAddingCategory(false);
                 }}
-                className={`flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-xs font-bold transition-all ${
+                className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all ${
                   isActive
                     ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/25 ring-1 ring-amber-400'
                     : 'bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white'
                 }`}
               >
-                {getLaneIcon(lane.id, 'h-4 w-4')}
+                {getLaneIcon(lane.id, 'h-3.5 w-3.5')}
                 <span>{lane.name}</span>
                 <span
-                  className={`rounded-full px-2 py-0.5 text-[11px] font-mono ${
+                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
                     isActive
                       ? 'bg-slate-950/20 text-slate-950 font-black'
                       : 'bg-slate-800 text-slate-400'
@@ -214,51 +235,64 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Sub-bar: Search & Create Category */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+      {/* 3. Sub-bar: Search, Collapse All & Create Category */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
         {/* Search input */}
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
           <input
             type="text"
-            placeholder="Tìm tướng..."
+            placeholder={`Tìm tướng trong ${activeLaneMeta.name}...`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-slate-700/80 bg-slate-950/70 pl-9 pr-4 py-2 text-xs text-white placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            className="w-full rounded-lg border border-slate-700/80 bg-slate-950/70 pl-8 pr-8 py-1.5 text-xs text-white placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
             >
               <X className="h-3.5 w-3.5" />
             </button>
           )}
         </div>
 
-        {/* Action: Add Custom Category */}
-        <div className="flex items-center gap-2">
+        {/* Action Buttons */}
+        <div className="flex items-center gap-1.5">
+          {/* Collapse/Expand All */}
+          {currentLaneCategories.length > 0 && (
+            <button
+              onClick={toggleAllCollapse}
+              className="inline-flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800/80 px-2.5 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition-colors shrink-0"
+              title={isAllCollapsed ? 'Mở rộng tất cả các mục' : 'Thu gọn tất cả các mục'}
+            >
+              <ChevronsUpDown className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">{isAllCollapsed ? 'Mở rộng' : 'Thu gọn'}</span>
+            </button>
+          )}
+
+          {/* Add Category */}
           {!isAddingCategory ? (
             <button
               onClick={() => setIsAddingCategory(true)}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-3.5 py-2 text-xs font-semibold text-amber-400 hover:bg-amber-500/20 transition-colors shrink-0"
+              className="inline-flex items-center gap-1 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-400 hover:bg-amber-500/20 transition-colors shrink-0"
             >
-              <FolderPlus className="h-4 w-4" />
-              <span>+ Tạo mục mới cho {activeLaneMeta.shortName}</span>
+              <FolderPlus className="h-3.5 w-3.5" />
+              <span>+ Tạo mục mới</span>
             </button>
           ) : (
             <form onSubmit={handleCreateCategorySubmit} className="flex items-center gap-1.5">
               <input
                 type="text"
                 autoFocus
-                placeholder="Nhập tên mục (vd: Tướng dị, Tướng dồn dame...)"
+                placeholder="Tên mục (vd: Tướng dị...)"
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
-                className="rounded-xl border border-amber-500 bg-slate-950 px-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500 w-56"
+                className="rounded-lg border border-amber-500 bg-slate-950 px-2.5 py-1 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500 w-44 sm:w-52"
               />
               <button
                 type="submit"
-                className="rounded-xl bg-amber-500 px-3 py-1.5 text-xs font-bold text-slate-950 hover:bg-amber-400"
+                className="rounded-lg bg-amber-500 px-2.5 py-1 text-xs font-bold text-slate-950 hover:bg-amber-400"
               >
                 Tạo
               </button>
@@ -268,7 +302,7 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                   setIsAddingCategory(false);
                   setNewCategoryName('');
                 }}
-                className="rounded-xl bg-slate-800 px-2 py-1.5 text-xs text-slate-400 hover:text-white"
+                className="rounded-lg bg-slate-800 px-2 py-1 text-xs text-slate-400 hover:text-white"
               >
                 Hủy
               </button>
@@ -278,52 +312,71 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
       </div>
 
       {/* 4. Display Categories for Selected Lane */}
-      <div className="space-y-6">
+      <div className="space-y-3">
         {currentLaneCategories.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-800 bg-slate-900/30 p-10 text-center">
-            <Layers className="mx-auto h-10 w-10 text-slate-600 mb-3" />
-            <h3 className="text-base font-bold text-slate-300">Chưa có mục nào cho {activeLaneMeta.name}</h3>
+          <div className="rounded-xl border border-dashed border-slate-800 bg-slate-900/30 p-8 text-center">
+            <Layers className="mx-auto h-8 w-8 text-slate-600 mb-2" />
+            <h3 className="text-sm font-bold text-slate-300">Chưa có mục nào cho {activeLaneMeta.name}</h3>
             <p className="mt-1 text-xs text-slate-500 max-w-md mx-auto">
-              Hãy bấm vào "Tạo mục mới" để thêm các nhóm như Tướng counter, Tướng dị, Tướng hỗ trợ team tốt...
+              Hãy bấm vào "Tạo mục mới" để phân loại tướng counter, tướng dị, hoặc bài tủ.
             </p>
             <button
               onClick={() => setIsAddingCategory(true)}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2 text-xs font-bold text-slate-950 hover:bg-amber-400"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-amber-500 px-3.5 py-1.5 text-xs font-bold text-slate-950 hover:bg-amber-400"
             >
-              <Plus className="h-4 w-4" /> Tạo Mục Đầu Tiên
+              <Plus className="h-3.5 w-3.5" /> Tạo Mục Đầu Tiên
             </button>
           </div>
         ) : (
           currentLaneCategories.map((category) => {
-            // Get champions in this category
-            const categoryChampions = championsInCurrentLane.filter(
-              (c) =>
-                c.categoryId === category.id ||
-                (c.categoryName && c.categoryName.toLowerCase() === category.name.toLowerCase())
-            );
+            // Get champions strictly in this category of the current lane
+            const categoryChampions = championsInCurrentLane.filter((c) => {
+              if (c.categoryId) {
+                return c.categoryId === category.id;
+              }
+              // Fallback for legacy items without categoryId
+              return (
+                c.categoryName &&
+                c.categoryName.toLowerCase() === category.name.toLowerCase()
+              );
+            });
 
             const isEditingThisCat = editingCategoryId === category.id;
+            const isCollapsed = collapsedCategories.has(category.id);
 
             return (
               <section
                 key={category.id}
-                className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 sm:p-5 shadow-xs transition-all hover:border-slate-700/80"
+                className="rounded-xl border border-slate-800 bg-slate-900/40 p-3 sm:p-3.5 shadow-xs transition-all hover:border-slate-700/80"
               >
                 {/* Category Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3.5 mb-4">
-                  <div className="flex items-center gap-2.5">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-500/15 text-amber-400 border border-amber-500/30">
-                      <Sparkles className="h-3.5 w-3.5" />
+                <div className="flex items-center justify-between gap-2 pb-2 mb-2 border-b border-slate-800/60">
+                  <div className="flex items-center gap-2 min-w-0">
+                    {/* Toggle Collapse Button */}
+                    <button
+                      onClick={() => toggleCollapse(category.id)}
+                      className="text-slate-400 hover:text-white p-0.5 rounded transition-colors"
+                      title={isCollapsed ? 'Mở rộng mục' : 'Thu gọn mục'}
+                    >
+                      {isCollapsed ? (
+                        <ChevronRight className="h-4 w-4" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4" />
+                      )}
+                    </button>
+
+                    <span className="flex h-5 w-5 items-center justify-center rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 shrink-0">
+                      <Sparkles className="h-3 w-3" />
                     </span>
 
                     {/* Category Name or Inline Edit */}
                     {isEditingThisCat ? (
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1">
                         <input
                           type="text"
                           value={editingCategoryName}
                           onChange={(e) => setEditingCategoryName(e.target.value)}
-                          className="rounded-lg border border-amber-500 bg-slate-950 px-2.5 py-1 text-sm font-bold text-white focus:outline-none"
+                          className="rounded border border-amber-500 bg-slate-950 px-2 py-0.5 text-xs font-bold text-white focus:outline-none"
                           autoFocus
                           onKeyDown={(e) => {
                             if (e.key === 'Enter') handleSaveRename(category.id);
@@ -332,22 +385,25 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                         />
                         <button
                           onClick={() => handleSaveRename(category.id)}
-                          className="rounded-lg bg-amber-500 p-1 text-slate-950 hover:bg-amber-400"
+                          className="rounded bg-amber-500 p-1 text-slate-950 hover:bg-amber-400"
                           title="Lưu tên"
                         >
-                          <Check className="h-4 w-4" />
+                          <Check className="h-3 w-3" />
                         </button>
                         <button
                           onClick={() => setEditingCategoryId(null)}
-                          className="rounded-lg bg-slate-800 p-1 text-slate-400 hover:text-white"
+                          className="rounded bg-slate-800 p-1 text-slate-400 hover:text-white"
                           title="Hủy"
                         >
-                          <X className="h-4 w-4" />
+                          <X className="h-3 w-3" />
                         </button>
                       </div>
                     ) : (
-                      <div className="flex items-center gap-2">
-                        <h2 className="text-base font-bold text-white tracking-tight">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <h2
+                          onClick={() => toggleCollapse(category.id)}
+                          className="text-sm font-bold text-white tracking-tight cursor-pointer hover:text-amber-400 transition-colors truncate"
+                        >
                           {category.name}
                         </h2>
                         <button
@@ -355,28 +411,28 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                             setEditingCategoryId(category.id);
                             setEditingCategoryName(category.name);
                           }}
-                          className="text-slate-500 hover:text-slate-300 p-1 transition-colors"
+                          className="text-slate-500 hover:text-slate-300 p-0.5 transition-colors shrink-0"
                           title="Đổi tên mục"
                         >
-                          <Edit2 className="h-3 w-3" />
+                          <Edit2 className="h-2.5 w-2.5" />
                         </button>
                       </div>
                     )}
 
-                    <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[11px] font-mono text-slate-400">
-                      {categoryChampions.length} tướng
+                    <span className="rounded-full bg-slate-800 px-2 py-0.2 text-[10px] font-mono text-slate-400 shrink-0">
+                      {categoryChampions.length}
                     </span>
                   </div>
 
                   {/* Actions for this category */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     {/* Add champion directly to this category */}
                     <button
                       onClick={() => onAddNewToCategory(selectedLane, category.id)}
-                      className="inline-flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-1.5 text-xs font-semibold text-amber-400 hover:bg-slate-700 hover:text-amber-300 transition-colors"
+                      className="inline-flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800/90 px-2 py-1 text-[11px] font-semibold text-amber-400 hover:bg-slate-700 hover:text-amber-300 transition-colors"
                     >
-                      <Plus className="h-3.5 w-3.5" />
-                      <span>Thêm tướng vào mục</span>
+                      <Plus className="h-3 w-3" />
+                      <span>Thêm tướng</span>
                     </button>
 
                     {/* Delete Category Button */}
@@ -390,181 +446,184 @@ export const PersonalPoolView: React.FC<PersonalPoolViewProps> = ({
                           onDeleteCategory(category.id);
                         }
                       }}
-                      className="rounded-xl p-1.5 text-slate-500 hover:bg-red-950/40 hover:text-red-400 transition-colors"
+                      className="rounded-lg p-1 text-slate-500 hover:bg-red-950/40 hover:text-red-400 transition-colors"
                       title="Xóa mục này"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 </div>
 
-                {/* Category Champions Grid */}
-                {categoryChampions.length === 0 ? (
-                  <div className="rounded-xl border border-dashed border-slate-800/80 bg-slate-950/30 p-6 text-center">
-                    <p className="text-xs text-slate-400">
-                      Chưa có tướng nào trong mục <strong className="text-slate-300">{category.name}</strong>.
-                    </p>
-                    <button
-                      onClick={() => onAddNewToCategory(selectedLane, category.id)}
-                      className="mt-2.5 inline-flex items-center gap-1 text-xs font-semibold text-amber-400 hover:text-amber-300"
-                    >
-                      <Plus className="h-3.5 w-3.5" /> Thêm tướng ngay
-                    </button>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                    {categoryChampions.map((champ) => {
-                      const isMovingThis = movingChampId === champ.id;
-
-                      return (
-                        <div
-                          key={champ.id}
-                          className="group relative flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/70 p-3.5 transition-all hover:border-slate-700 hover:bg-slate-900/80 shadow-xs"
+                {/* Category Champions Grid (collapsible) */}
+                {!isCollapsed && (
+                  <>
+                    {categoryChampions.length === 0 ? (
+                      <div className="flex items-center justify-between rounded-lg border border-dashed border-slate-800/80 bg-slate-950/20 px-3.5 py-2 text-xs text-slate-400">
+                        <span className="text-[11px]">Chưa có tướng trong mục này</span>
+                        <button
+                          onClick={() => onAddNewToCategory(selectedLane, category.id)}
+                          className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-400 hover:text-amber-300"
                         >
-                          {/* Top: Avatar, Name & Action buttons */}
-                          <div>
-                            <div className="flex items-start justify-between gap-2.5">
-                              <div className="flex items-center gap-2.5">
-                                <img
-                                  src={getChampionAvatar(champ.championId)}
-                                  alt={champ.championName}
-                                  className="h-11 w-11 rounded-xl object-cover border border-amber-500/40 shadow-xs"
-                                  referrerPolicy="no-referrer"
-                                  onError={(e) => {
-                                    (e.target as HTMLElement).style.display = 'none';
-                                  }}
-                                />
-                                <div>
-                                  <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
-                                    {champ.championName}
-                                  </h3>
-                                  <div className="flex items-center gap-1 mt-0.5">
-                                    <span className="text-[10px] text-slate-400 font-mono">
-                                      {activeLaneMeta.shortName}
-                                    </span>
-                                    {champ.lanes && champ.lanes.length > 1 && (
-                                      <span className="text-[9px] text-slate-500">
-                                        (+{champ.lanes.filter((l) => l !== selectedLane).join('/')})
+                          <Plus className="h-3 w-3" /> Thêm tướng
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
+                        {categoryChampions.map((champ) => {
+                          const isMovingThis = movingChampId === champ.id;
+
+                          return (
+                            <div
+                              key={champ.id}
+                              className="group relative flex flex-col justify-between rounded-xl border border-slate-800/90 bg-slate-950/70 p-2 transition-all hover:border-amber-500/40 hover:bg-slate-900/90 shadow-xs hover:shadow-md"
+                            >
+                              {/* Top row: Avatar, Name & Action buttons */}
+                              <div>
+                                <div className="flex items-start justify-between gap-1">
+                                  <div className="flex items-center gap-1.5 min-w-0">
+                                    <img
+                                      src={getChampionAvatar(champ.championId)}
+                                      alt={champ.championName}
+                                      className="h-8 w-8 rounded-lg object-cover border border-amber-500/30 shrink-0 group-hover:border-amber-400/60"
+                                      referrerPolicy="no-referrer"
+                                      onError={(e) => {
+                                        (e.target as HTMLElement).style.display = 'none';
+                                      }}
+                                    />
+                                    <div className="min-w-0">
+                                      <h3
+                                        className="text-xs font-bold text-white truncate group-hover:text-amber-300 transition-colors leading-tight"
+                                        title={champ.championName}
+                                      >
+                                        {champ.championName}
+                                      </h3>
+                                      <span className="text-[9px] text-slate-400 font-mono block">
+                                        {activeLaneMeta.shortName}
                                       </span>
-                                    )}
+                                    </div>
+                                  </div>
+
+                                  {/* Quick Action buttons */}
+                                  <div className="flex items-center gap-0.5 opacity-60 group-hover:opacity-100 transition-opacity shrink-0">
+                                    <button
+                                      onClick={() =>
+                                        setMovingChampId(isMovingThis ? null : champ.id)
+                                      }
+                                      title="Chuyển mục"
+                                      className={`rounded p-1 transition-colors ${
+                                        isMovingThis
+                                          ? 'bg-amber-500 text-slate-950'
+                                          : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                                      }`}
+                                    >
+                                      <ArrowRightLeft className="h-2.5 w-2.5" />
+                                    </button>
+                                    <button
+                                      onClick={() => onEdit(champ)}
+                                      title="Sửa tướng"
+                                      className="rounded p-1 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                                    >
+                                      <Edit2 className="h-2.5 w-2.5" />
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        if (
+                                          window.confirm(
+                                            `Xóa ${champ.championName} khỏi mục này?`
+                                          )
+                                        ) {
+                                          onDelete(champ.id);
+                                        }
+                                      }}
+                                      title="Xóa"
+                                      className="rounded p-1 text-slate-500 hover:bg-red-950/40 hover:text-red-400 transition-colors"
+                                    >
+                                      <Trash2 className="h-2.5 w-2.5" />
+                                    </button>
                                   </div>
                                 </div>
-                              </div>
 
-                              {/* Action buttons */}
-                              <div className="flex items-center gap-1 shrink-0">
-                                {/* Move category */}
-                                <button
-                                  onClick={() =>
-                                    setMovingChampId(isMovingThis ? null : champ.id)
-                                  }
-                                  title="Chuyển sang mục khác"
-                                  className={`rounded-lg p-1.5 transition-colors ${
-                                    isMovingThis
-                                      ? 'bg-amber-500 text-slate-950'
-                                      : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                                  }`}
-                                >
-                                  <ArrowRightLeft className="h-3.5 w-3.5" />
-                                </button>
-
-                                {/* Edit */}
-                                <button
-                                  onClick={() => onEdit(champ)}
-                                  title="Chỉnh sửa tướng"
-                                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-                                >
-                                  <Edit2 className="h-3.5 w-3.5" />
-                                </button>
-
-                                {/* Delete */}
-                                <button
-                                  onClick={() => {
-                                    if (
-                                      window.confirm(
-                                        `Bạn có chắc muốn xóa ${champ.championName} khỏi mục này?`
-                                      )
-                                    ) {
-                                      onDelete(champ.id);
-                                    }
-                                  }}
-                                  title="Xóa khỏi mục"
-                                  className="rounded-lg p-1.5 text-slate-500 hover:bg-red-950/40 hover:text-red-400 transition-colors"
-                                >
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </button>
-                              </div>
-                            </div>
-
-                            {/* Inline Move Category Dropdown */}
-                            {isMovingThis && (
-                              <div className="mt-2.5 rounded-lg border border-amber-500/40 bg-slate-900 p-2 text-xs">
-                                <span className="block text-[10px] font-bold text-amber-400 uppercase mb-1">
-                                  Chuyển sang mục:
-                                </span>
-                                <div className="flex flex-wrap gap-1">
-                                  {currentLaneCategories
-                                    .filter((c) => c.id !== category.id)
-                                    .map((targetCat) => (
-                                      <button
-                                        key={targetCat.id}
-                                        onClick={() => {
-                                          onMoveCategory(champ.id, targetCat.id, targetCat.name);
-                                          setMovingChampId(null);
-                                        }}
-                                        className="rounded-md bg-slate-800 px-2 py-1 text-[11px] text-slate-200 hover:bg-amber-500 hover:text-slate-950 transition-colors font-medium"
-                                      >
-                                        {targetCat.name}
-                                      </button>
-                                    ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Counter Targets */}
-                            <div className="mt-3">
-                              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
-                                Khắc chế:
-                              </span>
-                              {champ.counterTargets && champ.counterTargets.length > 0 ? (
-                                <div className="flex flex-wrap gap-1">
-                                  {champ.counterTargets.map((target, tIdx) => (
-                                    <span
-                                      key={tIdx}
-                                      className="inline-flex items-center gap-1 rounded-md border border-red-500/25 bg-red-950/30 px-1.5 py-0.5 text-[11px] font-medium text-red-300"
-                                    >
-                                      <img
-                                        src={getChampionAvatar(target)}
-                                        alt={target}
-                                        className="h-3 w-3 rounded object-cover"
-                                        referrerPolicy="no-referrer"
-                                        onError={(e) => {
-                                          (e.target as HTMLElement).style.display = 'none';
-                                        }}
-                                      />
-                                      <span>{target}</span>
+                                {/* Inline Move Category Dropdown */}
+                                {isMovingThis && (
+                                  <div className="mt-2 rounded-lg border border-amber-500/40 bg-slate-900 p-2 text-xs">
+                                    <span className="block text-[9px] font-bold text-amber-400 uppercase mb-1">
+                                      Chuyển sang:
                                     </span>
-                                  ))}
-                                </div>
-                              ) : (
-                                <span className="text-[11px] text-slate-500 italic">
-                                  Đa dụng
-                                </span>
-                              )}
-                            </div>
+                                    <div className="flex flex-col gap-1 max-h-24 overflow-y-auto">
+                                      {currentLaneCategories
+                                        .filter((c) => c.id !== category.id)
+                                        .map((targetCat) => (
+                                          <button
+                                            key={targetCat.id}
+                                            onClick={() => {
+                                              onMoveCategory(
+                                                champ.id,
+                                                targetCat.id,
+                                                targetCat.name
+                                              );
+                                              setMovingChampId(null);
+                                            }}
+                                            className="rounded bg-slate-800 px-2 py-0.5 text-[10px] text-slate-200 hover:bg-amber-500 hover:text-slate-950 transition-colors font-medium text-left truncate"
+                                          >
+                                            {targetCat.name}
+                                          </button>
+                                        ))}
+                                    </div>
+                                  </div>
+                                )}
 
-                            {/* Notes / Tips */}
-                            {champ.notes && (
-                              <div className="mt-2.5 rounded-lg bg-slate-900/60 p-2 text-[11px] text-slate-300 border border-slate-800/60 leading-relaxed">
-                                <span className="font-semibold text-amber-400 mr-1">Mẹo:</span>
-                                {champ.notes}
+                                {/* Counter Targets: Visual Mini Avatars */}
+                                <div className="mt-2 pt-1 border-t border-slate-800/60">
+                                  {champ.counterTargets && champ.counterTargets.length > 0 ? (
+                                    <div className="flex items-center gap-1 flex-wrap">
+                                      {champ.counterTargets.slice(0, 4).map((target, tIdx) => (
+                                        <img
+                                          key={tIdx}
+                                          src={getChampionAvatar(target)}
+                                          alt={target}
+                                          title={`Khắc chế: ${target}`}
+                                          className="h-4.5 w-4.5 rounded object-cover border border-red-500/30 hover:scale-110 hover:border-red-400 transition-transform"
+                                          referrerPolicy="no-referrer"
+                                          onError={(e) => {
+                                            (e.target as HTMLElement).style.display = 'none';
+                                          }}
+                                        />
+                                      ))}
+                                      {champ.counterTargets.length > 4 && (
+                                        <span
+                                          className="rounded bg-red-950/60 border border-red-500/30 px-1 text-[9px] font-bold text-red-400 font-mono"
+                                          title={champ.counterTargets.slice(4).join(', ')}
+                                        >
+                                          +{champ.counterTargets.length - 4}
+                                        </span>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <span className="text-[9px] text-slate-500 italic">
+                                      Đa dụng
+                                    </span>
+                                  )}
+                                </div>
+
+                                {/* Notes / Tips (compact 1-line tooltip) */}
+                                {champ.notes && (
+                                  <div
+                                    className="mt-1 truncate rounded bg-slate-900/60 px-1.5 py-0.5 text-[9px] text-slate-400 border border-slate-800/50 cursor-help"
+                                    title={`Mẹo: ${champ.notes}`}
+                                  >
+                                    <span className="font-semibold text-amber-400/90 mr-0.5">
+                                      Mẹo:
+                                    </span>
+                                    {champ.notes}
+                                  </div>
+                                )}
                               </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
                 )}
               </section>
             );

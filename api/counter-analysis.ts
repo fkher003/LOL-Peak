@@ -16,7 +16,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    const { enemyChampion, playerChampion, lane, userNotes, enemyTeam, myLane } = body;
+    const { enemyChampion, playerChampion, lane, userNotes, enemyTeam, myLane, topCandidates } = body;
 
     // Check for user-provided API key or server-side environment key
     const rawApiKey = req.headers['x-gemini-api-key'] || body?.apiKey || process.env.GEMINI_API_KEY;
@@ -47,47 +47,54 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .join('\n');
 
       if (playerChampion) {
-        prompt = `Bạn là Huấn luyện viên Challenger LMHT.
+        prompt = `Bạn là Huấn luyện viên Challenger LMHT hàng đầu.
 Người chơi đang cân nhắc pick: ${playerChampion} ở vị trí ${myLane || lane || 'Tự do'}.
 Đội hình địch đã pick:
 ${enemiesStr}
 
-YÊU CẦU: Trả lời CỰC KỲ NGẮN GỌN, TÓM TẮT DƯỚI 120 TỪ, gạch đầu dòng súc tích:
-🎯 ĐÁNH GIÁ: (1 câu ngắn: Nên pick hay không, khắc chế ai trong team địch)
-🟢 ƯU ĐIỂM: 
-• (Ưu điểm 1 - dưới 10 chữ)
-• (Ưu điểm 2 - dưới 10 chữ)
-🔴 RỦI RO CẦN TRÁNH: 
-• (Chiêu thức cần né hoặc tướng địch có thể outplay bạn)
-⚡ MẸO CHỐT: (1 trang bị hoặc combo mấu chốt)`;
+YÊU CẦU: Trả lời CỰC KỲ SÚC TÍCH DƯỚI 130 TỪ, đúng cấu trúc 5 mục sau:
+🎯 ĐÁNH GIÁ KÈO: (1-2 câu: lợi thế đi lane và vai trò trong giao tranh tổng)
+🟢 ƯU ĐIỂM KHẮC CHẾ:
+• (Ưu điểm 1 - ngắn gọn)
+• (Ưu điểm 2 - ngắn gọn)
+🔴 RỦI RO CẦN TRÁNH:
+• (1-2 chiêu thức/nguy cơ lớn nhất từ tướng địch cần né)
+💎 BẢNG NGỌC CORE: [Tên Ngọc Siêu Cấp] • [Tên 1 Nhánh Phụ then chốt] (Giải thích ngắn)
+⚔️ TRANG BỊ CORE: [Món 1] • [Món 2] • [Món 3] (2-3 trang bị trấn phái khắc chế tốt nhất trận này)`;
       } else {
-        prompt = `Bạn là Huấn luyện viên Challenger LMHT.
+        const candidatesHint = Array.isArray(topCandidates) && topCandidates.length > 0
+          ? `Ứng viên khắc chế tiềm năng từ dữ liệu xếp hạng: ${topCandidates.join(', ')}.`
+          : '';
+
+        prompt = `Bạn là Huấn luyện viên Challenger LMHT hàng đầu.
 Người chơi đi vị trí: ${myLane || lane || 'Tự do'}.
 Đội hình địch đã pick:
 ${enemiesStr}
+${candidatesHint}
 
-YÊU CẦU: Trả lời CỰC KỲ NGẮN GỌN, TÓM TẮT DƯỚI 130 TỪ, đề xuất đúng 3 tướng tối ưu nhất cho vị trí ${myLane || lane || 'này'}:
-1. [Tên Tướng 1] (🌟 Khắc chế cả Lane & Combat): [Khắc chế ai] - Ưu điểm: [1 câu ngắn] | Mẹo: [1 câu ngắn]
-2. [Tên Tướng 2] (⚔️ Đè bẹp cùng Lane): [Khắc chế ai] - Ưu điểm: [1 câu ngắn] | Mẹo: [1 câu ngắn]
-3. [Tên Tướng 3] (🛡️ Khắc chế Đội hình địch): [Khắc chế ai] - Ưu điểm: [1 câu ngắn] | Mẹo: [1 câu ngắn]
+YÊU CẦU: Trả lời CỰC KỲ SÚC TÍCH DƯỚI 140 TỪ, đề xuất đúng 3 tướng tối ưu nhất cho vị trí ${myLane || lane || 'này'}. Đa dạng hóa các lựa chọn, phân tích cụ thể dựa vào đội hình địch, tránh gợi ý lặp lại rập khuôn:
+1. [Tên Tướng 1] (🌟 Khắc chế cả Lane & Combat): Khắc chế ai, ưu điểm then chốt & 1 mẹo combat.
+2. [Tên Tướng 2] (⚔️ Đè bẹp cùng Lane): Khắc chế ai, ưu điểm then chốt & 1 mẹo combat.
+3. [Tên Tướng 3] (🛡️ Khắc chế Đội hình địch): Khắc chế ai, ưu điểm then chốt & 1 mẹo combat.
 Chỉ xuất danh sách trên, không dông dài mở bài hay kết bài.`;
       }
     } else if (enemyChampion) {
       // Case 2: Single Matchup Analysis
       prompt = playerChampion
-        ? `Bạn là Huấn luyện viên Challenger LMHT.
+        ? `Bạn là Huấn luyện viên Challenger LMHT hàng đầu.
 Kèo đấu: ${playerChampion} vs ${enemyChampion} ở lane ${lane || 'Tự do'}.
 ${userNotes ? `Ghi chú người chơi: ${userNotes}` : ''}
 
-YÊU CẦU: Trả lời CỰC KỲ TÓM TẮT DƯỚI 100 TỪ:
-🎯 TỔNG QUAN: (1 câu kèo có lợi hay khó khăn)
+YÊU CẦU: Trả lời CỰC KỲ SÚC TÍCH DƯỚI 120 TỪ, đúng cấu trúc 5 mục:
+🎯 TỔNG QUAN KÈO: (1 câu đánh giá lợi thế)
 🟢 ƯU ĐIỂM: (1 gạch đầu dòng ngắn)
 🔴 RỦI RO: (1 chiêu thức/nguy cơ lớn nhất cần né)
-⚡ MẸO LÊN ĐỒ / COMBO: (1 câu chốt)`
-        : `Bạn là Huấn luyện viên Challenger LMHT.
+💎 BẢNG NGỌC CORE: [Tên Ngọc Siêu Cấp] • [Tên Nhánh Phụ]
+⚔️ TRANG BỊ CORE: [Món 1] • [Món 2] • [Món 3]`
+        : `Bạn là Huấn luyện viên Challenger LMHT hàng đầu.
 Đối thủ pick: ${enemyChampion} ở lane ${lane || 'Chung'}.
 
-YÊU CẦU: Gợi ý đúng 3 tướng khắc chế nhất, DƯỚI 100 TỪ:
+YÊU CẦU: Gợi ý đúng 3 tướng khắc chế nhất, DƯỚI 110 TỪ:
 1. [Tướng 1]: Khắc chế bằng cơ chế gì, mẹo chốt.
 2. [Tướng 2]: Khắc chế bằng cơ chế gì, mẹo chốt.
 3. [Tướng 3]: Khắc chế bằng cơ chế gì, mẹo chốt.`;
